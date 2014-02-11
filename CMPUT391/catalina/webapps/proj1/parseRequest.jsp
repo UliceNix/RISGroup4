@@ -1,4 +1,3 @@
-
 <%@ page language="java" import="java.io.*, java.sql.*, java.util.*" %>
 <%@ page import="org.apache.commons.fileupload.*, org.apache.commons.fileupload.disk.*, org.apache.commons.fileupload.servlet.*" %>
 <%
@@ -26,7 +25,7 @@
     out.println(" ------------------------------ ");
 
     // Directory to store all the uploaded files
-
+    String ourTempDirectory = "/temp/";
     int ourMaxMemorySize  = 10000000;
     int ourMaxRequestSize = 2000000000;
 
@@ -53,8 +52,8 @@
 	// Process the uploaded items
 	Iterator iter = items.iterator();
 	FileItem fileItem;
-    	File fout;
-    	out.println(" Let's read input files ...");
+    File fout;
+    out.println(" Let's read input files ...");
 	while (iter.hasNext()) {
 	    fileItem = (FileItem) iter.next();
 	
@@ -67,16 +66,12 @@
 	        //Again, for all informations of what is exactly a FileItem, please
 	        //have a look to http://jakarta.apache.org/commons/fileupload/
 	        //
-
-
+	        
 	        out.println(" ------------------------------ ");
 	        out.println("FieldName: " + fileItem.getFieldName());
 	        out.println("File Name: " + fileItem.getName());
 	        out.println("ContentType: " + fileItem.getContentType());
 	        out.println("Size (Bytes): " + fileItem.getSize());
-
-
-/*
 	        //If we are in chunk mode, we add ".partN" at the end of the file, where N is the chunk number.
 	        String uploadedFilename = fileItem.getName() + ( numChunk>0 ? ".part"+numChunk : "") ;
 	        fout = new File(ourTempDirectory + (new File(uploadedFilename)).getName());
@@ -107,12 +102,11 @@
 		        	fis.close();
 		        }
 		        fos.close();
-
-*/
 	        }
 	        // End of chunk management
 	        //////////////////////////////////////////////////////////////////////////////////////
 	        
+	        out.println("HERE");
 	        fileItem.delete();
 	    }
 	    out.println("SUCCESS");
