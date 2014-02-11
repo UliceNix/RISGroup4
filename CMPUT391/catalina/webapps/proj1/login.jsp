@@ -79,7 +79,18 @@
 				role = (rset.getString(1)).trim();
 			}
 			out.println(role);
-
+			sql = "select person_id from users where USER_NAME = '"+userName+"'";
+			try{
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(sql);			
+			}catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");			
+			}
+			int person_id = 0;
+			while(rset.next()){
+				person_id = rset.getInt(1);
+			}
+			session.setAttribute("Person_Id", person_id);
                         out.println("<p><b>Your Login is Successful!</b></p>");
                         session.setAttribute("PermissionLevel", role);
 			if(role.equals("a")){			

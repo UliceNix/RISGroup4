@@ -107,7 +107,7 @@
     	        out.println("    <td >"+ ddate.get(i).substring(0, 10) +"</a></td>"); 
 	    }
         }
-
+	conn.close();
      }
 
 %>
