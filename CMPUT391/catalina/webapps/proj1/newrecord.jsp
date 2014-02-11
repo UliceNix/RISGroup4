@@ -60,8 +60,14 @@
    + "----------------------------------<br><br>");
 
    if(request.getParameter(SaveRecord) != null){
-   
-   }
+    			String pid = request.getParameter("pid");
+    		String did = request.getParameter("did");
+    		String type = request.getParameter("type");
+    		String pDate = request.getParameter("pdate");
+    		String tDate = request.getParameter("tdate");
+    		String 
+    	   
+    	}
 %>
 
 
