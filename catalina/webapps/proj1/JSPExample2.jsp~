@@ -1,6 +1,0 @@
-<HTML>
-	<BODY>
-		Hello! It's 
-		<%=new java.util.Data()%>
-	<BODY>
-<HTML>
