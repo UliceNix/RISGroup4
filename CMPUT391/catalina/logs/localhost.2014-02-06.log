@@ -1,0 +1,3232 @@
+Feb 6, 2014 11:46:11 AM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 16 in the jsp file: /homepage.jsp
+sesstion cannot be resolved
+13: <%@ page import="java.sql.*,javax.portlet.ActionResponse.*" %>
+14: <% 
+15: 
+16:    out.println(sesstion.getAttribute("UserName"));
+17: %>
+18: 
+19: 
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 12:06:14 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 17 in the jsp file: /homepage.jsp
+Syntax error, insert ";" to complete Statement
+14: <% 
+15: 
+16:    out.println("<p><b>Welcome to your homepage" + session.getAttribute("UserName") + "!</b></p>");
+17:    out.println("<p><b>You could change your password and your personal information.</b></p>")
+18:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>")
+19:    out.println("<form action=homepage.jsp>");
+20:    out.println("<input type=submit name=ChangePassword value=Change_Password><br>");
+
+
+An error occurred at line: 18 in the jsp file: /homepage.jsp
+Syntax error, insert ";" to complete Statement
+15: 
+16:    out.println("<p><b>Welcome to your homepage" + session.getAttribute("UserName") + "!</b></p>");
+17:    out.println("<p><b>You could change your password and your personal information.</b></p>")
+18:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>")
+19:    out.println("<form action=homepage.jsp>");
+20:    out.println("<input type=submit name=ChangePassword value=Change_Password><br>");
+21:    out.println("</form>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 12:08:30 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 17 in the jsp file: /homepage.jsp
+Syntax error, insert ";" to complete Statement
+14: <% 
+15: 
+16:    out.println("<p><b>Welcome to your homepage" + session.getAttribute("UserName") + "!</b></p>");
+17:    out.println("<p><b>You could change your password and your personal information.</b></p>")
+18:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>")
+19:    out.println("<form action=homepage.jsp>");
+20:    out.println("<input type=submit name=ChangePassword value=Change_Password><br>");
+
+
+An error occurred at line: 18 in the jsp file: /homepage.jsp
+Syntax error, insert ";" to complete Statement
+15: 
+16:    out.println("<p><b>Welcome to your homepage" + session.getAttribute("UserName") + "!</b></p>");
+17:    out.println("<p><b>You could change your password and your personal information.</b></p>")
+18:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>")
+19:    out.println("<form action=homepage.jsp>");
+20:    out.println("<input type=submit name=ChangePassword value=Change_Password><br>");
+21:    out.println("</form>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 12:56:08 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 15 in the jsp file: /homepage.jsp
+window cannot be resolved
+12:  -->
+13: <%@ page import="java.sql.*,javax.portlet.ActionResponse.*" %>
+14: <% 
+15:    window.alert("Welcome!");
+16:    out.println("<p><b>Welcome to your homepage " + session.getAttribute("UserName") + "!</b></p>");
+17:    out.println("<p><b>You could change your password and your personal information.</b></p>");
+18:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 1:29:27 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 15 in the jsp file: /homepage.jsp
+window cannot be resolved
+12:  -->
+13: <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, java.awt.*" %>
+14: <% 
+15:    window.alert("Welcome!");
+16:    out.println("<p><b>Welcome to your homepage " + session.getAttribute("UserName") + "!</b></p>");
+17:    out.println("<p><b>You could change your password and your personal information.</b></p>");
+18:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 1:33:34 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 12 in the jsp file: /homepage.jsp
+JOptionPane cannot be resolved
+9: 
+10: <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, java.awt.*" %>
+11: <% 
+12:    JOptionPane.showMessageDialog(null, "This is your homepage");
+13:    out.println("<p><b>Welcome to your homepage " + session.getAttribute("UserName") + "!</b></p>");
+14:    out.println("<p><b>You could change your password and your personal information.</b></p>");
+15:    out.println("<p><b>And you could also enter the search module to search for radiologist records.</b></p>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 1:42:18 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 80 in the jsp file: /login.jsp
+JOptionPane cannot be resolved
+77:                         response.sendRedirect("/proj1/homepage.jsp");
+78:                 }
+79:         	else{
+80: 			JOptionPane.showMessageDialog(null, "Either your username or your password is invalid, please try again!");
+81: 	        	response.sendRedirect("/proj1/login.jsp");
+82:                 }
+83: 
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:34:31 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 121 in the jsp file: /homepage.jsp
+The method getParameters(String) is undefined for the type HttpServletRequest
+118:         	out.println("</form>");
+119: 	}	
+120: 
+121: 	if(request.getParameters("SaveFirstName")){
+122: 		String newFirstname = (request.getParameter("NewFirstName")).trim();	
+123: 		if(!newFirstname..toLowerCase().matches("[a-z].*") 
+124: 			|| newFirstname == null || newFirstname.isEmpty()){
+
+
+An error occurred at line: 123 in the jsp file: /homepage.jsp
+Syntax error on token ".", delete this token
+120: 
+121: 	if(request.getParameters("SaveFirstName")){
+122: 		String newFirstname = (request.getParameter("NewFirstName")).trim();	
+123: 		if(!newFirstname..toLowerCase().matches("[a-z].*") 
+124: 			|| newFirstname == null || newFirstname.isEmpty()){
+125: 			out.println("<br>");
+126:    			out.println("<p>Your new first name contains illegal characters.</p>");
+
+
+An error occurred at line: 131 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+128:    			out.println("<input type=submit name=TryFirstName value=Try_Again>");
+129:    			out.println("</form>");		
+130: 		}else{
+131: 			sql = "update PERSONS set FIRST_NAME='"+newFirstname
+132: 			+"' where PERSON_ID = (select PERSON_ID from USERS where" 
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+stmt cannot be resolved to a variable
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+conn cannot be resolved
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+stmt cannot be resolved
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 138 in the jsp file: /homepage.jsp
+conn cannot be resolved
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+
+
+An error occurred at line: 139 in the jsp file: /homepage.jsp
+conn cannot be resolved
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+142:   		 }
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:34:45 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 121 in the jsp file: /homepage.jsp
+Type mismatch: cannot convert from String to boolean
+118:         	out.println("</form>");
+119: 	}	
+120: 
+121: 	if(request.getParameter("SaveFirstName")){
+122: 		String newFirstname = (request.getParameter("NewFirstName")).trim();	
+123: 		if(!newFirstname..toLowerCase().matches("[a-z].*") 
+124: 			|| newFirstname == null || newFirstname.isEmpty()){
+
+
+An error occurred at line: 123 in the jsp file: /homepage.jsp
+Syntax error on token ".", delete this token
+120: 
+121: 	if(request.getParameter("SaveFirstName")){
+122: 		String newFirstname = (request.getParameter("NewFirstName")).trim();	
+123: 		if(!newFirstname..toLowerCase().matches("[a-z].*") 
+124: 			|| newFirstname == null || newFirstname.isEmpty()){
+125: 			out.println("<br>");
+126:    			out.println("<p>Your new first name contains illegal characters.</p>");
+
+
+An error occurred at line: 131 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+128:    			out.println("<input type=submit name=TryFirstName value=Try_Again>");
+129:    			out.println("</form>");		
+130: 		}else{
+131: 			sql = "update PERSONS set FIRST_NAME='"+newFirstname
+132: 			+"' where PERSON_ID = (select PERSON_ID from USERS where" 
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+stmt cannot be resolved to a variable
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+conn cannot be resolved
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+stmt cannot be resolved
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 138 in the jsp file: /homepage.jsp
+conn cannot be resolved
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+
+
+An error occurred at line: 139 in the jsp file: /homepage.jsp
+conn cannot be resolved
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+142:   		 }
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:35:02 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 123 in the jsp file: /homepage.jsp
+Syntax error on token ".", delete this token
+120: 
+121: 	if(request.getParameter("SaveFirstName") != null){
+122: 		String newFirstname = (request.getParameter("NewFirstName")).trim();	
+123: 		if(!newFirstname..toLowerCase().matches("[a-z].*") 
+124: 			|| newFirstname == null || newFirstname.isEmpty()){
+125: 			out.println("<br>");
+126:    			out.println("<p>Your new first name contains illegal characters.</p>");
+
+
+An error occurred at line: 131 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+128:    			out.println("<input type=submit name=TryFirstName value=Try_Again>");
+129:    			out.println("</form>");		
+130: 		}else{
+131: 			sql = "update PERSONS set FIRST_NAME='"+newFirstname
+132: 			+"' where PERSON_ID = (select PERSON_ID from USERS where" 
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+stmt cannot be resolved to a variable
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+conn cannot be resolved
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+stmt cannot be resolved
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 138 in the jsp file: /homepage.jsp
+conn cannot be resolved
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+
+
+An error occurred at line: 139 in the jsp file: /homepage.jsp
+conn cannot be resolved
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+142:   		 }
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:35:25 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 131 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+128:    			out.println("<input type=submit name=TryFirstName value=Try_Again>");
+129:    			out.println("</form>");		
+130: 		}else{
+131: 			sql = "update PERSONS set FIRST_NAME='"+newFirstname
+132: 			+"' where PERSON_ID = (select PERSON_ID from USERS where" 
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+stmt cannot be resolved to a variable
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 136 in the jsp file: /homepage.jsp
+conn cannot be resolved
+133: 			+" user_name='"+session.getAttribute("UserName")+"'";
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+stmt cannot be resolved
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 137 in the jsp file: /homepage.jsp
+sql cannot be resolved to a variable
+134: 		 		 
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+
+
+An error occurred at line: 138 in the jsp file: /homepage.jsp
+conn cannot be resolved
+135: 		try{
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+
+
+An error occurred at line: 139 in the jsp file: /homepage.jsp
+conn cannot be resolved
+136:   			stmt = conn.createStatement();
+137:   			stmt.executeUpdate(sql);
+138: 			conn.commit();
+139: 			conn.close();
+140:    		}catch(Exception ex){
+141:   			 out.println("<hr>" + ex.getMessage() + "<hr>");
+142:   		 }
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:49:17 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token "void", new expected
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+printForm cannot be resolved to a type
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token(s), misplaced construct(s)
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 40 in the jsp file: /homepage.jsp
+Syntax error, insert "Finally" to complete TryStatement
+37:        out.println("New Password: <input type=password name=NEWPWD  maxlength=20><br>");
+38:        out.println("<input type=submit name=SavePassword value=Save>");
+39:        out.println("</form>");
+40: 	}
+41:    if(request.getParameter("ChangePassword") != null 
+42:    || request.getParameter("TryPassword") != null){
+43:        printForm();
+
+
+An error occurred at line: 43 in the jsp file: /homepage.jsp
+The method printForm() is undefined for the type homepage_jsp
+40: 	}
+41:    if(request.getParameter("ChangePassword") != null 
+42:    || request.getParameter("TryPassword") != null){
+43:        printForm();
+44:    }	
+45:    
+46:    if(request.getParameter("SavePassword") != null){
+
+
+An error occurred at line: 235 in the generated java file
+Syntax error on tokens, delete these tokens
+
+An error occurred at line: 236 in the generated java file
+t cannot be resolved to a variable
+
+An error occurred at line: 240 in the generated java file
+t cannot be resolved to a variable
+
+An error occurred at line: 242 in the generated java file
+Syntax error on token "finally", delete this token
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:49:54 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token "new", delete this token
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    new private void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token(s), misplaced construct(s)
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    new private void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token "void", @ expected
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    new private void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 43 in the jsp file: /homepage.jsp
+The method printForm() is undefined for the type homepage_jsp
+40: 	}
+41:    if(request.getParameter("ChangePassword") != null 
+42:    || request.getParameter("TryPassword") != null){
+43:        printForm();
+44:    }	
+45:    
+46:    if(request.getParameter("SavePassword") != null){
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:50:04 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token(s), misplaced construct(s)
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    private void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 33 in the jsp file: /homepage.jsp
+Syntax error on token "void", @ expected
+30:    out.println("<form action=homepage.jsp>");
+31:    out.println("<input type=submit name=LogOut value=Log_Out><br>");
+32:    out.println("</form>");
+33:    private void printForm(){
+34: 	out.println("<br>");
+35:        out.println("<form action=homepage.jsp>");
+36:        out.println("Old Password: <input type=password name=OLDPWD  maxlength=20><br>");
+
+
+An error occurred at line: 43 in the jsp file: /homepage.jsp
+The method printForm() is undefined for the type homepage_jsp
+40: 	}
+41:    if(request.getParameter("ChangePassword") != null 
+42:    || request.getParameter("TryPassword") != null){
+43:        printForm();
+44:    }	
+45:    
+46:    if(request.getParameter("SavePassword") != null){
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 2:53:55 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 208 in the jsp file: /homepage.jsp
+newFirstname cannot be resolved to a variable
+205: 		String newLastname = (request.getParameter("NewLastName")).trim();
+206: 	
+207: 		if(!newLastname.matches("\\w+\\.?") 
+208: 			|| newFirstname == null || newFirstname.isEmpty()){
+209: 			out.println("<br>");
+210:    			out.println("<p>Your new first name contains illegal characters.</p>");
+211:    			out.println("<form action=homepage.jsp>");
+
+
+An error occurred at line: 208 in the jsp file: /homepage.jsp
+newFirstname cannot be resolved
+205: 		String newLastname = (request.getParameter("NewLastName")).trim();
+206: 	
+207: 		if(!newLastname.matches("\\w+\\.?") 
+208: 			|| newFirstname == null || newFirstname.isEmpty()){
+209: 			out.println("<br>");
+210:    			out.println("<p>Your new first name contains illegal characters.</p>");
+211:    			out.println("<form action=homepage.jsp>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 3:24:26 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 278 in the jsp file: /homepage.jsp
+Syntax error on token "(", { expected
+275: 			String sql = "update PERSONS set ADDRESS = ?" 
+276: 				+ "WHERE PERSON_ID=(SELECT PERSON_ID FROM USERS"
+277: 				+" WHERE USER_NAME='"+session.getAttribute("UserName")+"')";
+278: 			try(
+279: 				updateAddress.setString(1, newAddress);
+280: 				updateAddress.executeUpdate();
+281: 				conn.commit();
+
+
+An error occurred at line: 293 in the jsp file: /homepage.jsp
+Syntax error, insert "}" to complete Block
+290: 		
+291: 		}
+292: 	}
+293: %>
+294: 
+295: 
+296: 
+
+
+An error occurred at line: 293 in the jsp file: /homepage.jsp
+Syntax error, insert "Finally" to complete TryStatement
+290: 		
+291: 		}
+292: 	}
+293: %>
+294: 
+295: 
+296: 
+
+
+An error occurred at line: 355 in the generated java file
+Syntax error on token "catch", Identifier expected
+
+An error occurred at line: 357 in the generated java file
+out cannot be resolved to a variable
+
+An error occurred at line: 357 in the generated java file
+_jspx_out cannot be resolved to a variable
+
+An error occurred at line: 358 in the generated java file
+out cannot be resolved to a variable
+
+An error occurred at line: 358 in the generated java file
+out cannot be resolved
+
+An error occurred at line: 359 in the generated java file
+out cannot be resolved
+
+An error occurred at line: 360 in the generated java file
+_jspx_page_context cannot be resolved to a variable
+
+An error occurred at line: 360 in the generated java file
+_jspx_page_context cannot be resolved
+
+An error occurred at line: 362 in the generated java file
+Syntax error on token "finally", { expected
+
+An error occurred at line: 363 in the generated java file
+_jspx_page_context cannot be resolved to a variable
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 5:17:48 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 54 in the jsp file: /SignUp.jsp
+The method tolowercase() is undefined for the type String
+51:      	Statement stmt = conn.createStatement();
+52:      	ResultSet rset = null;
+53:      	String sql = "select user_name from USERS where USER_NAME = '"+userName+"'";
+54:      	String emailCheck = "select email from PERSONS where EMAIL = '"+email.tolowercase()+"'";
+55:         out.println(sql);
+56:         //rset = stmt.executeQuery(sql);
+57: 
+
+
+An error occurred at line: 109 in the jsp file: /SignUp.jsp
+The method tolowercase() is undefined for the type String
+106: 				insertPersons.setString(2, firstName);
+107: 				insertPersons.setString(3, lastName);
+108: 				insertPersons.setString(4, address);
+109: 				insertPersons.setString(5, email.tolowercase());
+110: 				insertPersons.setString(6, phone);
+111: 				insertPersons.executeUpdate();
+112: 				conn.commit();
+
+
+An error occurred at line: 142 in the jsp file: /SignUp.jsp
+Syntax error, insert ";" to complete Statement
+139:                 out.println("<hr>" + ex.getMessage() + "<hr>");
+140: 			}
+141: 			
+142: 				JOptionPane.showMessageDialog(null, "The user has been registered successfully!")
+143: 				response.sendRedirect("/proj1/adminhomepage.jsp");	
+144: 				
+145: 		}
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 5:18:19 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 142 in the jsp file: /SignUp.jsp
+Syntax error, insert ";" to complete Statement
+139:                 out.println("<hr>" + ex.getMessage() + "<hr>");
+140: 			}
+141: 			
+142: 				JOptionPane.showMessageDialog(null, "The user has been registered successfully!")
+143: 				response.sendRedirect("/proj1/adminhomepage.jsp");	
+144: 				
+145: 		}
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 5:19:36 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.lang.NullPointerException
+	at org.apache.jsp.SignUp_jsp._jspService(SignUp_jsp.java:74)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 5:20:09 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 19 in the jsp file: /SignUp.jsp
+Syntax error, insert ";" to complete LocalVariableDeclarationStatement
+16:      	String passwd = (request.getParameter("PASSWD")).trim();
+17:      	String firstName = (request.getParameter("FNAME")).trim();
+18:      	String lastName = (request.getParameter("LNAME")).trim();
+19:      	String role  = request.getParameter("CLASS")
+20:      	String email = (request.getParameter("EMAIL")).trim();
+21: 		String address = (request.getParameter("ADDRESS")).trim();
+22: 		String phone = (request.getParameter("PHONE")).trim();
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:14:07 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 97 in the jsp file: /adminhomepage.jsp
+The method setAttribtue(String, String) is undefined for the type HttpSession
+94:         }else if (!(rset = stmt.executeQuery(sql)).next()){
+95: 	    out.println("<p><b>This person does not exist..</b></p>");	    
+96: 	}else{
+97: 	    session.setAttribtue("PersonId", personId);
+98: 	    response.sendRedirect("/proj1/updateuser.jsp");
+99: 	}
+100:     }
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:14:53 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 57 in the jsp file: /updateuser.jsp
+Duplicate local variable sql
+54: 	passwd = rset.getString("PASSWORD");
+55:     }
+56:     
+57:     String sql = "select * from PERSONS where PERSON_ID = '" 
+58: 	+ session.getAttribute("PersonId") +"'";
+59:     out.println(sql);
+60:     
+
+
+An error occurred at line: 71 in the jsp file: /updateuser.jsp
+rest cannot be resolved
+68:         firstName = rset.getString("FIRST_NAME");
+69: 	lastName = rset.getString("LAST_NAME");
+70: 	role = rset.getString("CLASS");
+71: 	email = rest.getString("ADDRESS");
+72: 	phone = rset.getString("PHONE");
+73:     }
+74:     
+
+
+An error occurred at line: 84 in the jsp file: /updateuser.jsp
+Duplicate local variable address
+81:      	lastName = (request.getParameter("LNAME")).trim();
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+
+
+An error occurred at line: 85 in the jsp file: /updateuser.jsp
+Duplicate local variable phone
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+88: 	if(!userName.matches("\\w.*")){
+
+
+An error occurred at line: 105 in the jsp file: /updateuser.jsp
+emailCheck cannot be resolved to a variable
+102: 				"<p><b>You are: a doctor(d), a radiologist(r), or a patient(p). </b></p>");
+103: 	}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+104: 	    out.println("<p><b>The email address contains illegal characters.<p><b>");
+105: 	}else if(stmt.executeQuery(emailCheck).next()){
+106: 	    out.println("<p><b>The email has been registered with other users.<p><b>");
+107: 	}else if(address.isEmpty() || address == null || address.length() < 1){
+108: 	    out.println("<p><b>Please re-enter the address.<p><b>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:15:34 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 57 in the jsp file: /updateuser.jsp
+Duplicate local variable sql
+54: 	passwd = rset.getString("PASSWORD");
+55:     }
+56:     
+57:     String sql = "select * from PERSONS where PERSON_ID = '" 
+58: 	+ session.getAttribute("PersonId") +"'";
+59:     out.println(sql);
+60:     
+
+
+An error occurred at line: 71 in the jsp file: /updateuser.jsp
+rest cannot be resolved
+68:         firstName = rset.getString("FIRST_NAME");
+69: 	lastName = rset.getString("LAST_NAME");
+70: 	role = rset.getString("CLASS");
+71: 	email = rest.getString("ADDRESS");
+72: 	phone = rset.getString("PHONE");
+73:     }
+74:     
+
+
+An error occurred at line: 84 in the jsp file: /updateuser.jsp
+Duplicate local variable address
+81:      	lastName = (request.getParameter("LNAME")).trim();
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+
+
+An error occurred at line: 85 in the jsp file: /updateuser.jsp
+Duplicate local variable phone
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+88: 	if(!userName.matches("\\w.*")){
+
+
+An error occurred at line: 105 in the jsp file: /updateuser.jsp
+emailCheck cannot be resolved to a variable
+102: 				"<p><b>You are: a doctor(d), a radiologist(r), or a patient(p). </b></p>");
+103: 	}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+104: 	    out.println("<p><b>The email address contains illegal characters.<p><b>");
+105: 	}else if(stmt.executeQuery(emailCheck).next()){
+106: 	    out.println("<p><b>The email has been registered with other users.<p><b>");
+107: 	}else if(address.isEmpty() || address == null || address.length() < 1){
+108: 	    out.println("<p><b>Please re-enter the address.<p><b>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:15:38 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 57 in the jsp file: /updateuser.jsp
+Duplicate local variable sql
+54: 	passwd = rset.getString("PASSWORD");
+55:     }
+56:     
+57:     String sql = "select * from PERSONS where PERSON_ID = '" 
+58: 	+ session.getAttribute("PersonId") +"'";
+59:     out.println(sql);
+60:     
+
+
+An error occurred at line: 71 in the jsp file: /updateuser.jsp
+rest cannot be resolved
+68:         firstName = rset.getString("FIRST_NAME");
+69: 	lastName = rset.getString("LAST_NAME");
+70: 	role = rset.getString("CLASS");
+71: 	email = rest.getString("ADDRESS");
+72: 	phone = rset.getString("PHONE");
+73:     }
+74:     
+
+
+An error occurred at line: 84 in the jsp file: /updateuser.jsp
+Duplicate local variable address
+81:      	lastName = (request.getParameter("LNAME")).trim();
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+
+
+An error occurred at line: 85 in the jsp file: /updateuser.jsp
+Duplicate local variable phone
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+88: 	if(!userName.matches("\\w.*")){
+
+
+An error occurred at line: 105 in the jsp file: /updateuser.jsp
+emailCheck cannot be resolved to a variable
+102: 				"<p><b>You are: a doctor(d), a radiologist(r), or a patient(p). </b></p>");
+103: 	}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+104: 	    out.println("<p><b>The email address contains illegal characters.<p><b>");
+105: 	}else if(stmt.executeQuery(emailCheck).next()){
+106: 	    out.println("<p><b>The email has been registered with other users.<p><b>");
+107: 	}else if(address.isEmpty() || address == null || address.length() < 1){
+108: 	    out.println("<p><b>Please re-enter the address.<p><b>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:16:16 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 57 in the jsp file: /updateuser.jsp
+Duplicate local variable sql
+54: 	passwd = rset.getString("PASSWORD");
+55:     }
+56:     
+57:     String sql = "select * from PERSONS where PERSON_ID = '" 
+58: 	+ session.getAttribute("PersonId") +"'";
+59:     out.println(sql);
+60:     
+
+
+An error occurred at line: 71 in the jsp file: /updateuser.jsp
+rest cannot be resolved
+68:         firstName = rset.getString("FIRST_NAME");
+69: 	lastName = rset.getString("LAST_NAME");
+70: 	role = rset.getString("CLASS");
+71: 	email = rest.getString("ADDRESS");
+72: 	phone = rset.getString("PHONE");
+73:     }
+74:     
+
+
+An error occurred at line: 84 in the jsp file: /updateuser.jsp
+Duplicate local variable address
+81:      	lastName = (request.getParameter("LNAME")).trim();
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+
+
+An error occurred at line: 85 in the jsp file: /updateuser.jsp
+Duplicate local variable phone
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+88: 	if(!userName.matches("\\w.*")){
+
+
+An error occurred at line: 105 in the jsp file: /updateuser.jsp
+emailCheck cannot be resolved to a variable
+102: 				"<p><b>You are: a doctor(d), a radiologist(r), or a patient(p). </b></p>");
+103: 	}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+104: 	    out.println("<p><b>The email address contains illegal characters.<p><b>");
+105: 	}else if(stmt.executeQuery(emailCheck).next()){
+106: 	    out.println("<p><b>The email has been registered with other users.<p><b>");
+107: 	}else if(address.isEmpty() || address == null || address.length() < 1){
+108: 	    out.println("<p><b>Please re-enter the address.<p><b>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:16:34 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 71 in the jsp file: /updateuser.jsp
+rest cannot be resolved
+68:         firstName = rset.getString("FIRST_NAME");
+69: 	lastName = rset.getString("LAST_NAME");
+70: 	role = rset.getString("CLASS");
+71: 	email = rest.getString("ADDRESS");
+72: 	phone = rset.getString("PHONE");
+73:     }
+74:     
+
+
+An error occurred at line: 84 in the jsp file: /updateuser.jsp
+Duplicate local variable address
+81:      	lastName = (request.getParameter("LNAME")).trim();
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+
+
+An error occurred at line: 85 in the jsp file: /updateuser.jsp
+Duplicate local variable phone
+82: 	role  = request.getParameter("CLASS");
+83: 	email = (request.getParameter("EMAIL")).trim();
+84: 	String address = (request.getParameter("ADDRESS")).trim();
+85: 	String phone = (request.getParameter("PHONE")).trim();
+86: 
+87: 
+88: 	if(!userName.matches("\\w.*")){
+
+
+An error occurred at line: 105 in the jsp file: /updateuser.jsp
+emailCheck cannot be resolved to a variable
+102: 				"<p><b>You are: a doctor(d), a radiologist(r), or a patient(p). </b></p>");
+103: 	}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+104: 	    out.println("<p><b>The email address contains illegal characters.<p><b>");
+105: 	}else if(stmt.executeQuery(emailCheck).next()){
+106: 	    out.println("<p><b>The email has been registered with other users.<p><b>");
+107: 	}else if(address.isEmpty() || address == null || address.length() < 1){
+108: 	    out.println("<p><b>Please re-enter the address.<p><b>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:17:20 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 105 in the jsp file: /updateuser.jsp
+emailCheck cannot be resolved to a variable
+102: 				"<p><b>You are: a doctor(d), a radiologist(r), or a patient(p). </b></p>");
+103: 	}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+104: 	    out.println("<p><b>The email address contains illegal characters.<p><b>");
+105: 	}else if(stmt.executeQuery(emailCheck).next()){
+106: 	    out.println("<p><b>The email has been registered with other users.<p><b>");
+107: 	}else if(address.isEmpty() || address == null || address.length() < 1){
+108: 	    out.println("<p><b>Please re-enter the address.<p><b>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:18:38 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.sql.SQLException: Invalid column name
+	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
+	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:112)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:173)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:229)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:403)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:3366)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2009)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:494)
+	at org.apache.jsp.updateuser_jsp._jspService(updateuser_jsp.java:125)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:42:12 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 147 in the jsp file: /updateuser.jsp
+The method setInt(int, int) in the type PreparedStatement is not applicable for the arguments (int, String)
+144: 	
+145: 	    try{
+146: 		updatePersons = conn.prepareStatement(sqlPersons);
+147: 		updatePersons.setInt(1, firstName);
+148: 		updatePersons.setString(2, lastName);
+149: 		updatePersons.setString(3, address);
+150: 		updatePersons.setString(4, email.toLowerCase());
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:45:12 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.awt.HeadlessException: 
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+	at java.awt.GraphicsEnvironment.checkHeadless(GraphicsEnvironment.java:173)
+	at java.awt.Window.<init>(Window.java:546)
+	at java.awt.Frame.<init>(Frame.java:419)
+	at java.awt.Frame.<init>(Frame.java:384)
+	at javax.swing.SwingUtilities$SharedOwnerFrame.<init>(SwingUtilities.java:1754)
+	at javax.swing.SwingUtilities.getSharedOwnerFrame(SwingUtilities.java:1831)
+	at javax.swing.JOptionPane.getRootFrame(JOptionPane.java:1692)
+	at javax.swing.JOptionPane.showOptionDialog(JOptionPane.java:864)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:668)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:639)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:610)
+	at org.apache.jsp.updateuser_jsp._jspService(updateuser_jsp.java:232)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:46:48 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.awt.HeadlessException: 
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+	at java.awt.GraphicsEnvironment.checkHeadless(GraphicsEnvironment.java:173)
+	at java.awt.Window.<init>(Window.java:546)
+	at java.awt.Frame.<init>(Frame.java:419)
+	at java.awt.Frame.<init>(Frame.java:384)
+	at javax.swing.SwingUtilities$SharedOwnerFrame.<init>(SwingUtilities.java:1754)
+	at javax.swing.SwingUtilities.getSharedOwnerFrame(SwingUtilities.java:1831)
+	at javax.swing.JOptionPane.getRootFrame(JOptionPane.java:1692)
+	at javax.swing.JOptionPane.showOptionDialog(JOptionPane.java:864)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:668)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:639)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:610)
+	at org.apache.jsp.login_jsp._jspService(login_jsp.java:147)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:50:15 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 55 in the jsp file: /updateuser.jsp
+Syntax error on token "passwd", delete this token
+52:     while(rset != null && rset.next()){
+53:         userName = rset.getString("USER_NAME");
+54: 	passwd = rset.getString("PASSWORD");
+55: 	out.println("Password!:"passwd);
+56: 	role = rset.getString("CLASS");
+57:     }
+58:     
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:55:41 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 99 in the jsp file: /updateuser.jsp
+asswd cannot be resolved
+96: 		    !(rset.getString("PERSON_ID")).equals(
+97: 			    session.getAttribute("PersonId"))){
+98: 	    out.println("<p><b>This username is taken.</b></p>");			
+99: 	}else if(asswd.length() < 6){
+100: 	    out.println("<p><b>Password's should be at least " 
+101: 	    + "6 characters.</b></p>");
+102: 	}else if(!passwd.matches("\\w.*")){
+
+
+An error occurred at line: 108 in the jsp file: /updateuser.jsp
+The method Query(String) is undefined for the type updateuser_jsp
+105: 	}else if (passwd == null || passwd.isEmpty()){
+106: 	    String sqlPWD = "SELECT PASSWORD FROM USERS WHERE PERSON_ID = '" 
+107: 		+ session.getAttribute("PersonId") +"'";
+108: 	    rset = stmt.execute(Query(sqlPWD);
+109: 	    passwd = rset.getString("PASSWORD");
+110: 	}else if(!firstName.matches("\\w+\\.?") ){
+111: 	    out.println("<p><b>The first name can only contain "
+
+
+An error occurred at line: 108 in the jsp file: /updateuser.jsp
+Syntax error, insert ")" to complete Expression
+105: 	}else if (passwd == null || passwd.isEmpty()){
+106: 	    String sqlPWD = "SELECT PASSWORD FROM USERS WHERE PERSON_ID = '" 
+107: 		+ session.getAttribute("PersonId") +"'";
+108: 	    rset = stmt.execute(Query(sqlPWD);
+109: 	    passwd = rset.getString("PASSWORD");
+110: 	}else if(!firstName.matches("\\w+\\.?") ){
+111: 	    out.println("<p><b>The first name can only contain "
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:56:23 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 108 in the jsp file: /updateuser.jsp
+The method Query(String) is undefined for the type updateuser_jsp
+105: 	}else if (passwd == null || passwd.isEmpty()){
+106: 	    String sqlPWD = "SELECT PASSWORD FROM USERS WHERE PERSON_ID = '" 
+107: 		+ session.getAttribute("PersonId") +"'";
+108: 	    rset = stmt.execute(Query(sqlPWD);
+109: 	    passwd = rset.getString("PASSWORD");
+110: 	}else if(!firstName.matches("\\w+\\.?") ){
+111: 	    out.println("<p><b>The first name can only contain "
+
+
+An error occurred at line: 108 in the jsp file: /updateuser.jsp
+Syntax error, insert ")" to complete Expression
+105: 	}else if (passwd == null || passwd.isEmpty()){
+106: 	    String sqlPWD = "SELECT PASSWORD FROM USERS WHERE PERSON_ID = '" 
+107: 		+ session.getAttribute("PersonId") +"'";
+108: 	    rset = stmt.execute(Query(sqlPWD);
+109: 	    passwd = rset.getString("PASSWORD");
+110: 	}else if(!firstName.matches("\\w+\\.?") ){
+111: 	    out.println("<p><b>The first name can only contain "
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:58:17 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.sql.SQLException: ResultSet.next was not called
+	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
+	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:112)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:173)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:229)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:403)
+	at oracle.jdbc.driver.OracleResultSetImpl.getString(OracleResultSetImpl.java:962)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:494)
+	at org.apache.jsp.updateuser_jsp._jspService(updateuser_jsp.java:158)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:59:10 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 103 in the jsp file: /updateuser.jsp
+Cannot invoke getString(String) on the primitive type boolean
+100: 	    String sqlPWD = "SELECT PASSWORD FROM USERS WHERE PERSON_ID = '" 
+101: 		+ session.getAttribute("PersonId") +"'";
+102: 	    rset = stmt.executeQuery(sqlPWD);
+103: 	    passwd = rset.next().getString("PASSWORD");
+104: 	}else if(passwd.length() < 6){
+105: 	    out.println("<p><b>Password's should be at least " 
+106: 	    + "6 characters.</b></p>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 8:59:19 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 103 in the jsp file: /updateuser.jsp
+Cannot invoke getString(String) on the primitive type boolean
+100: 	    String sqlPWD = "SELECT PASSWORD FROM USERS WHERE PERSON_ID = '" 
+101: 		+ session.getAttribute("PersonId") +"'";
+102: 	    rset = stmt.executeQuery(sqlPWD);
+103: 	    passwd = rset.next().getString("PASSWORD");
+104: 	}else if(passwd.length() < 6){
+105: 	    out.println("<p><b>Password's should be at least " 
+106: 	    + "6 characters.</b></p>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 9:11:21 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 213 in the jsp file: /updateuser.jsp
+Syntax error, insert "}" to complete Statement
+210: 	    + phone + "' maxlenght=10><br>");
+211: 	out.println("<input type=submit name=bUpdate value=Save>");
+212: 
+213:      }else{
+214: 	out.println("<form action=updateuser.jsp method=post>");
+215: 	out.println("UserName  : <input type=text name=USERID value=" 
+216: 	    + userName + " maxlength=20><br>");
+
+
+An error occurred at line: 310 in the generated java file
+Syntax error on token "}", delete this token
+
+An error occurred at line: 311 in the generated java file
+Syntax error, insert "}" to complete ClassBody
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 9:12:55 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 89 in the jsp file: /updateuser.jsp
+Invalid escape sequence (valid ones are  \b  \t  \n  \f  \r  \"  \'  \\ )
+86: 	address = (request.getParameter("ADDRESS")).trim();
+87: 	phone = (request.getParameter("PHONE")).trim();
+88: 	
+89: 	out.println("<p>" + role + "<\p>");
+90: 	String emailCheck = "select email from PERSONS where EMAIL = '"
+91: 	    + email.toLowerCase() + "'";
+92: 	    
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 9:17:42 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 89 in the jsp file: /updateuser.jsp
+Syntax error on token "=", != expected
+86: 	address = (request.getParameter("ADDRESS")).trim();
+87: 	phone = (request.getParameter("PHONE")).trim();
+88: 	
+89: 	out.println("<p>" + role="Camelot" + "</p>");
+90: 	String emailCheck = "select email from PERSONS where EMAIL = '"
+91: 	    + email.toLowerCase() + "'";
+92: 	    
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 9:27:00 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.lang.NullPointerException
+	at java.lang.String.indexOf(String.java:1745)
+	at java.lang.String.indexOf(String.java:1727)
+	at org.apache.jsp.updateuser_jsp._jspService(updateuser_jsp.java:133)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 9:44:03 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 9 in the generated java file
+Only a type can be imported. org.apache.commons.lang.StringEscapeUtils resolves to a package
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 9:57:00 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 160 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+157: 	
+158: 	out.println("<form action=updateuser.jsp method=post>");
+159: 	out.println("UserName  : <input type=text name=USERID value=" 
+160: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+161: 	out.println("Password  : <input type=password name=PASSWD value" 
+162: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+163: 	out.println("First Name: <input type=text name=FNAME value='" 
+
+
+An error occurred at line: 162 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+159: 	out.println("UserName  : <input type=text name=USERID value=" 
+160: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+161: 	out.println("Password  : <input type=password name=PASSWD value" 
+162: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+163: 	out.println("First Name: <input type=text name=FNAME value='" 
+164: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+165: 	    );
+
+
+An error occurred at line: 164 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+161: 	out.println("Password  : <input type=password name=PASSWD value" 
+162: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+163: 	out.println("First Name: <input type=text name=FNAME value='" 
+164: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+165: 	    );
+166: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+167: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+
+
+An error occurred at line: 167 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+164: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+165: 	    );
+166: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+167: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+168: 	out.println("<label for='patient'>Patient</label>");
+169: 	out.println("<input type=radio name=CLASS id=patient value=p>");
+170: 	out.println("<label for='radiologist'>Radiologist</label>");
+
+
+An error occurred at line: 175 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+172: 	out.println("<label for='doctor'>Doctor</label>");
+173: 	out.println("<input type=radio name=CLASS id=doctor value=d><br>");
+174: 	out.println("Email     : <input type=text name=EMAIL value='" 
+175: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+176: 	out.println("Address   : <input type=text name=ADDRESS value='"
+177: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+178: 	out.println("Phone     : <input type=text name=PHONE value='" 
+
+
+An error occurred at line: 177 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+174: 	out.println("Email     : <input type=text name=EMAIL value='" 
+175: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+176: 	out.println("Address   : <input type=text name=ADDRESS value='"
+177: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+178: 	out.println("Phone     : <input type=text name=PHONE value='" 
+179: 	    + phone + "' maxlenght=10><br>");
+180: 	out.println("<input type=submit name=bUpdate value=Save>");
+
+
+An error occurred at line: 220 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+217: 	}
+218: 	out.println("<form action=updateuser.jsp method=post>");
+219: 	out.println("UserName  : <input type=text name=USERID value=" 
+220: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+221: 	out.println("Password  : <input type=password name=PASSWD value" 
+222: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+223: 	out.println("First Name: <input type=text name=FNAME value='" 
+
+
+An error occurred at line: 222 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+219: 	out.println("UserName  : <input type=text name=USERID value=" 
+220: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+221: 	out.println("Password  : <input type=password name=PASSWD value" 
+222: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+223: 	out.println("First Name: <input type=text name=FNAME value='" 
+224: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+225: 	    );
+
+
+An error occurred at line: 224 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+221: 	out.println("Password  : <input type=password name=PASSWD value" 
+222: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+223: 	out.println("First Name: <input type=text name=FNAME value='" 
+224: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+225: 	    );
+226: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+227: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+
+
+An error occurred at line: 227 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+224: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+225: 	    );
+226: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+227: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+228: 	out.println("<label for='patient'>Patient</label>");
+229: 	out.println("<input type=radio name=CLASS id=patient value=p>");
+230: 	out.println("<label for='radiologist'>Radiologist</label>");
+
+
+An error occurred at line: 235 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+232: 	out.println("<label for='doctor'>Doctor</label>");
+233: 	out.println("<input type=radio name=CLASS id=doctor value=d><br>");
+234: 	out.println("Email     : <input type=text name=EMAIL value='" 
+235: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+236: 	out.println("Address   : <input type=text name=ADDRESS value='"
+237: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+238: 	out.println("Phone     : <input type=text name=PHONE value='" 
+
+
+An error occurred at line: 237 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+234: 	out.println("Email     : <input type=text name=EMAIL value='" 
+235: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+236: 	out.println("Address   : <input type=text name=ADDRESS value='"
+237: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+238: 	out.println("Phone     : <input type=text name=PHONE value='" 
+239: 	    + phone + "' maxlenght=10><br>");
+240: 	out.println("<input type=submit name=bUpdate value=Save>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:01:25 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 160 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+157: 	
+158: 	out.println("<form action=updateuser.jsp method=post>");
+159: 	out.println("UserName  : <input type=text name=USERID value=" 
+160: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+161: 	out.println("Password  : <input type=password name=PASSWD value" 
+162: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+163: 	out.println("First Name: <input type=text name=FNAME value='" 
+
+
+An error occurred at line: 162 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+159: 	out.println("UserName  : <input type=text name=USERID value=" 
+160: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+161: 	out.println("Password  : <input type=password name=PASSWD value" 
+162: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+163: 	out.println("First Name: <input type=text name=FNAME value='" 
+164: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+165: 	    );
+
+
+An error occurred at line: 164 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+161: 	out.println("Password  : <input type=password name=PASSWD value" 
+162: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+163: 	out.println("First Name: <input type=text name=FNAME value='" 
+164: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+165: 	    );
+166: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+167: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+
+
+An error occurred at line: 167 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+164: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+165: 	    );
+166: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+167: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+168: 	out.println("<label for='patient'>Patient</label>");
+169: 	out.println("<input type=radio name=CLASS id=patient value=p>");
+170: 	out.println("<label for='radiologist'>Radiologist</label>");
+
+
+An error occurred at line: 175 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+172: 	out.println("<label for='doctor'>Doctor</label>");
+173: 	out.println("<input type=radio name=CLASS id=doctor value=d><br>");
+174: 	out.println("Email     : <input type=text name=EMAIL value='" 
+175: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+176: 	out.println("Address   : <input type=text name=ADDRESS value='"
+177: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+178: 	out.println("Phone     : <input type=text name=PHONE value='" 
+
+
+An error occurred at line: 177 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+174: 	out.println("Email     : <input type=text name=EMAIL value='" 
+175: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+176: 	out.println("Address   : <input type=text name=ADDRESS value='"
+177: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+178: 	out.println("Phone     : <input type=text name=PHONE value='" 
+179: 	    + phone + "' maxlenght=10><br>");
+180: 	out.println("<input type=submit name=bUpdate value=Save>");
+
+
+An error occurred at line: 220 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+217: 	}
+218: 	out.println("<form action=updateuser.jsp method=post>");
+219: 	out.println("UserName  : <input type=text name=USERID value=" 
+220: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+221: 	out.println("Password  : <input type=password name=PASSWD value" 
+222: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+223: 	out.println("First Name: <input type=text name=FNAME value='" 
+
+
+An error occurred at line: 222 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+219: 	out.println("UserName  : <input type=text name=USERID value=" 
+220: 	    + StringEscapeUtils.escapeHtml(userName) + " maxlength=20><br>");
+221: 	out.println("Password  : <input type=password name=PASSWD value" 
+222: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+223: 	out.println("First Name: <input type=text name=FNAME value='" 
+224: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+225: 	    );
+
+
+An error occurred at line: 224 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+221: 	out.println("Password  : <input type=password name=PASSWD value" 
+222: 	    + StringEscapeUtils.escapeHtml(passwd) + " maxlength=20><br>");
+223: 	out.println("First Name: <input type=text name=FNAME value='" 
+224: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+225: 	    );
+226: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+227: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+
+
+An error occurred at line: 227 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+224: 	    + StringEscapeUtils.escapeHtml(firstName) + "' maxlength=24><br>"
+225: 	    );
+226: 	out.println("Last  Name: <input type=text name=LNAME value='" 
+227: 	    + StringEscapeUtils.escapeHtml(lastName) + "' maxlength=24><br>");
+228: 	out.println("<label for='patient'>Patient</label>");
+229: 	out.println("<input type=radio name=CLASS id=patient value=p>");
+230: 	out.println("<label for='radiologist'>Radiologist</label>");
+
+
+An error occurred at line: 235 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+232: 	out.println("<label for='doctor'>Doctor</label>");
+233: 	out.println("<input type=radio name=CLASS id=doctor value=d><br>");
+234: 	out.println("Email     : <input type=text name=EMAIL value='" 
+235: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+236: 	out.println("Address   : <input type=text name=ADDRESS value='"
+237: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+238: 	out.println("Phone     : <input type=text name=PHONE value='" 
+
+
+An error occurred at line: 237 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+234: 	out.println("Email     : <input type=text name=EMAIL value='" 
+235: 	    + StringEscapeUtils.escapeHtml(email) + "' maxlength=128><br>");
+236: 	out.println("Address   : <input type=text name=ADDRESS value='"
+237: 	    + StringEscapeUtils.escapeHtml(address) +"' maxlength=128><br>");
+238: 	out.println("Phone     : <input type=text name=PHONE value='" 
+239: 	    + phone + "' maxlenght=10><br>");
+240: 	out.println("<input type=submit name=bUpdate value=Save>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:02:24 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.sql.SQLException: Invalid column name
+	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
+	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:112)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:173)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:229)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:403)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:3366)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2009)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:494)
+	at org.apache.jsp.updateuser_jsp._jspService(updateuser_jsp.java:128)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:06:12 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 50 in the jsp file: /updateuser.jsp
+Syntax error on token "l", delete this token
+47:      	lastName = (request.getParameter("LNAME")).trim();
+48: 	role  = request.getParameter("CLASS");
+49: 	email = (request.getParameter("EMAIL")).trim();
+50: 	address = (request.getParameter("ADDRESS"))l;
+51: 	phone = (request.getParameter("PHONE")).trim();
+52: 	
+53: 	out.println("<p>Class: " + role + "</p>");
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:10:15 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.sql.SQLException: Invalid column name
+	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
+	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:112)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:173)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:229)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:403)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:3366)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2009)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:494)
+	at org.apache.jsp.updateuser_jsp._jspService(updateuser_jsp.java:152)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:20:18 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 50 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+47:      	lastName = (request.getParameter("LNAME")).trim();
+48: 	role  = request.getParameter("CLASS");
+49: 	email = (request.getParameter("EMAIL")).trim();
+50: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS"))).trim();
+51: 	phone = (request.getParameter("PHONE")).trim();
+52: 	
+53: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:24:14 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: /updateuser.jsp(13,0) The value for the useBean class attribute org.apache.commons.lang.StringEscapeUtils is invalid.
+	at org.apache.jasper.compiler.DefaultErrorHandler.jspError(DefaultErrorHandler.java:40)
+	at org.apache.jasper.compiler.ErrorDispatcher.dispatch(ErrorDispatcher.java:407)
+	at org.apache.jasper.compiler.ErrorDispatcher.jspError(ErrorDispatcher.java:148)
+	at org.apache.jasper.compiler.Generator$GenerateVisitor.visit(Generator.java:1233)
+	at org.apache.jasper.compiler.Node$UseBean.accept(Node.java:1178)
+	at org.apache.jasper.compiler.Node$Nodes.visit(Node.java:2361)
+	at org.apache.jasper.compiler.Node$Visitor.visitBody(Node.java:2411)
+	at org.apache.jasper.compiler.Node$Visitor.visit(Node.java:2417)
+	at org.apache.jasper.compiler.Node$Root.accept(Node.java:495)
+	at org.apache.jasper.compiler.Node$Nodes.visit(Node.java:2361)
+	at org.apache.jasper.compiler.Generator.generate(Generator.java:3459)
+	at org.apache.jasper.compiler.Compiler.generateJava(Compiler.java:231)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:354)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:25:32 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 51 in the jsp file: /updateuser.jsp
+StringEscapeUtil cannot be resolved
+48:      	lastName = (request.getParameter("LNAME")).trim();
+49: 	role  = request.getParameter("CLASS");
+50: 	email = (request.getParameter("EMAIL")).trim();
+51: 	address = StringEscapeUtil.escapeJava((request.getParameter("ADDRESS")));
+52: 	phone = (request.getParameter("PHONE")).trim();
+53: 	
+54: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:25:58 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 51 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+48:      	lastName = (request.getParameter("LNAME")).trim();
+49: 	role  = request.getParameter("CLASS");
+50: 	email = (request.getParameter("EMAIL")).trim();
+51: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+52: 	phone = (request.getParameter("PHONE")).trim();
+53: 	
+54: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:39:35 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 51 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+48:      	lastName = (request.getParameter("LNAME")).trim();
+49: 	role  = request.getParameter("CLASS");
+50: 	email = (request.getParameter("EMAIL")).trim();
+51: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+52: 	phone = (request.getParameter("PHONE")).trim();
+53: 	
+54: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:43:17 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 51 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+48:      	lastName = (request.getParameter("LNAME")).trim();
+49: 	role  = request.getParameter("CLASS");
+50: 	email = (request.getParameter("EMAIL")).trim();
+51: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+52: 	phone = (request.getParameter("PHONE")).trim();
+53: 	
+54: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:43:24 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 51 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+48:      	lastName = (request.getParameter("LNAME")).trim();
+49: 	role  = request.getParameter("CLASS");
+50: 	email = (request.getParameter("EMAIL")).trim();
+51: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+52: 	phone = (request.getParameter("PHONE")).trim();
+53: 	
+54: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:44:16 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 51 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+48:      	lastName = (request.getParameter("LNAME")).trim();
+49: 	role  = request.getParameter("CLASS");
+50: 	email = (request.getParameter("EMAIL")).trim();
+51: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+52: 	phone = (request.getParameter("PHONE")).trim();
+53: 	
+54: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:46:16 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 50 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+47:      	lastName = (request.getParameter("LNAME")).trim();
+48: 	role  = request.getParameter("CLASS");
+49: 	email = (request.getParameter("EMAIL")).trim();
+50: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+51: 	phone = (request.getParameter("PHONE")).trim();
+52: 	
+53: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:51:43 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 50 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+47:      	lastName = (request.getParameter("LNAME")).trim();
+48: 	role  = request.getParameter("CLASS");
+49: 	email = (request.getParameter("EMAIL")).trim();
+50: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+51: 	phone = (request.getParameter("PHONE")).trim();
+52: 	
+53: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 10:56:28 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: 50 in the jsp file: /updateuser.jsp
+StringEscapeUtils cannot be resolved
+47:      	lastName = (request.getParameter("LNAME")).trim();
+48: 	role  = request.getParameter("CLASS");
+49: 	email = (request.getParameter("EMAIL")).trim();
+50: 	address = StringEscapeUtils.escapeJava((request.getParameter("ADDRESS")));
+51: 	phone = (request.getParameter("PHONE")).trim();
+52: 	
+53: 	String emailCheck = "select * from PERSONS where EMAIL = '"
+
+
+Stacktrace:
+	at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:92)
+	at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:330)
+	at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:439)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:356)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:334)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:321)
+	at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:592)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:328)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
+Feb 6, 2014 11:05:00 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.awt.HeadlessException: 
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+	at java.awt.GraphicsEnvironment.checkHeadless(GraphicsEnvironment.java:173)
+	at java.awt.Window.<init>(Window.java:546)
+	at java.awt.Frame.<init>(Frame.java:419)
+	at java.awt.Frame.<init>(Frame.java:384)
+	at javax.swing.SwingUtilities$SharedOwnerFrame.<init>(SwingUtilities.java:1754)
+	at javax.swing.SwingUtilities.getSharedOwnerFrame(SwingUtilities.java:1831)
+	at javax.swing.JOptionPane.getRootFrame(JOptionPane.java:1692)
+	at javax.swing.JOptionPane.showOptionDialog(JOptionPane.java:864)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:668)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:639)
+	at javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:610)
+	at org.apache.jsp.adminhomepage_jsp._jspService(adminhomepage_jsp.java:158)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:602)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Thread.java:701)
