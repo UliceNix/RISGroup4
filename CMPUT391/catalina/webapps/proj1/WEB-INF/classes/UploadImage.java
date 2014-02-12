@@ -52,16 +52,16 @@ import javax.imageio.ImageIO;
  *  and it has to be put under WEB-INF/lib/ directory in your servlet context.
  *  One shall also modify the CLASSPATH to include this jar file.
  */
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.*;
+import org.apache.common.io.*;
 
 public class UploadImage extends HttpServlet {
     public String response_message;
     public void doPost(HttpServletRequest request,HttpServletResponse response)
 	throws ServletException, IOException {
 	//  change the following parameters to connect to the oracle database
-	String username = "******";
-	String password = "******";
+	String username = "mingxun";
+	String password = "hellxbox_4801";
 	String drivername = "oracle.jdbc.driver.OracleDriver";
 	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 	int pic_id;
@@ -91,17 +91,11 @@ public class UploadImage extends HttpServlet {
 	    /*
 	     *  First, to generate a unique pic_id using an SQL sequence
 	     */
-	    ResultSet rset1 = stmt.executeQuery("SELECT pic_id_sequence.nextval from dual");
-	    rset1.next();
-	    pic_id = rset1.getInt(1);
-
-	    //Insert an empty blob into the table first. Note that you have to 
-	    //use the Oracle specific function empty_blob() to create an empty blob
-	    stmt.execute("INSERT INTO pictures VALUES("+pic_id+",'test',empty_blob())");
- 
+	    stmt.execute("INSERT INTO pacs_images VALUES("+session.getAttribute("Saved_Record_Id")+", "+ pic_id + ", "+ "empty_blob(), empty_blob(), empty_blob())");
+  
 	    // to retrieve the lob_locator 
 	    // Note that you must use "FOR UPDATE" in the select statement
-	    String cmd = "SELECT * FROM pictures WHERE pic_id = "+pic_id+" FOR UPDATE";
+	    String cmd = "SELECT * FROM pacs_images WHERE pic_id = "+pic_id+" and record_id = '"+session.getAttribute("Saved_Record_Id")+"' FOR UPDATE";
 	    ResultSet rset = stmt.executeQuery(cmd);
 	    rset.next();
 	    BLOB myblob = ((OracleResultSet)rset).getBLOB(3);
@@ -142,6 +136,7 @@ public class UploadImage extends HttpServlet {
 		            response_message +
 		    "</H1>\n" +
 		    "</BODY></HTML>");
+	session.removeAttribute("Saved_Record_Id");
     }
 
     /*

@@ -4,18 +4,19 @@
 </head>
 <body> 
 
-<%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*, java.util.*, java.lang.*, java.io.*, java.text.*" %>
+<%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*, java.util.*, java.lang.*, java.io.*, java.text.*, java.net.*, org.apache.commons.fileupload.*,org.apache.commons.io.*, java.awt.Image.*, java.util.List, javax.imageio.*, java.awt.image.*, oracle.sql.*, oracle.jdbc.*" %>
 <% 
-   boolean record_unsaved = true;
-   String node = InetAddress.getLocalHost().getHostname();
+
+   //String node = InetAddress.getLocalHost().getHostName();
    
-   out.println("<form action=adminhomepage.jsp>");
+   out.println("<form action=homepage.jsp>");
    out.println("<input type=submit name=Back value='Go Back'><br>");
    out.println("</form>");
    out.println("------------------------------------------------------"
    + "--------------------------------------------------------------"
    + "----------------------------------<br>");
-
+   out.println(request.getParameter("upload"));
+   out.println(request.getParameter("file-path"));
    Connection conn = null;
    String driverName = "oracle.jdbc.driver.OracleDriver";
    String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
@@ -36,15 +37,15 @@
 
    Statement stmt = conn.createStatement();
    ResultSet rset = null;
+   String sql = "";
 
-   String sql = "SELECT COUNT(*) AS NEXT_RID FROM RADIOLOGY_RECORD";
+   sql = "SELECT COUNT(*) AS NEXT_RID FROM RADIOLOGY_RECORD";
    rset = stmt.executeQuery(sql);
    int rid = 0;
    while(rset != null && rset.next()){
-   	rid = rset.getInt("NEXT_RID") + 1;
-   }
+     rid = rset.getInt("NEXT_RID") + 1;
+   }   
    
-   out.println("<p><b>Current Record ID: " + rid + ". </b></p>");
    Integer id = (Integer) session.getAttribute("Person_Id");
    out.println("User Id is: " + id);
    
@@ -173,15 +174,35 @@
       try{
 	 insertRecord.executeUpdate();
 	 conn.commit();
-	 record_unsaved = false;
+	 session.setAttribute("Saved_Record_Id", rid);
+	 response.sendRedirect("/proj1/newrecord.jsp");
       }catch(Exception ex){
 	 out.println("<hr>" + ex.getMessage() + "<hr>");      
       }
    
-   }else{      
+   }else if (session.getAttribute("Saved_Record_Id") != null && request.getParameter("upload") == null){
+      out.println("<p>");
+      out.println("<hr>");
+      out.println("You are uploading for record " + session.getAttribute("Saved_Record_Id") + ".");
+      out.println("Please input or select the path of the image!");
+      out.println("<form name='upload-image'enctype='multipart/form-data' action='/proj1/WEB-INF/classes/UploadImage'>");
+      out.println("<table>");
+      out.println("<tr>");
+      out.println("<th>File path: </th>");
+      out.println("<td><input accept='image/jpeg,image/gif,image/png, image/bmp, image/jpg' name='file-path' type='file' size='30' multiple/></input></td> ");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("<td ALIGN=CENTER COLSPAN='2'><input type='submit' name='.submit' value='Upload'></td>");
+      out.println("</tr>");
+      out.println("</table>");
+      out.println("</form>") ;  
+   
+   
+   }else{         
+      out.println("<p><b>Current Record ID: " + rid + ". </b></p>");
       out.println("<p> As a radiologsit, you could create a new radiology "
 	 + "record by entering the information first and add pacs.</p>");
-      out.println("<form action=newrecord.jsp>");
+      out.println("<form action=newrecord.jsp method=post>");
       out.println("Please Enter Patient Id Here:<br> <input type=text name=pid"
 	 + " value='" + pid + "' ><br>");
       out.println("Please Enter Doctor Id Here:<br><input type=text name=did" 
@@ -195,15 +216,15 @@
 	 + "name=diagnosis value=\"" + diag + "\"maxlength=128><br>");
       out.println(" Please Enter Description Here:<br><input type=text "
 	 + "name=description value=\"" + description + "\"maxlength=1024><br><br>");
-      if(record_unsaved){
-	 out.println("<input type=submit name=SaveRecord value='Save New Record'>"
+      out.println("<input type=submit name=SaveRecord value='Save New Record'>"
 	 + "<br>");
-      }
       out.println("</form>");
       out.println("------------------------------------------------------"
       + "--------------------------------------------------------------"
       + "----------------------------------<br><br>");
    }
+   
+ 
       
    
 %>
