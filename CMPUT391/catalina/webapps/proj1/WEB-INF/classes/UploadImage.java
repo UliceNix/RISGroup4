@@ -52,81 +52,110 @@ import javax.imageio.ImageIO;
  *  and it has to be put under WEB-INF/lib/ directory in your servlet context.
  *  One shall also modify the CLASSPATH to include this jar file.
  */
-import org.apache.commons.fileupload.*;
-import org.apache.common.io.*;
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
 
 public class UploadImage extends HttpServlet {
-    public String response_message;
+    public String response_message = "start";
     public void doPost(HttpServletRequest request,HttpServletResponse response)
 	throws ServletException, IOException {
 	//  change the following parameters to connect to the oracle database
+	
 	String username = "mingxun";
 	String password = "hellxbox_4801";
 	String drivername = "oracle.jdbc.driver.OracleDriver";
 	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-	int pic_id;
-
+        HttpSession session = request.getSession();
+        Integer rid = (Integer) session.getAttribute("Saved_Record_Id");
+	PrintWriter out = response.getWriter();
 	try {
+	    
 	    //Parse the HTTP request to get the image stream
 	    DiskFileUpload fu = new DiskFileUpload();
 	    List FileItems = fu.parseRequest(request);
-	        
+            Connection conn = getConnected(drivername,dbstring, username,password);
+	    
 	    // Process the uploaded items, assuming only 1 image file uploaded
 	    Iterator i = FileItems.iterator();
 	    FileItem item = (FileItem) i.next();
-	    while (i.hasNext() && item.isFormField()) {
+            response_message = "filecatch";
+            boolean stop = false;
+	    response_message ="test" +  item.isFormField();
+	    
+	    while (!stop && !item.isFormField()) {
+                
+		
 		item = (FileItem) i.next();
-	    }
+                //Get the image stream
+                InputStream instream = item.getInputStream();
 
-	    //Get the image stream
-	    InputStream instream = item.getInputStream();
+                BufferedImage img = ImageIO.read(instream);
+                BufferedImage thumbNail = shrink(img, 10);
 
-	    BufferedImage img = ImageIO.read(instream);
-	    BufferedImage thumbNail = shrink(img, 10);
-
-            // Connect to the database and create a statement
-            Connection conn = getConnected(drivername,dbstring, username,password);
-	    Statement stmt = conn.createStatement();
+                // Connect to the database and create a statement
+                Statement stmt = conn.createStatement();
 	    
-	    /*
-	     *  First, to generate a unique pic_id using an SQL sequence
-	     */
-	    stmt.execute("INSERT INTO pacs_images VALUES("+session.getAttribute("Saved_Record_Id")+", "+ pic_id + ", "+ "empty_blob(), empty_blob(), empty_blob())");
-  
-	    // to retrieve the lob_locator 
-	    // Note that you must use "FOR UPDATE" in the select statement
-	    String cmd = "SELECT * FROM pacs_images WHERE pic_id = "+pic_id+" and record_id = '"+session.getAttribute("Saved_Record_Id")+"' FOR UPDATE";
-	    ResultSet rset = stmt.executeQuery(cmd);
-	    rset.next();
-	    BLOB myblob = ((OracleResultSet)rset).getBLOB(3);
+                /*
+                 *  First, to generate a unique pic_id using an SQL sequence
+                 */
+                ResultSet rset1 = stmt.executeQuery("SELECT count(*) from pacs_images where record_id='" + rid + "'");
+                rset1.next();
+                int pic_id = rset1.getInt(1) + 1;
+		out.println("<p> in while "+ pic_id + "</p>");
+                response_message = "this is " + pic_id;
+                //Insert an empty blob into the table first. Note that you have to 
+                //use the Oracle specific function empty_blob() to create an empty blob
+                stmt.execute("INSERT INTO pacs_images  VALUES("+ rid + ", " + pic_id+",empty_blob(), empty_blob(), empty_blob())");
+ 
+                // to retrieve the lob_locator 
+                // Note that you must use "FOR UPDATE" in the select statement
+                String cmd = "SELECT * FROM pacs_images WHERE record_id = "+ rid + "and image_id=" +pic_id +" FOR UPDATE";
+                ResultSet rset = stmt.executeQuery(cmd);
+                rset.next();
+                BLOB thumbblob = ((OracleResultSet)rset).getBLOB(3);
 
 
-	    //Write the image to the blob object
-	    OutputStream outstream = myblob.getBinaryOutputStream();
-	    ImageIO.write(thumbNail, "jpg", outstream);
+                //Write the image to the blob object
+                OutputStream outstream = thumbblob.getBinaryOutputStream();
+                ImageIO.write(thumbNail, "jpg", outstream);
+		instream.close();
+		outstream.close();
+		
+		BLOB regblob = ((OracleResultSet)rset).getBLOB(4);
+		//Write the image to the blob object
+                outstream = regblob.getBinaryOutputStream();
+                ImageIO.write(img, "jpg", outstream);	
 	    
-	    /*
-	    int size = myblob.getBufferSize();
-	    byte[] buffer = new byte[size];
-	    int length = -1;
-	    while ((length = instream.read(buffer)) != -1)
-		outstream.write(buffer, 0, length);
-	    */
-	    instream.close();
-	    outstream.close();
+                instream.close();
+                outstream.close();
+		
+		BLOB fullblob = ((OracleResultSet)rset).getBLOB(5);
+		//Write the image to the blob object
+                outstream = fullblob.getBinaryOutputStream();
+                ImageIO.write(img, "jpg", outstream);	
+	    
+                instream.close();
+                outstream.close();
 
-            stmt.executeUpdate("commit");
-	    response_message = " Upload OK!  ";
+                stmt.executeUpdate("commit");
+                response_message = " Upload OK!  " + pic_id;
+		out.println(" Upload OK!  " + pic_id + "<br>");
+		
+                if(i.hasNext()){
+                    item = (FileItem) i.next();
+                }else{
+                    stop = true;
+                }
+            }
             conn.close();
-
 	} catch( Exception ex ) {
 	    //System.out.println( ex.getMessage());
 	    response_message = ex.getMessage();
 	}
-
+	session.removeAttribute("Saved_Record_Id");
 	//Output response to the client
 	response.setContentType("text/html");
-	PrintWriter out = response.getWriter();
+	
 	out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
 		    "Transitional//EN\">\n" +
 		    "<HTML>\n" +
@@ -136,7 +165,6 @@ public class UploadImage extends HttpServlet {
 		            response_message +
 		    "</H1>\n" +
 		    "</BODY></HTML>");
-	session.removeAttribute("Saved_Record_Id");
     }
 
     /*
