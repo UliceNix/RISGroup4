@@ -110,8 +110,8 @@
 	    out.println("<tr><td>");
 	    while(rset.next()){
 		String pic_id = rset.getString(1);
-		out.println("<a href=\"/proj1/WEB-INF/classes/GetOnePic?big" + pic_id + "\">");
-		out.println("<img src=\"/proj1/WEB-INF/classes/GetOnePic?" + p_id +
+		out.println("<a href=\"/proj1/WEB-INF/classes/GetOnePic?bigrid" + rids.get(i) + "pic" + pic_id + "\">");
+		out.println("<img src=\"/proj1/WEB-INF/classes/GetOnePic?rid" + rids.get(i) + "pic" + pic_id +
 		"\"></a>");
 	    }
 	    out.println("</a></td>");

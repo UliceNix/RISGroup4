@@ -11,8 +11,8 @@ import java.sql.*;
  *            sm_image: blob,   image: blob )
  *
  *  The request must come with a query string as follows:
- *    GetOnePic?12:        sends the picture in sm_image with photo_id = 12
- *    GetOnePic?big12: sends the picture in image  with photo_id = 12
+ *    GetOnePic?rid5pic12:        sends the picture in sm_image with photo_id = 12
+ *    GetOnePic?bigrid5pic12: sends the picture in image  with photo_id = 12
  *
  *  @author  Li-Yan Yuan
  *
@@ -37,9 +37,9 @@ public class GetOnePic extends HttpServlet
 
 	if ( picid.startsWith("big") )  
 	    query = 
-	     "select image from pictures where photo_id=" + picid.substring(3);
+	     "select full_size from pacs_images where image_id='" + picid.substring(6, picid.indexOf("pic") + "' and record_id='" + picid.substring(picid.indexOf("pic")+3) + "'");
 	else
-	    query = "select sm_image from pictures where photo_id=" + picid;
+	    query = "select thumbnail from pacs_images where image_id='" + picid.substring(3, picid.indexOf("pic") + "' and record_id='" + picid.substring(picid.indexOf("pic")+3) + "'";
 
 	ServletOutputStream out = response.getOutputStream();
 
@@ -81,17 +81,16 @@ public class GetOnePic extends HttpServlet
      */
     private Connection getConnected() throws Exception {
 
-	String username = "user_name";
-	String password = "*****";
-        /* one may replace the following for the specified database */
-	String dbstring = "jdbc.logicsql@luscar.cs.ualberta.ca:2000:database";
-	String driverName = "com.shifang.logicsql.jdbc.driver.LogicSqlDriver";
+	String username = "mingxun";
+	String password = "hellxbox_4801";
+	String drivername = "oracle.jdbc.driver.OracleDriver";
+	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 
 	/*
 	 *  to connect to the database
 	 */
 	Class drvClass = Class.forName(driverName); 
 	DriverManager.registerDriver((Driver) drvClass.newInstance());
-	return( DriverManager.getConnection(dbstring,username,password) );
-    }
+	return( DriverManager.getConnection(dbstring,username,password));
+    } 
 }
