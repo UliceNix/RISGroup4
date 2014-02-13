@@ -45,6 +45,7 @@ import oracle.jdbc.*;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *  The package commons-fileupload-1.0.jar is downloaded from 
@@ -60,111 +61,36 @@ public class UploadImage extends HttpServlet {
     public void doPost(HttpServletRequest request,HttpServletResponse response)
 	throws ServletException, IOException {
 	//  change the following parameters to connect to the oracle database
-	
-	String username = "mingxun";
-	String password = "hellxbox_4801";
-	String drivername = "oracle.jdbc.driver.OracleDriver";
-	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+	PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
         Integer rid = (Integer) session.getAttribute("Saved_Record_Id");
-	PrintWriter out = response.getWriter();
+	
 	try {
 	    
 	    //Parse the HTTP request to get the image stream
 	    DiskFileUpload fu = new DiskFileUpload();
 	    List FileItems = fu.parseRequest(request);
-            Connection conn = getConnected(drivername,dbstring, username,password);
-	    
+	    out.println("size:" + FileItems.size() + "<br>");
 	    // Process the uploaded items, assuming only 1 image file uploaded
 	    Iterator i = FileItems.iterator();
 	    FileItem item = (FileItem) i.next();
-            response_message = "filecatch";
-            boolean stop = false;
-	    response_message ="test" +  item.isFormField();
+	    for(int j = 1; j < FileItems.size(); j++){
+		insertPacRecord(item, rid, response);
+		item = (FileItem) i.next();		
+	    }
 	    
-	    while (!stop && !item.isFormField()) {
-                
-		
-		item = (FileItem) i.next();
-                //Get the image stream
-                InputStream instream = item.getInputStream();
-
-                BufferedImage img = ImageIO.read(instream);
-                BufferedImage thumbNail = shrink(img, 10);
-
-                // Connect to the database and create a statement
-                Statement stmt = conn.createStatement();
-	    
-                /*
-                 *  First, to generate a unique pic_id using an SQL sequence
-                 */
-                ResultSet rset1 = stmt.executeQuery("SELECT count(*) from pacs_images where record_id='" + rid + "'");
-                rset1.next();
-                int pic_id = rset1.getInt(1) + 1;
-		out.println("<p> in while "+ pic_id + "</p>");
-                response_message = "this is " + pic_id;
-                //Insert an empty blob into the table first. Note that you have to 
-                //use the Oracle specific function empty_blob() to create an empty blob
-                stmt.execute("INSERT INTO pacs_images  VALUES("+ rid + ", " + pic_id+",empty_blob(), empty_blob(), empty_blob())");
- 
-                // to retrieve the lob_locator 
-                // Note that you must use "FOR UPDATE" in the select statement
-                String cmd = "SELECT * FROM pacs_images WHERE record_id = "+ rid + "and image_id=" +pic_id +" FOR UPDATE";
-                ResultSet rset = stmt.executeQuery(cmd);
-                rset.next();
-                BLOB thumbblob = ((OracleResultSet)rset).getBLOB(3);
-
-
-                //Write the image to the blob object
-                OutputStream outstream = thumbblob.getBinaryOutputStream();
-                ImageIO.write(thumbNail, "jpg", outstream);
-		instream.close();
-		outstream.close();
-		
-		BLOB regblob = ((OracleResultSet)rset).getBLOB(4);
-		//Write the image to the blob object
-                outstream = regblob.getBinaryOutputStream();
-                ImageIO.write(img, "jpg", outstream);	
-	    
-                instream.close();
-                outstream.close();
-		
-		BLOB fullblob = ((OracleResultSet)rset).getBLOB(5);
-		//Write the image to the blob object
-                outstream = fullblob.getBinaryOutputStream();
-                ImageIO.write(img, "jpg", outstream);	
-	    
-                instream.close();
-                outstream.close();
-
-                stmt.executeUpdate("commit");
-                response_message = " Upload OK!  " + pic_id;
-		out.println(" Upload OK!  " + pic_id + "<br>");
-		
-                if(i.hasNext()){
-                    item = (FileItem) i.next();
-                }else{
-                    stop = true;
-                }
-            }
-            conn.close();
 	} catch( Exception ex ) {
 	    //System.out.println( ex.getMessage());
 	    response_message = ex.getMessage();
 	}
-	session.removeAttribute("Saved_Record_Id");
-	//Output response to the client
-	response.setContentType("text/html");
 	
-	out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
-		    "Transitional//EN\">\n" +
-		    "<HTML>\n" +
-		    "<HEAD><TITLE>Upload Message</TITLE></HEAD>\n" +
-		    "<BODY>\n" +
-		    "<H1>" +
-		            response_message +
-		    "</H1>\n" +
-		    "</BODY></HTML>");
+	int reply = JOptionPane.showConfirmDialog(null, "Continue","Would you like to upload more images?", JOptionPane.YES_NO_OPTION);
+	if(reply == JOptionPane.NO_OPTION){
+	    session.removeAttribute("Saved_Record_Id");
+	    response.sendRedirect("/proj1/homepage.jsp");
+	}else{
+	    response.sendRedirect("/proj1/newrecord.jsp");
+	}
     }
 
     /*
@@ -195,4 +121,71 @@ public class UploadImage extends HttpServlet {
 
         return shrunkImage;
     }
+    
+    private static void insertPacRecord(FileItem item, Integer rid, HttpServletResponse response){
+	String username = "mingxun";
+	String password = "hellxbox_4801";
+	String drivername = "oracle.jdbc.driver.OracleDriver";
+	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+	
+	try{
+	    InputStream instream = item.getInputStream();
+	    BufferedImage img = ImageIO.read(instream);
+	    BufferedImage thumbNail = shrink(img, 10);
+	    PrintWriter out = response.getWriter();
+	
+	    Connection conn = getConnected(drivername,dbstring, username,password);
+	    // Connect to the database and create a statement
+	    Statement stmt = conn.createStatement();
+	    
+	    /*
+	    *  First, to generate a unique pic_id using an SQL sequence
+	    */
+	    ResultSet rset1 = stmt.executeQuery("SELECT count(*) from pacs_images where record_id='" + rid + "'");
+	    rset1.next();
+	    int pic_id = rset1.getInt(1) + 1;
+	    out.println("<p> in while "+ pic_id + "</p>");
+	    
+	    stmt.execute("INSERT INTO pacs_images  VALUES("+ rid + ", " + pic_id+",empty_blob(), empty_blob(), empty_blob())");
+	    
+	    // to retrieve the lob_locator 
+	    // Note that you must use "FOR UPDATE" in the select statement
+	    String cmd = "SELECT * FROM pacs_images WHERE record_id = "+ rid + "and image_id=" +pic_id +" FOR UPDATE";
+	    ResultSet rset = stmt.executeQuery(cmd);
+	    rset.next();
+	    BLOB thumbblob = ((OracleResultSet)rset).getBLOB(3);
+	    
+	    
+	    //Write the image to the blob object
+	    OutputStream outstream = thumbblob.getBinaryOutputStream();
+	    ImageIO.write(thumbNail, "jpg", outstream);
+	    instream.close();
+	    outstream.close();
+	    
+	    BLOB regblob = ((OracleResultSet)rset).getBLOB(4);
+	    //Write the image to the blob object
+	    outstream = regblob.getBinaryOutputStream();
+	    ImageIO.write(img, "jpg", outstream);	
+	    
+	    instream.close();
+	    outstream.close();
+	    
+	    BLOB fullblob = ((OracleResultSet)rset).getBLOB(5);
+	    //Write the image to the blob object
+	    outstream = fullblob.getBinaryOutputStream();
+	    ImageIO.write(img, "jpg", outstream);	
+	    
+	    instream.close();
+	    outstream.close();
+	    
+	    stmt.executeUpdate("commit");
+	    out.println(" Upload OK!  " + pic_id + "<br>");
+	    conn.close();
+    
+	}catch(Exception ex){
+	    System.out.println( ex.getMessage());
+	}
+	
+    }
 }
+

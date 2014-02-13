@@ -9,7 +9,7 @@
 
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*" %>
 <% 
-    out.println("<p><b>Welcome to Administrator's Homepage," 
+    out.println("<p><b>Welcome to Administrator's Homepage, " 
 	+ session.getAttribute("UserName") + "!</b></p>");
     out.println("<p><b>Manage the user's information (update an " 
 	+ "exisiting user or register a new user).</b></p>");
@@ -98,11 +98,15 @@
 	}
     }
     
+    
     if (request.getParameter("LogOut") != null){
-       		JOptionPane.showMessageDialog(null, "You have been logged"
+        session.removeAttribute("UserName");
+	session.removeAttribute("Person_Id");
+	session.removeAttribute("PermissionLevel");
+	JOptionPane.showMessageDialog(null, "You have been logged"
 		    + " out successfully!");
-		response.sendRedirect("/proj1/login.jsp");		
-	}
+	response.sendRedirect("/proj1/login.jsp");		
+    }
 
 %>
 

@@ -6,94 +6,93 @@
 
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*, java.util.*, java.lang.*, java.io.*, java.text.*, java.net.*, org.apache.commons.fileupload.*,org.apache.commons.io.*, java.awt.Image.*, java.util.List, javax.imageio.*, java.awt.image.*, oracle.sql.*, oracle.jdbc.*" %>
 <% 
-
-   //String node = InetAddress.getLocalHost().getHostName();
+    
+    
+    out.println("<form action=homepage.jsp>");
+    out.println("<input type=submit name=Back value='Go Back'><br>");
+    out.println("</form>");
+    out.println("------------------------------------------------------"
+    + "--------------------------------------------------------------"
+    + "----------------------------------<br>");
+    out.println(request.getParameter("upload"));
+    out.println(request.getParameter("file-path"));
+    Connection conn = null;
+    String driverName = "oracle.jdbc.driver.OracleDriver";
+    String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
    
-   out.println("<form action=homepage.jsp>");
-   out.println("<input type=submit name=Back value='Go Back'><br>");
-   out.println("</form>");
-   out.println("------------------------------------------------------"
-   + "--------------------------------------------------------------"
-   + "----------------------------------<br>");
-   out.println(request.getParameter("upload"));
-   out.println(request.getParameter("file-path"));
-   Connection conn = null;
-   String driverName = "oracle.jdbc.driver.OracleDriver";
-   String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-   
-   try {
-   	Class drvClass = Class.forName(driverName); 
-   	DriverManager.registerDriver((Driver) drvClass.newInstance());
-   }catch(Exception ex){
-   	out.println("<hr>" + ex.getMessage() + "<hr>");
-   }
-   try {
+    try {
+ 	Class drvClass = Class.forName(driverName); 
+	DriverManager.registerDriver((Driver) drvClass.newInstance());
+    }catch(Exception ex){
+        out.println("<hr>" + ex.getMessage() + "<hr>");
+    }
+    try {
    	conn = DriverManager.getConnection(dbstring,"mingxun",
 	"hellxbox_4801");
    	conn.setAutoCommit(false);
-   }catch(Exception ex){
+    }catch(Exception ex){
 	out.println("<hr>" + ex.getMessage() + "<hr>");
-   }
+    }
 
-   Statement stmt = conn.createStatement();
-   ResultSet rset = null;
-   String sql = "";
+    Statement stmt = conn.createStatement();
+    ResultSet rset = null;
+    String sql = "";
 
-   sql = "SELECT COUNT(*) AS NEXT_RID FROM RADIOLOGY_RECORD";
-   rset = stmt.executeQuery(sql);
-   int rid = 0;
-   while(rset != null && rset.next()){
-     rid = rset.getInt("NEXT_RID") + 1;
-   }   
+    sql = "SELECT COUNT(*) AS NEXT_RID FROM RADIOLOGY_RECORD";
+    rset = stmt.executeQuery(sql);
+    int rid = 0;
+    while(rset != null && rset.next()){
+        rid = rset.getInt("NEXT_RID") + 1;
+    }   
    
-   Integer id = (Integer) session.getAttribute("Person_Id");
-   out.println("User Id is: " + id);
+    Integer id = (Integer) session.getAttribute("Person_Id");
+    out.println("User Id is: " + id);
    
-   String pid = "";
-   String did = "";
-   String type = "";
-   String pDate = "";
-   String tDate = "";
-   String diag = "";
-   String description = "";
+    String pid = "";
+    String did = "";
+    String type = "";
+    String pDate = "";
+    String tDate = "";
+    String diag = "";
+    String description = "";
 
-   if(request.getParameter("SaveRecord") != null){
+    if(request.getParameter("SaveRecord") != null){
    
-      pid = request.getParameter("pid");
-      did = request.getParameter("did");
-      type = request.getParameter("type");
-      pDate = request.getParameter("pdate");
-      tDate = request.getParameter("tdate");
-      diag = request.getParameter("diagnosis");
-      description = request.getParameter("description");
+        pid = request.getParameter("pid");
+        did = request.getParameter("did");
+        type = request.getParameter("type");
+        pDate = request.getParameter("pdate");
+        tDate = request.getParameter("tdate");
+        diag = request.getParameter("diagnosis");
+        description = request.getParameter("description");
       
       
-      String validPid = "select count(*) from users where person_id = '" + 
+        String validPid = "select count(*) from users where person_id = '" + 
 	 pid + "' and class = 'p'";
-      String validDid = "select count(*) from users where person_id = '" 
+        String validDid = "select count(*) from users where person_id = '" 
 	 + did + "' and class = 'd'";
 	 
-      if (!pid.isEmpty()){
+        if (!pid.isEmpty()){
       
-	 try{
-	    int patient_id = Integer.parseInt(pid);	
-	 }catch (Exception ex){
-	    JOptionPane.showMessageDialog(null,"The patient id should be an "
+	    try{
+	        int patient_id = Integer.parseInt(pid);	
+	    }catch (Exception ex){
+	        JOptionPane.showMessageDialog(null,"The patient id should be an "
 	       +"integer");
 	    return;
-	 }
-	 rset = stmt.executeQuery(validPid);
+	    }
+	    rset = stmt.executeQuery(validPid);
 	 
-	 int count = 0;
-	 while(rset != null && rset.next()){
-	    count = rset.getInt(1);
-	 }
-	 if(count < 1){
-	    JOptionPane.showMessageDialog(null, "The patient id is invalid.");
-	    return;
-	 }
-      }else{
-	 pid = null;      
+	    int count = 0;
+	    while(rset != null && rset.next()){
+	        count = rset.getInt(1);
+	    }
+	    if(count < 1){
+	        JOptionPane.showMessageDialog(null, "The patient id is invalid.");
+		return;
+	    }
+        }else{
+	    pid = null;      
       } 
       
       if (!did.isEmpty()){
@@ -180,16 +179,16 @@
 	 out.println("<hr>" + ex.getMessage() + "<hr>");      
       }
    
-   }else if (session.getAttribute("Saved_Record_Id") != null && request.getParameter("upload") == null){
+   }else if (session.getAttribute("Saved_Record_Id")){
       out.println("<p>");
       out.println("<hr>");
       out.println("You are uploading for record " + session.getAttribute("Saved_Record_Id") + ".");
       out.println("Please input or select the path of the image!");
-      out.println("<form name='upload-image'enctype='multipart/form-data' action='/proj1/WEB-INF/classes/UploadImage'>");
+      out.println("<form name='upload-image' method=POST enctype='multipart/form-data' action='UploadImage'>");
       out.println("<table>");
       out.println("<tr>");
       out.println("<th>File path: </th>");
-      out.println("<td><input accept='image/jpeg,image/gif,image/png, image/bmp, image/jpg' name='file-path' type='file' size='30' multiple/></input></td> ");
+      out.println("<td><input accept='image/jpeg,image/gif,image/png, image/bmp, image/jpg' name='file-path' type='file' size='30' required multiple/></input></td> ");
       out.println("</tr>");
       out.println("<tr>");
       out.println("<td ALIGN=CENTER COLSPAN='2'><input type='submit' name='.submit' value='Upload'></td>");

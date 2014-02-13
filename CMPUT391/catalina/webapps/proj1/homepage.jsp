@@ -9,7 +9,6 @@
 
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*" %>
 <% 
-   out.println(session.getAttribute("PermissionLevel"));
    out.println("<p><b>Welcome to your homepage " + session.getAttribute("UserName") + "!</b></p>");
    out.println("<p><b>You could change your password and your personal information.</b></p>");
    out.println("<p><b>And you could also enter the search module to search for radiology records.</b></p>");
@@ -367,8 +366,11 @@
 	}
 
 	if(request.getParameter("LogOut") != null){
-       		JOptionPane.showMessageDialog(null, "You have been logged out successfully!");
-		response.sendRedirect("/proj1/login.jsp");		
+	    session.removeAttribute("UserName");
+	    session.removeAttribute("Person_Id");
+	    session.removeAttribute("PermissionLevel");
+	    JOptionPane.showMessageDialog(null, "You have been logged out successfully!");
+	    response.sendRedirect("/proj1/login.jsp");		
 	}
 %>
 
