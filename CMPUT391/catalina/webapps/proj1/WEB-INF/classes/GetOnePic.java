@@ -37,15 +37,13 @@ public class GetOnePic extends HttpServlet
 
 	if ( picid.startsWith("big") )  
 	    query = 
-	     "select full_size from pacs_images where image_id='" + picid.substring(6, picid.indexOf("pic") + "' and record_id='" + picid.substring(picid.indexOf("pic")+3) + "'");
+                    "select full_size from pacs_images where record_id='" + picid.substring(6, picid.indexOf("pic")) + "' and image_id='" + picid.substring(picid.indexOf("pic")+3) + "'";
 	else
-	    query = "select thumbnail from pacs_images where image_id='" + picid.substring(3, picid.indexOf("pic") + "' and record_id='" + picid.substring(picid.indexOf("pic")+3) + "'";
-
+                query = "select thumbnail from pacs_images where record_id='" + picid.substring(3, picid.indexOf("pic")) + "' and image_id='" + picid.substring(picid.indexOf("pic")+3) + "'";
+ 
+        
 	ServletOutputStream out = response.getOutputStream();
 
-	/*
-	 *   to execute the given query
-	 */
 	Connection conn = null;
 	try {
 	    conn = getConnected();
@@ -75,15 +73,12 @@ public class GetOnePic extends HttpServlet
 	    }
 	}
     }
-
-    /*
-     *   Connect to the specified database
-     */
+    
     private Connection getConnected() throws Exception {
 
 	String username = "mingxun";
 	String password = "hellxbox_4801";
-	String drivername = "oracle.jdbc.driver.OracleDriver";
+	String driverName = "oracle.jdbc.driver.OracleDriver";
 	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 
 	/*

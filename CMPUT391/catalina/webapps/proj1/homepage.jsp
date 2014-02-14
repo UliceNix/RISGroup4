@@ -34,7 +34,7 @@
    	out.println("</form>");
    }
    out.println("</form>");
-   out.println("<form action=search.jsp>");
+   out.println("<form action=searchEngine.jsp>");
    out.println("<input type=submit name=SearchEngine value='Enter Search Engine'><br>");
    out.println("</form>");
 

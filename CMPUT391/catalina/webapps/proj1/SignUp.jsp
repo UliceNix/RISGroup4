@@ -18,9 +18,9 @@
      	String lastName = (request.getParameter("LNAME")).trim();
      	String role  = request.getParameter("CLASS");
      	String email = (request.getParameter("EMAIL")).trim();
-	String address = (request.getParameter("ADDRESS")).trim();
-	String phone = (request.getParameter("PHONE")).trim();
-   	String pid = (request.getParameter("PID")).trim();
+		String address = (request.getParameter("ADDRESS")).trim();
+		String phone = (request.getParameter("PHONE")).trim();
+   		String pid = (request.getParameter("PID")).trim();
 
 	        //establish the connection to the underlying database
      	Connection conn = null;
@@ -53,7 +53,7 @@
      	ResultSet rset = null;
      	String sql = "select user_name from USERS where USER_NAME = '"+userName+"'";
      	String emailCheck = "select email from PERSONS where EMAIL = '"+email.toLowerCase()+"'";
-        out.println(sql);
+
         //rset = stmt.executeQuery(sql);
    		if(pid.isEmpty() || pid == null){
 			out.println("<p><b>Please indicate if registering a new user.</b></p>");   			

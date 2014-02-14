@@ -35,8 +35,7 @@ public class GetBigPic extends HttpServlet
 	String picid  = request.getQueryString();
 	String query;
 
-	query = "select title, place from pictures where photo_id="
-	        + picid.substring(3);
+        query = "select full_size from pacs_images where record_id='" + picid.substring(6, picid.indexOf("pic")) + "' and image_id='" + picid.substring(picid.indexOf("pic")+3) + "'";
 
 	//ServletOutputStream out = response.getOutputStream();
 	PrintWriter out = response.getWriter();
@@ -57,7 +56,7 @@ public class GetBigPic extends HttpServlet
 	        place = rset.getString("place");
                 out.println("<html><head><title>"+title+ "</title>+</head>" +
 	                 "<body bgcolor=\"#000000\" text=\"#cccccc\">" +
-		 "<center><img src = \"/yuan/servlet/GetOnePic?"+picid+"\">" +
+		 "<center><img src = \"/yuan/servlet/GetOnePic?120\">" +
 			 "<h3>" + title +"  at " + place + " </h3>" +
 			 "</body></html>");
             }
@@ -79,20 +78,20 @@ public class GetBigPic extends HttpServlet
     /*
      *   Connect to the specified database
      */
+
     private Connection getConnected() throws Exception {
 
-	String username = "user_name";
-	String password = "*******";
-
-        /* one may replace the following for the specified database */
-	String dbstring = "jdbc.logicsql@luscar.cs.ualberta.ca:2000:database";
-	String driverName = "com.shifang.logicsql.jdbc.driver.LogicSqlDriver";
+	String username = "mingxun";
+	String password = "hellxbox_4801";
+	String driverName = "oracle.jdbc.driver.OracleDriver";
+	String dbstring ="jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 
 	/*
 	 *  to connect to the database
 	 */
 	Class drvClass = Class.forName(driverName); 
 	DriverManager.registerDriver((Driver) drvClass.newInstance());
-	return( DriverManager.getConnection(dbstring,username,password) );
-    }
+	return( DriverManager.getConnection(dbstring,username,password));
+    } 
+
 }

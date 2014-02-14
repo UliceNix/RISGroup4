@@ -14,8 +14,7 @@
     out.println("------------------------------------------------------"
     + "--------------------------------------------------------------"
     + "----------------------------------<br>");
-    out.println(request.getParameter("upload"));
-    out.println(request.getParameter("file-path"));
+ 
     Connection conn = null;
     String driverName = "oracle.jdbc.driver.OracleDriver";
     String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
@@ -79,7 +78,8 @@
 	    }catch (Exception ex){
 	        JOptionPane.showMessageDialog(null,"The patient id should be an "
 	       +"integer");
-	    return;
+                response.sendRedirect("newrecord.jsp");
+	    
 	    }
 	    rset = stmt.executeQuery(validPid);
 	 
@@ -89,7 +89,7 @@
 	    }
 	    if(count < 1){
 	        JOptionPane.showMessageDialog(null, "The patient id is invalid.");
-		return;
+	        response.sendRedirect("newrecord.jsp");
 	    }
         }else{
 	    pid = null;      
@@ -102,7 +102,8 @@
 	 }catch (Exception ex){
 	    JOptionPane.showMessageDialog(null,"The doctor id should be an "
 	       + "integer");
-	    return;
+            response.sendRedirect("newrecord.jsp");
+	    
 	 }
 	 
 	 rset = stmt.executeQuery(validDid);
@@ -113,7 +114,8 @@
 	 }
 	 if(count < 1){
 	    JOptionPane.showMessageDialog(null, "The doctor id is invalid.");
-	    return;
+            response.sendRedirect("newrecord.jsp");
+
 	 }
       
       } else {
@@ -131,7 +133,8 @@
 	 }catch(Exception ex){
 	    JOptionPane.showMessageDialog(null,"Please check the date format,"
 	    +" make sure it's in dd-MMM-yyyy");
-	    return;
+            response.sendRedirect("newrecord.jsp");
+
 	 }
 	 
       } else {
@@ -147,9 +150,9 @@
 	    sdformat.parse(pDate);
 	 }catch(Exception ex){
 	    JOptionPane.showMessageDialog(null,"Please check the date format,"
-	    + " make sure it's in dd-MMM-yyyy");
-	    return;
-	 }      
+	    + " make sure it's in dd-MMM-yyyy");	 
+            response.sendRedirect("newrecord.jsp");
+      }
       
       }else{
 	 tDate = null;      
@@ -179,7 +182,7 @@
 	 out.println("<hr>" + ex.getMessage() + "<hr>");      
       }
    
-   }else if (session.getAttribute("Saved_Record_Id")){
+   }else if (session.getAttribute("Saved_Record_Id") != null){
       out.println("<p>");
       out.println("<hr>");
       out.println("You are uploading for record " + session.getAttribute("Saved_Record_Id") + ".");

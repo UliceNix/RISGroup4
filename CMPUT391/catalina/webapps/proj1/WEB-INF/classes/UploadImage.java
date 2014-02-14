@@ -84,13 +84,13 @@ public class UploadImage extends HttpServlet {
 	    response_message = ex.getMessage();
 	}
 	
-	int reply = JOptionPane.showConfirmDialog(null, "Continue","Would you like to upload more images?", JOptionPane.YES_NO_OPTION);
+	int reply = JOptionPane.showConfirmDialog(null,"Your images have been uploaded successfully. Would you like to upload more images?", "Continue?", JOptionPane.YES_NO_OPTION);
 	if(reply == JOptionPane.NO_OPTION){
 	    session.removeAttribute("Saved_Record_Id");
 	    response.sendRedirect("/proj1/homepage.jsp");
 	}else{
 	    response.sendRedirect("/proj1/newrecord.jsp");
-	}
+            }
     }
 
     /*
