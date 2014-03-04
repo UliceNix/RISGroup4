@@ -11,30 +11,30 @@
   </welcome-file-list>
     
     <servlet>
-        <servlet-name>FirstServlet</servlet-name>
-        <servlet-class>FirstServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FirstServlet</servlet-name>
-        <url-pattern>/firstservlet</url-pattern>
-    </servlet-mapping>
-
-   <servlet>
-        <servlet-name>Asn2Sample</servlet-name>
-        <servlet-class>Asn2Sample</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Asn2Sample</servlet-name>
-        <url-pattern>/Asn2Sample</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
         <servlet-name>UploadImage</servlet-name>
         <servlet-class>UploadImage</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UploadImage</servlet-name>
         <url-pattern>/UploadImage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GetOnePic</servlet-name>
+        <servlet-class>GetOnePic</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetOnePic</servlet-name>
+        <url-pattern>/GetOnePic</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GetBigPic</servlet-name>
+        <servlet-class>GetBigPic</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetBigPic</servlet-name>
+        <url-pattern>/GetBigPic</url-pattern>
     </servlet-mapping>
 
 
