@@ -12,12 +12,12 @@
 <% 
     String role = (String) session.getAttribute("PermissionLevel");
     Integer personId = (Integer) session.getAttribute("Person_Id");
-	String selectcols = "select record_id,patient_id, doctor_id, radiologist_id, test_type, prescribing_date,test_date, diagnosis, description, concat(concat(first_name, ' '), last_name) AS patient_name, p.address, p.email, p.phone";
+    String selectcols = "select record_id,patient_id, doctor_id, radiologist_id, test_type, prescribing_date,test_date, diagnosis, description, concat(concat(first_name, ' '), last_name) AS patient_name, p.address, p.email, p.phone";
 
-	ArrayList<String> names = new ArrayList<String>();
-	ArrayList<String> adds = new ArrayList<String>();
-	ArrayList<String> emails = new ArrayList<String>();
-	ArrayList<String> phones = new ArrayList<String>();
+    ArrayList<String> names = new ArrayList<String>();
+    ArrayList<String> adds = new ArrayList<String>();
+    ArrayList<String> emails = new ArrayList<String>();
+    ArrayList<String> phones = new ArrayList<String>();
     ArrayList<String> rids = new ArrayList<String>();
     ArrayList<String> pids = new ArrayList<String>();
     ArrayList<String> dids = new ArrayList<String>();
@@ -190,10 +190,12 @@
 		out.println("    <td >Test Date </a></td>"); 
 		out.println("    <td >Diagnosis </a></td>"); 
 		out.println("    <td >description</a></td>"); 
+/*
 		out.println("    <td >patient name</a></td>"); 
 		out.println("    <td >patient email</a></td>"); 
 		out.println("    <td >patient address</a></td>");
-		out.println("    <td >patient phone number</a></td>");  
+		out.println("    <td >patient phone number</a></td>"); 
+*/ 
 		out.println("    <td >Medical Images</a></td>"); 
 
 		while(rset != null && rset.next()){
@@ -206,10 +208,10 @@
 		    tdates.add(rset.getString(7));
 		    diags.add(rset.getString(8));
 		    description.add(rset.getString(9));	
-			names.add(rset.getString(10));
-			adds.add(rset.getString(11));
-			emails.add(rset.getString(12));
-			phones.add(rset.getString(13));
+			//names.add(rset.getString(10));
+			//adds.add(rset.getString(11));
+			//emails.add(rset.getString(12));
+			//phones.add(rset.getString(13));
 					
 		}
 	
@@ -260,10 +262,11 @@
 		out.println("    <td >Test Date </a></td>"); 
 		out.println("    <td >Diagnosis </a></td>"); 
 		out.println("    <td >description</a></td>"); 
+/*
 		out.println("    <td >patient name</a></td>"); 
 		out.println("    <td >patient email</a></td>"); 
 		out.println("    <td >patient address</a></td>");
-		out.println("    <td >patient phone number</a></td>");  
+		out.println("    <td >patient phone number</a></td>"); */ 
 		out.println("    <td >Medical Images</a></td>"); 
 		
 		if(role.equals("p")){
@@ -291,11 +294,12 @@
 		    pdates.add(rset.getString(6));
 		    tdates.add(rset.getString(7));
 		    diags.add(rset.getString(8));
-		    description.add(rset.getString(9));	
+		    description.add(rset.getString(9));
+/*	
 			names.add(rset.getString(10));
 			adds.add(rset.getString(11));
 			emails.add(rset.getString(12));
-			phones.add(rset.getString(13));
+			phones.add(rset.getString(13));*/
 				
 		}
 	
@@ -313,11 +317,11 @@
 	    	out.println("    <td>"+ tdate +"</a></td>"); 
 	    	out.println("    <td>"+ diags.get(i) +"</a></td>");
 	    	out.println("    <td>"+ description.get(i) +"</a></td>");
-			out.println("    <td>"+ names.get(i) +"</a></td>");
+		/*	out.println("    <td>"+ names.get(i) +"</a></td>");
 			out.println("    <td>"+ emails.get(i) +"</a></td>");
 			out.println("    <td>"+ adds.get(i) +"</a></td>");
 			out.println("    <td>"+ phones.get(i) +"</a></td>");
-	    	
+	    	*/
 	    	String getPics = "select image_id from pacs_images where record_id='" + rids.get(i) + "'";
 	    	rset = stmt.executeQuery(getPics);
 	    	out.println("<td>");
