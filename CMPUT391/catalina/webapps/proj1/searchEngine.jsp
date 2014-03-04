@@ -90,7 +90,7 @@
 	   	    sdformat.parse(to);
 	   	}catch(Exception ex){
 	   	    JOptionPane.showMessageDialog(null, "Please check the date format, make sure it's in dd-MMM-yyyy");
-	   	    response.sendRedirect("searchEngine.jsp");
+	   	    response.sendRedirect("search.jsp");
 	   	}
         
         String keyword = (request.getParameter("KeyWord")).trim().toLowerCase();
@@ -190,12 +190,6 @@
 		out.println("    <td >Test Date </a></td>"); 
 		out.println("    <td >Diagnosis </a></td>"); 
 		out.println("    <td >description</a></td>"); 
-/*
-		out.println("    <td >patient name</a></td>"); 
-		out.println("    <td >patient email</a></td>"); 
-		out.println("    <td >patient address</a></td>");
-		out.println("    <td >patient phone number</a></td>"); 
-*/ 
 		out.println("    <td >Medical Images</a></td>"); 
 
 		while(rset != null && rset.next()){
@@ -208,10 +202,6 @@
 		    tdates.add(rset.getString(7));
 		    diags.add(rset.getString(8));
 		    description.add(rset.getString(9));	
-			//names.add(rset.getString(10));
-			//adds.add(rset.getString(11));
-			//emails.add(rset.getString(12));
-			//phones.add(rset.getString(13));
 					
 		}
 	
@@ -262,11 +252,6 @@
 		out.println("    <td >Test Date </a></td>"); 
 		out.println("    <td >Diagnosis </a></td>"); 
 		out.println("    <td >description</a></td>"); 
-/*
-		out.println("    <td >patient name</a></td>"); 
-		out.println("    <td >patient email</a></td>"); 
-		out.println("    <td >patient address</a></td>");
-		out.println("    <td >patient phone number</a></td>"); */ 
 		out.println("    <td >Medical Images</a></td>"); 
 		
 		if(role.equals("p")){
