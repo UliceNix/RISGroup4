@@ -7,12 +7,14 @@
 
 <BODY>
 
-<%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*, java.util.*" %>
+<%@ page import="java.sql.*,javax.portlet.ActionResponse.*, 
+	javax.swing.*, java.util.*" %>
 <% 
 	out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=Back value='Go Back'><br>");
     out.println("</form>");
-   out.println("<b>Find out more help information by clicking <a href='help.html#editFamDoctor' target='blank'>Help</a></b><br><br>");
+   	out.println("<b>Find out more help information by clicking <a href"
+    	+"='help.html#editFamDoctor' target='blank'>Help</a></b><br><br>");
     out.println("<hr>");
     out.println("<form action=editfamdoc.jsp>");
     out.println("Enter the doctor's person id: <input type=text "
@@ -20,7 +22,8 @@
     out.println("Enter the patient's person id:  <input type=text "
 		+ "name=Patient required><br><br>");
     out.println("<input type=submit name=AddFamDoc value='Add Relationship'>");
-    out.println("<input type=submit name=DropFamDoc value='Drop Relationship'><br>");
+    out.println("<input type=submit name=DropFamDoc value='Drop Relationship'"
+    	+ "><br>");
     out.println("</form>");
     out.println("<hr>");
     
@@ -34,6 +37,7 @@
     }catch(Exception ex){
     	out.println("<hr>" + ex.getMessage() + "<hr>");
     }
+    
     try {
 		conn = DriverManager.getConnection(dbstring,"mingxun",
 			"hellxbox_4801");
@@ -42,10 +46,26 @@
 		out.println("<hr>" + ex.getMessage() + "<hr>");
     }
 
-    Statement stmt = conn.createStatement();
+    Statement stmt = null;
+    try{
+    	stmt = conn.createStatement();
+    }catch(Exception ex){
+    	out.println("<hr>" + ex.getMessage() + "<hr>");
+    }
+    
     ResultSet rset = null;
-    String sql = "SELECT FAMILY_DOCTOR.DOCTOR_ID, P1.FIRST_NAME, P1.LAST_NAME,FAMILY_DOCTOR.PATIENT_ID, P2.FIRST_NAME, P2.LAST_NAME FROM FAMILY_DOCTOR, PERSONS P1, PERSONS P2 WHERE FAMILY_DOCTOR.DOCTOR_ID = P1.PERSON_ID AND FAMILY_DOCTOR.PATIENT_ID = P2.PERSON_ID ORDER BY DOCTOR_ID";
-    rset = stmt.executeQuery(sql);
+    
+    String sql = "SELECT FAMILY_DOCTOR.DOCTOR_ID, P1.FIRST_NAME, "
+    	+ "P1.LAST_NAME,FAMILY_DOCTOR.PATIENT_ID, P2.FIRST_NAME, "
+    	+ "P2.LAST_NAME FROM FAMILY_DOCTOR, PERSONS P1, PERSONS P2 "
+    	+ "WHERE FAMILY_DOCTOR.DOCTOR_ID = P1.PERSON_ID AND "
+    	+ "FAMILY_DOCTOR.PATIENT_ID = P2.PERSON_ID ORDER BY DOCTOR_ID";
+    
+    try{
+    	rset = stmt.executeQuery(sql);
+    }catch(Exception ex){
+    	out.println("<hr>" + ex.getMessage() + "<hr>");
+    }
     
 	ArrayList<String> docId = new ArrayList<String>();
     ArrayList<String> docFName = new ArrayList<String>();
@@ -81,6 +101,11 @@
     }
 
     if(request.getParameter("Go back") != null){
+    	try{
+    	    conn.close();
+    	}catch(Exception ex){
+    	    out.println("<hr>" + ex.getMessage() + "<hr>");
+    	}
         response.sendRedirect("/proj1/adminhomepage.jsp");
     }
 
@@ -89,8 +114,10 @@
 
 		String docID = (request.getParameter("Doctor")).trim();
     	String patID = (request.getParameter("Patient")).trim();
-		String docSql = "select * from users where person_id = '" + docID + "' and users.CLASS = 'd'";
-    	String patSql = "select * from users where person_id = '" + patID + "' and users.CLASS = 'p'";
+		String docSql = "select * from users where person_id = '" 
+    		+ docID + "' and users.CLASS = 'd'";
+    	String patSql = "select * from users where person_id = '" 
+    		+ patID + "' and users.CLASS = 'p'";
 
 	if(docID.isEmpty() || !docID.matches("[0-9]+")){
 
@@ -109,8 +136,10 @@
 	    out.println("<p><b> Invalid Patient ID.</b></p>");
 
 	}else{
-	    String checkSQL =  "select * from family_doctor where doctor_id = '" + docID + "' and patient_id = '" + patID + "'";
-	    if(request.getParameter("AddFamDoc") != null && !(rset = stmt.executeQuery(checkSQL)).next()){
+	    String checkSQL =  "select * from family_doctor where doctor_id = '" 
+			+ docID + "' and patient_id = '" + patID + "'";
+	    if(request.getParameter("AddFamDoc") != null 
+	    		&& !(rset = stmt.executeQuery(checkSQL)).next()){
 	        
 	        String insertSQL = "insert into family_doctor values ('" + 
 				docID + "', '" + patID + "')";
@@ -122,21 +151,39 @@
 		    out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
-		JOptionPane.showMessageDialog(null, "The new family doctor relationship has been added to database!");
+		JOptionPane.showMessageDialog(null, "The new family doctor"
+			+" relationship has been added to database!");
+		try{
+		    conn.close();
+		}catch(Exception ex){
+		    out.println("<hr>" + ex.getMessage() + "<hr>");
+		}
 		response.sendRedirect("/proj1/editfamdoc.jsp");	    
 	    
 		}else if (request.getParameter("AddFamDoc") != null
 				 && (rset = stmt.executeQuery(checkSQL)).next()){
 
-	        JOptionPane.showMessageDialog(null, "The family doctor relationship already exists. Please try again.");
+	        JOptionPane.showMessageDialog(null, "The family doctor "
+	        	+"relationship already exists. Please try again.");
+	        try{
+	    	    conn.close();
+	    	}catch(Exception ex){
+	    	    out.println("<hr>" + ex.getMessage() + "<hr>");
+	    	}
 	    	response.sendRedirect("/proj1/editfamdoc.jsp");	    
 	    }else{
-	        String deleteSQL = "delete from family_doctor where doctor_id = '" + docID + "' and patient_id = '" + patID + "'";
+	        String deleteSQL = "delete from family_doctor where doctor_id = '"
+	    		+ docID + "' and patient_id = '" + patID + "'";
 	    	rset = stmt.executeQuery(checkSQL);
 	    	if(!rset.next()){
-			JOptionPane.showMessageDialog(null, "The family doctor relationship doesn't exist. Please try again.");
-			response.sendRedirect("/proj1/editfamdoc.jsp");	    
-   		
+				JOptionPane.showMessageDialog(null, "The family doctor "
+	    			+"relationship doesn't exist. Please try again.");
+				try{
+				    conn.close();
+				}catch(Exception ex){
+				    out.println("<hr>" + ex.getMessage() + "<hr>");
+				}
+				response.sendRedirect("/proj1/editfamdoc.jsp");	    
 			}else{
 			    try{
 			        stmt.executeUpdate(deleteSQL);
@@ -145,7 +192,13 @@
 			        out.println("<hr>" + ex.getMessage() + "<hr>");
 		    }
 		
-		    JOptionPane.showMessageDialog(null, "The new family doctor relationship has been removed from database!"); 
+		    JOptionPane.showMessageDialog(null, "The new family doctor "
+		    	+"relationship has been removed from database!"); 
+		    try{
+			    conn.close();
+			}catch(Exception ex){
+			    out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
 			response.sendRedirect("/proj1/editfamdoc.jsp");	      
 	    	}
 	    }
