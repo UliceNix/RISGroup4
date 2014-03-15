@@ -212,10 +212,10 @@
 	if(request.getParameter("ChangeLastName") != null 
 		|| request.getParameter("TryLastName") != null){
 		out.println("<br>");
-       	out.println("<form action=homepage.jsp>");
+		out.println("<form action=homepage.jsp>");
         out.println("New Lastname: <input type=text name=NewLastName"
        		+"  maxlength=24><br>");
- 		out.println("<input type=submit name=SaveLastName value=Save>");
+		out.println("<input type=submit name=SaveLastName value=Save>");
         out.println("</form>");
 	}	
 
