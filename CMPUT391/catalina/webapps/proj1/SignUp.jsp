@@ -11,21 +11,21 @@
    if(request.getParameter("bSignUp") != null){
 
 	    //get the user input from the login page
-     	String userName = (request.getParameter("USERID")).trim();
-     	String passwd = (request.getParameter("PASSWD")).trim();
-     	String firstName = (request.getParameter("FNAME")).trim();
-     	String lastName = (request.getParameter("LNAME")).trim();
-     	String role  = request.getParameter("CLASS");
-     	String email = (request.getParameter("EMAIL")).trim();
+		String userName = (request.getParameter("USERID")).trim();
+		String passwd = (request.getParameter("PASSWD")).trim();
+		String firstName = (request.getParameter("FNAME")).trim();
+		String lastName = (request.getParameter("LNAME")).trim();
+		String role  = request.getParameter("CLASS");
+		String email = (request.getParameter("EMAIL")).trim();
 		String address = (request.getParameter("ADDRESS")).trim();
 		String phone = (request.getParameter("PHONE")).trim();
-   		String pid = (request.getParameter("PID")).trim();
+		String pid = (request.getParameter("PID")).trim();
 
 	    //establish the connection to the underlying database
      	Connection conn = null;
 	
-	    String driverName = "oracle.jdbc.driver.OracleDriver";
-        String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+		String driverName = "oracle.jdbc.driver.OracleDriver";
+		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 	
 	    try{
 	    	//load and register the driver
