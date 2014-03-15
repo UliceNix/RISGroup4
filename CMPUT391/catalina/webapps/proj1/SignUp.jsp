@@ -28,20 +28,20 @@
 	
 		try{
 			//load and register the driver
-	     		Class drvClass = Class.forName(driverName); 
-		    	DriverManager.registerDriver((Driver) drvClass.newInstance());
+			Class drvClass = Class.forName(driverName); 
+		    DriverManager.registerDriver((Driver) drvClass.newInstance());
 		}catch(Exception ex){
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
 		try{
-     			//establish the connection 
-     			conn = DriverManager.getConnection(dbstring,"mingxun",
+     		//establish the connection 
+     		conn = DriverManager.getConnection(dbstring,"mingxun",
 		    		"hellxbox_4801");
-     			conn.setAutoCommit(false);
-     		}catch(Exception ex){
-	        	out.println("<hr>" + ex.getMessage() + "<hr>");
-     		}
+     		conn.setAutoCommit(false);
+     	}catch(Exception ex){
+	       	out.println("<hr>" + ex.getMessage() + "<hr>");
+     	}
 
 		/*select the user table from the underlying db and validate the 
 		 *user name and password
@@ -134,9 +134,9 @@
 		        	out.println("<hr>" + ex.getMessage() + "<hr>");
 		        	try{
 	                		conn.close();
-				}catch(Exception ex){
+					}catch(Exception ex){
 	                		out.println("<hr>" + ex.getMessage() + "<hr>");
-				}
+					}
 	        	}
 	        	
 			try{
