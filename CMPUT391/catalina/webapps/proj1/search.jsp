@@ -372,11 +372,10 @@
 	    	if(rset.next()){
 	    		String pic_id = rset.getString(1);
 				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i) 
-						+ "pic" + pic_id + "\" target=\"_blank\">");
+					+ "pic" + pic_id + "\" target=\"_blank\">");
 				
 				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
-						+ "pic" + pic_id +
-				"\"></a>");
+					+ "pic" + pic_id + "\"></a>");
 	    	}else{
 	    		out.println("N/A");
 	    	}
@@ -385,11 +384,10 @@
 				String pic_id = rset.getString(1);
 				
 				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i) 
-						+ "pic" + pic_id + "\" target=\"_blank\">");
+					+ "pic" + pic_id + "\" target=\"_blank\">");
 				
 				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
-						+ "pic" + pic_id +
-				"\"></a>");
+					+ "pic" + pic_id + "\"></a>");
 				
 	    	}
 			out.println("</a></td>");
