@@ -21,7 +21,7 @@
 		String pid = (request.getParameter("PID")).trim();
 
 		//establish the connection to the underlying database
-     	Connection conn = null;
+		Connection conn = null;
 	
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
@@ -34,12 +34,12 @@
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
-     	try{
+		try{
      		//establish the connection 
-		    conn = DriverManager.getConnection(dbstring,"mingxun",
+     		conn = DriverManager.getConnection(dbstring,"mingxun",
 		    		"hellxbox_4801");
      		conn.setAutoCommit(false);
-	    }catch(Exception ex){
+     	}catch(Exception ex){
 	        out.println("<hr>" + ex.getMessage() + "<hr>");
      	}
 
