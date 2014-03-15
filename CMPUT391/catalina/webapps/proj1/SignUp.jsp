@@ -43,15 +43,15 @@
 	        out.println("<hr>" + ex.getMessage() + "<hr>");
      	}
 
-	    /*select the user table from the underlying db and validate the 
-	     *user name and password
-	     */
-     	Statement stmt = conn.createStatement();
-     	ResultSet rset = null;
-     	String sql = "select user_name from USERS where USER_NAME = '"
-     		+ userName + "'";
-     	String emailCheck = "select email from PERSONS where EMAIL = '"
-     		+ email.toLowerCase() + "'";
+		/*select the user table from the underlying db and validate the 
+		 *user name and password
+		 */
+		Statement stmt = conn.createStatement();
+		ResultSet rset = null;
+		String sql = "select user_name from USERS where USER_NAME = '"
+			+ userName + "'";
+		String emailCheck = "select email from PERSONS where EMAIL = '"
+			+ email.toLowerCase() + "'";
 
    		if(pid == null || pid.isEmpty()){
 			out.println("<p><b>Please indicate if registering a new user" 
