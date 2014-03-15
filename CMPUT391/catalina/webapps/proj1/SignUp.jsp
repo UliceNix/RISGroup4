@@ -29,19 +29,19 @@
 		try{
 			//load and register the driver
 			Class drvClass = Class.forName(driverName); 
-		    DriverManager.registerDriver((Driver) drvClass.newInstance());
+			DriverManager.registerDriver((Driver) drvClass.newInstance());
 		}catch(Exception ex){
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
 		try{
-     		//establish the connection 
-     		conn = DriverManager.getConnection(dbstring,"mingxun",
+			//establish the connection 
+			conn = DriverManager.getConnection(dbstring,"mingxun",
 		    		"hellxbox_4801");
-     		conn.setAutoCommit(false);
-     	}catch(Exception ex){
-	       	out.println("<hr>" + ex.getMessage() + "<hr>");
-     	}
+			conn.setAutoCommit(false);
+		}catch(Exception ex){
+	       		out.println("<hr>" + ex.getMessage() + "<hr>");
+		}
 
 		/*select the user table from the underlying db and validate the 
 		 *user name and password
@@ -107,13 +107,13 @@
 			
 			int personId = 1;
 			if(pid == null || pid.isEmpty()){
-			    ResultSet persons = null;
-			    String sqlGetNextId = "select * from PERSONS";
-			    persons = stmt.executeQuery(sqlGetNextId);
-			    out.println(persons);
-			    while(persons.next()){
+				ResultSet persons = null;
+				String sqlGetNextId = "select * from PERSONS";
+				persons = stmt.executeQuery(sqlGetNextId);	
+				out.println(persons);
+			    	while(persons.next()){
 					personId++;
-			    }
+			    	}
 			}else{
 				personId = Integer.parseInt(JOptionPane.showInputDialog(null, 
 			    		"Please enter the person id: "));
@@ -134,9 +134,9 @@
 		        	out.println("<hr>" + ex.getMessage() + "<hr>");
 		        	try{
 	                		conn.close();
-					}catch(Exception ex){
+				}catch(Exception ex){
 	                		out.println("<hr>" + ex.getMessage() + "<hr>");
-					}
+				}
 	        	}
 	        	
 			try{
