@@ -7,9 +7,10 @@
 
 <BODY>
 
-<%@ page import="java.sql.*,javax.portlet.ActionResponse.*,javax.swing.*,
-org.apache.commons.lang.*" %>
-<% 
+	<%@ page
+		import="java.sql.*,javax.portlet.ActionResponse.*,javax.swing.*,
+org.apache.commons.lang.*"%>
+	<% 
     Connection conn = null;
     String driverName = "oracle.jdbc.driver.OracleDriver";
     String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
@@ -153,7 +154,8 @@ org.apache.commons.lang.*" %>
 	    response.sendRedirect("/proj1/adminhomepage.jsp");	
 		    
 	}
-	out.println("<b>Find out more help information by clicking <a href='help.html#update' target='blank'>Help</a></b><br><br>");
+	out.println("<b>Find out more help information by clicking" 
+		+" <a href='help.html#update' target='blank'>Help</a></b><br><br>");
 	out.println("<form action=updateuser.jsp>");
 	out.println("UserName  : <input type=text name=USERID value=" 
 	    + userName + " maxlength=20 required ><br>");
@@ -166,9 +168,11 @@ org.apache.commons.lang.*" %>
 	out.println("<label for='patient'>Patient</label>");
 	out.println("<input type=radio name=CLASS id=patient value=p required >");
 	out.println("<label for='radiologist'>Radiologist</label>");
-	out.println("<input type=radio name=CLASS id=radiologist value=r required >");
+	out.println("<input type=radio name=CLASS id=radiologist value=r required"
+		+ " >");
 	out.println("<label for='doctor'>Doctor</label>");
-	out.println("<input type=radio name=CLASS id=doctor value=d required ><br>");
+	out.println("<input type=radio name=CLASS id=doctor value=d required >"
+		+ "<br>");
 	out.println("Email     : <input type=text name=EMAIL value='" 
 	    + email + "' maxlength=128><br>");
 	out.println("Address   : <input type=text name=ADDRESS value='"
@@ -217,7 +221,8 @@ org.apache.commons.lang.*" %>
 	    phone = rset.getString("PHONE");
 	}
 
-    out.println("<b>Find out more help information by clicking <a href='help.html#update' target='blank'>Help</a></b><br><br>");
+    out.println("<b>Find out more help information by clicking " 
+    	+ " <a href='help.html#update' target='blank'>Help</a></b><br><br>");
 	out.println("<form action=updateuser.jsp>");
 	out.println("UserName  : <input type=text name=USERID value=" 
 	    + userName + " maxlength=24 required><br>");
@@ -230,13 +235,16 @@ org.apache.commons.lang.*" %>
 	out.println("<label for='patient'>Patient</label>");
 	out.println("<input type=radio name=CLASS id=patient value=p required>");
 	out.println("<label for='radiologist'>Radiologist</label>");
-	out.println("<input type=radio name=CLASS id=radiologist value=r required>");
+	out.println("<input type=radio name=CLASS id=radiologist value=r "
+		+"required>");
 	out.println("<label for='doctor'>Doctor</label>");
-	out.println("<input type=radio name=CLASS id=doctor value=d required><br>");
+	out.println("<input type=radio name=CLASS id=doctor value=d required>"
+		+"<br>");
 	out.println("Email     : <input type=text name=EMAIL value='" 
 	    + email + "' maxlength=128 required><br>");
 	out.println("Address   : <input type=text name=ADDRESS value=\""
-	    + StringEscapeUtils.escapeHtml(address) +"\" maxlength=128 required ><br>");
+	    + StringEscapeUtils.escapeHtml(address) +"\" maxlength=128 required " 
+		+ " ><br>");
 	out.println("Phone     : <input type=text name=PHONE value=" 
 	    + phone + " maxlenght=10 required ><br>");
 	out.println("<input type=submit name=bUpdate value=Save>");
