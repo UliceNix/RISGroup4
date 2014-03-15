@@ -146,11 +146,11 @@
 	if(request.getParameter("ChangeFirstName") != null 
 		|| request.getParameter("TryFirstName") != null){
 		out.println("<br>");
-       	out.println("<form action=homepage.jsp>");
-        out.println("New Firstname: <input type=text name=NewFirstName"
-       		+ "  maxlength=24><br>");
- 		out.println("<input type=submit name=SaveFirstName value=Save>");
-        out.println("</form>");
+		out.println("<form action=homepage.jsp>");
+		out.println("New Firstname: <input type=text name=NewFirstName"
+			+ "  maxlength=24><br>");
+		out.println("<input type=submit name=SaveFirstName value=Save>");
+		out.println("</form>");
 	}	
 
 	if(request.getParameter("SaveFirstName") != null){
@@ -213,10 +213,10 @@
 		|| request.getParameter("TryLastName") != null){
 		out.println("<br>");
 		out.println("<form action=homepage.jsp>");
-        out.println("New Lastname: <input type=text name=NewLastName"
+		out.println("New Lastname: <input type=text name=NewLastName"
        		+"  maxlength=24><br>");
 		out.println("<input type=submit name=SaveLastName value=Save>");
-        out.println("</form>");
+		out.println("</form>");
 	}	
 
 	if(request.getParameter("SaveLastName") != null){
