@@ -38,15 +38,15 @@
 
     out.println("<form action=search.jsp>");
     out.println("<input type=text name=KeyWord align=right required> " 
-		+ "Enter keywords. If entering multiple keywords please use " +
-		"'and' or 'or' as delimeters.<br>");
+		+ "Enter keywords. If entering multiple keywords please use " 
+    	+ "'and' or 'or' as delimeters.<br>");
     out.println("<input type=text name=Start align=right required> " 
 		+ "From (eg.02-FEB-2012)");
     out.println("<input type=text name=End align=right required> " 
 		+ "To (eg.02-FEB-2012)<br>");
-    out.println("<p> Please Select The Order of Your Search Result." +
-    		"(If leaving it blank, the result will be sorted by default" +
-    		" order.)</p>");
+    out.println("<p> Please Select The Order of Your Search Result." 
+		+ "(If leaving it blank, the result will be sorted by default" 
+    	+ " order.)</p>");
     out.println("<label for=NewToOld> Most Recent First</label>");
     out.println("<input type=radio name=Order id=NewToOld value=new>");
     out.println("<label for=OldToNew> Least Recent First</label>");
@@ -77,9 +77,9 @@
 
     Statement stmt = null;
     try{
-    	stmt = conn.createStatement();
+		stmt = conn.createStatement();
     }catch(Exception ex){
-    	out.println("<hr>" + ex.getMessage() + "<hr>");
+		out.println("<hr>" + ex.getMessage() + "<hr>");
     }
     
     ResultSet rset = null;
@@ -98,44 +98,43 @@
     if(request.getParameter("Back") != null){
 
 		if(role.equals("a")){
-		    response.sendRedirect("adminhomepage.jsp");	
+			response.sendRedirect("adminhomepage.jsp");	
 		}else{
 			response.sendRedirect("homepage.jsp");	
 		}
 
     }else if(request.getParameter("Generate") != null){
     	
-    	/* validate the format of date */
-    	String from = (request.getParameter("Start")).trim();
-        String to = (request.getParameter("End")).trim();
+		/* validate the format of date */
+		String from = (request.getParameter("Start")).trim();
+		String to = (request.getParameter("End")).trim();
         
-        SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
-	   	sdformat.setLenient(false);
+		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
+		sdformat.setLenient(false);
 
 	   	try{
-	   	    sdformat.parse(from);
-	   	    sdformat.parse(to);
+			sdformat.parse(from);
+			sdformat.parse(to);
 	   	}catch(Exception ex){
-	   	    JOptionPane.showMessageDialog(null, "Please check the date " +
-	   	    		"format, make sure it's in dd-MMM-yyyy");    	   		
-	   	    response.sendRedirect("search.jsp");
-	   	    return;
+			JOptionPane.showMessageDialog(null, "Please check the date " 
+	   			+ "format, make sure it's in dd-MMM-yyyy");    	   		
+			response.sendRedirect("search.jsp");
+			return;
 	   	}
         
-	   	/* validate the format of keywords */
-        String keyword = (request.getParameter("KeyWord")).trim();
-        keyword = keyword.toLowerCase();
+		/* validate the format of keywords */
+		String keyword = (request.getParameter("KeyWord")).trim();
+		keyword = keyword.toLowerCase();
         
 		int andCheck = keyword.indexOf(" and ");
-        int orCheck = keyword.indexOf(" or ");
+		int orCheck = keyword.indexOf(" or ");
 
-        if(andCheck >= 0 && orCheck >= 0) {
+		if(andCheck >= 0 && orCheck >= 0) {
 
-            JOptionPane.showMessageDialog(null, "Please make sure " +
-            		"you only use 'and' or 'or' to join your key words.");
-            response.sendRedirect("search.jsp");
-            return;
-
+			JOptionPane.showMessageDialog(null, "Please make sure " 
+				+ "you only use 'and' or 'or' to join your key words.");
+			response.sendRedirect("search.jsp");
+			return;
         }
 
 
