@@ -28,26 +28,27 @@
 	
 		try{
 			//load and register the driver
-	     	Class drvClass = Class.forName(driverName); 
-		    DriverManager.registerDriver((Driver) drvClass.newInstance());
+	     		Class drvClass = Class.forName(driverName); 
+		    	DriverManager.registerDriver((Driver) drvClass.newInstance());
 		}catch(Exception ex){
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
 		try{
-     		//establish the connection 
-     		conn = DriverManager.getConnection(dbstring,"mingxun",
+     			//establish the connection 
+     			conn = DriverManager.getConnection(dbstring,"mingxun",
 		    		"hellxbox_4801");
-     		conn.setAutoCommit(false);
-     	}catch(Exception ex){
-	        out.println("<hr>" + ex.getMessage() + "<hr>");
-     	}
+     			conn.setAutoCommit(false);
+     		}catch(Exception ex){
+	        	out.println("<hr>" + ex.getMessage() + "<hr>");
+     		}
 
 		/*select the user table from the underlying db and validate the 
 		 *user name and password
 		 */
 		Statement stmt = conn.createStatement();
 		ResultSet rset = null;
+		
 		String sql = "select user_name from USERS where USER_NAME = '"
 			+ userName + "'";
 		String emailCheck = "select email from PERSONS where EMAIL = '"
@@ -86,7 +87,7 @@
 		}else if(stmt.executeQuery(emailCheck).next()){
 			out.println("<p><b>The email has been registered with other "
 				+ "users.<p><b>");
-        }else if(address == null || address.isEmpty()
+        	}else if(address == null || address.isEmpty()
                 		|| address.length() < 1){
 			out.println("<p><b>Please re-enter the address.<p><b>");
 		}else if(phone == null || phone.isEmpty() || phone.length() != 10
@@ -113,9 +114,9 @@
 			    while(persons.next()){
 					personId++;
 			    }
-            }else{
-            	personId = Integer.parseInt(JOptionPane.showInputDialog(null, 
-			    	"Please enter the person id: "));
+			}else{
+				personId = Integer.parseInt(JOptionPane.showInputDialog(null, 
+			    		"Please enter the person id: "));
 			}
 
 		
@@ -130,14 +131,14 @@
 				insertPersons.executeUpdate();
 				conn.commit();
 			}catch(Exception ex){
-		        out.println("<hr>" + ex.getMessage() + "<hr>");
-		        try{
-	                conn.close();
+		        	out.println("<hr>" + ex.getMessage() + "<hr>");
+		        	try{
+	                		conn.close();
+				}catch(Exception ex){
+	                		out.println("<hr>" + ex.getMessage() + "<hr>");
 				}
-				catch(Exception ex){
-	                out.println("<hr>" + ex.getMessage() + "<hr>");
-				}
-	        }
+	        	}
+	        	
 			try{
 				insertUsers = conn.prepareStatement(sqlUsers);
 				java.util.Date utilDate = new java.util.Date();
@@ -151,27 +152,24 @@
 		    		conn.commit();
 
 			}catch(Exception ex){
-		        out.println("<hr>" + ex.getMessage() + "<hr>");
-		        try{
-	                conn.close();
+		        	out.println("<hr>" + ex.getMessage() + "<hr>");
+		        	try{
+	                		conn.close();
+				}catch(Exception ex){
+	                		out.println("<hr>" + ex.getMessage() + "<hr>");
 				}
-				catch(Exception ex){
-	                out.println("<hr>" + ex.getMessage() + "<hr>");
-				}
-	
 			}
 			
 			try{
-                conn.close();
-			}
-			catch(Exception ex){
-                out.println("<hr>" + ex.getMessage() + "<hr>");
+                		conn.close();
+			}catch(Exception ex){
+                		out.println("<hr>" + ex.getMessage() + "<hr>");
 			}
 			
 			JOptionPane.showMessageDialog(null, "The user has been registered successfully!");
 			response.sendRedirect("/proj1/adminhomepage.jsp");		
 		}
-    }  
+	}  
                                                                                     
 	out.println("<b>Find out more help information by clicking "
 		+ "<a href='help.html#signUp' target='blank'>Help</a></b>"
@@ -208,7 +206,7 @@
 	out.println("</form>");
 	out.println("<form action=adminhomepage.jsp>");
 	out.println("<input type=submit name=Back value='Go Back'><br>");
-    out.println("</form>");										 
+	out.println("</form>");										 
      
         
 %>
