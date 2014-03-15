@@ -153,7 +153,7 @@ org.apache.commons.lang.*" %>
 	    response.sendRedirect("/proj1/adminhomepage.jsp");	
 		    
 	}
-	
+	out.println("<b>Find out more help information by clicking <a href='help.html#update' target='blank'>Help</a></b><br><br>");
 	out.println("<form action=updateuser.jsp>");
 	out.println("UserName  : <input type=text name=USERID value=" 
 	    + userName + " maxlength=20 required ><br>");
@@ -216,12 +216,13 @@ org.apache.commons.lang.*" %>
 	    email = rset.getString("EMAIL");
 	    phone = rset.getString("PHONE");
 	}
-	out.println(address);
+
+    out.println("<b>Find out more help information by clicking <a href='help.html#update' target='blank'>Help</a></b><br><br>");
 	out.println("<form action=updateuser.jsp>");
 	out.println("UserName  : <input type=text name=USERID value=" 
-	    + userName + " maxlength=20 required><br>");
+	    + userName + " maxlength=24 required><br>");
 	out.println("Password  : <input type=password name=PASSWD value" 
-	    + passwd + " maxlength=20 required><br>");
+	    + passwd + " maxlength=24 required><br>");
 	out.println("First Name: <input type=text name=FNAME value='" 
 	    + firstName + "' maxlength=24 required><br>");
 	out.println("Last  Name: <input type=text name=LNAME value='" 

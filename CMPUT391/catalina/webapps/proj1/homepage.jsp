@@ -12,6 +12,7 @@
    out.println("<p><b>Welcome to your homepage " + session.getAttribute("UserName") + "!</b></p>");
    out.println("<p><b>You could change your password and your personal information.</b></p>");
    out.println("<p><b>And you could also enter the search module to search for radiology records.</b></p>");
+   out.println("<b>For more help information, please click on </b><a href='help.html#homepage' target=blank>Help </a><br>");
    out.println("<form action=homepage.jsp>");
    out.println("<input type=submit name=ChangePassword value='Change Password'><br>");
    out.println("</form>");
@@ -94,13 +95,13 @@
    		out.println("<br>");
    		out.println("<p>Your old password is incorrect.</p>");
    		out.println("<form action=homepage.jsp>");
-   		out.println("<input type=submit name=TryPassword value=Try_Again>");
+   		out.println("<input type=submit name=TryPassword value='Try Again'>");
    		out.println("</form>");
    	}else if (!newPassword.matches("\\w.*")){
    		out.println("<br>");
    		out.println("<p>Your new password contains illegal characters.</p>");
    		out.println("<form action=homepage.jsp>");
-   		out.println("<input type=submit name=TryPassword value=Try_Again>");
+   		out.println("<input type=submit name=TryPassword value='Try Again'>");
    		out.println("</form>");		    	  
    	}else if(oldPassword.equals(truepwd)){
   		 sql = "update USERS set password='"+newPassword
@@ -160,7 +161,7 @@
 			out.println("<br>");
    			out.println("<p>Your new first name contains illegal characters.</p>");
    			out.println("<form action=homepage.jsp>");
-   			out.println("<input type=submit name=TryFirstName value=Try_Again>");
+   			out.println("<input type=submit name=TryFirstName value='Try Again'>");
    			out.println("</form>");		
 		}else{
 			sql = "update PERSONS set FIRST_NAME='"+newFirstname
@@ -223,7 +224,7 @@
 			out.println("<br>");
    			out.println("<p>Your new last name contains illegal characters.</p>");
    			out.println("<form action=homepage.jsp>");
-   			out.println("<input type=submit name=TryLastName value=Try_Again>");
+   			out.println("<input type=submit name=TryLastName value='Try Again'>");
    			out.println("</form>");		
 		}else{
 			sql = "update PERSONS set LAST_NAME='"+newLastname
@@ -261,7 +262,7 @@
 			out.println("<br>");
    			out.println("<p>Your new address is empty.</p>");
    			out.println("<form action=homepage.jsp>");
-   			out.println("<input type=submit name=TryAddress value=Try_Again>");
+   			out.println("<input type=submit name=TryAddress value='Try Again'>");
    			out.println("</form>");		
 		}else{
 			Connection conn = null;
@@ -320,7 +321,7 @@
 			out.println("<br>");
    			out.println("<p>You phone number is not a valid phone number.</p>");
    			out.println("<form action=homepage.jsp>");
-   			out.println("<input type=submit name=TryPhoneNumber value=Try_Again>");
+   			out.println("<input type=submit name=TryPhoneNumber value='Try Again'>");
    			out.println("</form>");	
 		}else{
 			Connection conn = null;

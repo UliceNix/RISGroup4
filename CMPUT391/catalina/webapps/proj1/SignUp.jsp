@@ -7,8 +7,9 @@
 
 <BODY>
 
-<%@ page import="java.sql.*,javax.portlet.ActionResponse.*,javax.swing.*" %>
-<% 
+				<%@ page
+								import="java.sql.*,javax.portlet.ActionResponse.*,javax.swing.*"%>
+				<% 
    if(request.getParameter("bSignUp") != null){
 
 	        //get the user input from the login page
@@ -148,8 +149,9 @@
 				
 		}
 		
-     }
-										   
+     }  
+                                                                                    
+		out.println("<b>Find out more help information by clicking <a href='help.html#signUp' target='blank'>Help</a></b><br><br>");								   
 		out.println("<form action=SignUp.jsp>");
 		out.println("<p><b>Sign Up a New Account for: </b><p>");
 		out.println("<label for='existing user'>Existing User</label>");

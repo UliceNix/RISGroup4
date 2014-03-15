@@ -12,9 +12,8 @@
 	out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=Back value='Go Back'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-		+ "--------------------------------------------------------------"
-		+ "----------------------------------<br><br>");
+   out.println("<b>Find out more help information by clicking <a href='help.html#editFamDoctor' target='blank'>Help</a></b><br><br>");
+    out.println("<hr>");
     out.println("<form action=editfamdoc.jsp>");
     out.println("Enter the doctor's person id: <input type=text "
 		+ "name=Doctor required><br>");
@@ -23,9 +22,7 @@
     out.println("<input type=submit name=AddFamDoc value='Add Relationship'>");
     out.println("<input type=submit name=DropFamDoc value='Drop Relationship'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-		+ "--------------------------------------------------------------"
-		+ "----------------------------------<br><br>");
+    out.println("<hr>");
     
     Connection conn = null;
     String driverName = "oracle.jdbc.driver.OracleDriver";

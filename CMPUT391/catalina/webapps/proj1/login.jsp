@@ -51,9 +51,7 @@
         	try{
 	        	stmt = conn.createStatement();
 		        rset = stmt.executeQuery(sql);
-        	}
-	
-	        catch(Exception ex){
+        	}catch(Exception ex){
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
 
@@ -67,18 +65,19 @@
                 
 	        if(passwd.equals(truepwd) && passwd != null && !passwd.isEmpty()){
 		        session.setAttribute("UserName", userName);
-			sql = "select CLASS from USERS where USER_NAME = '"+userName+"'";
+				sql = "select CLASS from USERS where USER_NAME = '"+userName+"'";
 			try{
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(sql);			
 			}catch(Exception ex){
 				out.println("<hr>" + ex.getMessage() + "<hr>");			
 			}
+			
 			String role = "";
 			while(rset.next()){
 				role = (rset.getString(1)).trim();
 			}
-			out.println(role);
+		
 			sql = "select person_id from users where USER_NAME = '"+userName+"'";
 			try{
 				stmt = conn.createStatement();
@@ -118,6 +117,10 @@
                 out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
                 out.println("<input type=submit name=bLogin value=LogIn>");
                 out.println("</form>");
+                out.println("<form action=help.html#logIn>");
+                out.println("<input type=submit value=Help>");
+                out.println("</form>");   
+   
         }      
 %>
 

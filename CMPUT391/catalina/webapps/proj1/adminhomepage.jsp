@@ -15,32 +15,25 @@
 	+ "exisiting user or register a new user).</b></p>");
     out.println("<p><b>Search for radiologist records.</b></p>");
     out.println("<p><b>Generate the report of all patients..</b></p>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br><br>");
+   out.println("<b>Find out more help information by clicking <a href='help.html#adminHomepage' target='blank'>Help</a></b><br><br>");
+    out.println("<hr>");
     out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=NewUser value='Register a New "
 	+ "User'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br><br>");
+    out.println("<hr>");
     out.println("<form action=adminhomepage.jsp>");
     out.println("<p>Enter the user's person_id</p><input type=text "
 	+ "name=PersonId required><br>");
     out.println("<input type=submit name=UpdateUser value='Update a"
 	+ " User'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br><br>");
+    out.println("<hr>");
     out.println("<form action=editfamdoc.jsp>");
     out.println("<input type=submit name=EditFamDoc value='Update Family"
 	+ " Doctor Information'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br><br>");
+    out.println("<hr>");
     out.println("<form action=search.jsp>");
     out.println("<input type=submit name=Search value='Use Search Engine'>");
     out.println("</form>");
@@ -50,9 +43,7 @@
     out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=DataAnalysis value='OLAP Report Generator'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br><br>");
+    out.println("<hr>");
     out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=LogOut value='Log Out'><br>");
     out.println("</form>");

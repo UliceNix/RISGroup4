@@ -12,9 +12,8 @@
     out.println("<form action=adminhomepage.jsp method = post>");
     out.println("<input type=submit name=Back value='Go Back'><br>");
     out.println("</form>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br><br>");
+    out.println("<b>Find out more help information by clicking <a href='help.html#report' target='blank'>Help</a></b><br><br>"); 
+    out.println("<hr>");
     out.println("<form action=report.jsp>");
     out.println("<input type=text name=ReportKeyWord align=right required> " 
 	+ "Enter a specific diagnosis.<br>");
@@ -23,9 +22,7 @@
     out.println("<input type=date name=ReportEnd align=right required> " 
 	+ "To (eg.02-FEB-2012)<br>");
     out.println("<input type=submit name=Generate value='Go'><br>");
-    out.println("------------------------------------------------------"
-	+ "--------------------------------------------------------------"
-	+ "----------------------------------<br>");
+    out.println("<hr>");
     out.println("</form>");
 
     if(request.getParameter("Generate") != null){
