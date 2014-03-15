@@ -171,7 +171,7 @@
 			JOptionPane.showMessageDialog(null, "The user has been registered successfully!");
 			response.sendRedirect("/proj1/adminhomepage.jsp");		
 		}
-     }  
+    }  
                                                                                     
 	out.println("<b>Find out more help information by clicking "
 		+ "<a href='help.html#signUp' target='blank'>Help</a></b>"
