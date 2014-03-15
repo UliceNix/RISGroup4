@@ -19,22 +19,20 @@
 		java.awt.image.*, 
 		oracle.sql.*, oracle.jdbc.*"%>
 <% 
-    
-    
-    out.println("<form action=homepage.jsp>");
-    out.println("<input type=submit name=Back value='Go Back'><br>");
-    out.println("</form>");
-    out.println("<b>Find out more help information by clicking <a href='help.html#record' target='blank'>Help</a></b><br><br>");
-    Connection conn = null;
-    String driverName = "oracle.jdbc.driver.OracleDriver";
-    String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+	out.println("<form action=homepage.jsp>");
+	out.println("<input type=submit name=Back value='Go Back'><br>");
+	out.println("</form>");
+	out.println("<b>Find out more help information by clicking <a href='help.html#record' target='blank'>Help</a></b><br><br>");
+	Connection conn = null;
+	String driverName = "oracle.jdbc.driver.OracleDriver";
+	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
    
-    try {
+	try {
  		Class drvClass = Class.forName(driverName); 
 		DriverManager.registerDriver((Driver) drvClass.newInstance());
-    }catch(Exception ex){
-        out.println("<hr>" + ex.getMessage() + "<hr>");
-    }
+	}catch(Exception ex){
+		out.println("<hr>" + ex.getMessage() + "<hr>");
+	}
     
     try {
    		conn = DriverManager.getConnection(dbstring,"mingxun",
