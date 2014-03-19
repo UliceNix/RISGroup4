@@ -37,7 +37,7 @@
 		try{
 			//establish the connection 
 			conn = DriverManager.getConnection(dbstring,"mingxun",
-		    		"hellxbox_4801");
+				"hellxbox_4801");
 			conn.setAutoCommit(false);
 		}catch(Exception ex){
 	       		out.println("<hr>" + ex.getMessage() + "<hr>");
@@ -75,7 +75,7 @@
 			out.println("<p><b>The last name can only contain alphabets." 
 				+ "</b></p>");
 		}else if("prd".indexOf(role) < 0 || role.length() != 1 
-				|| role == null || role.isEmpty()){
+			|| role == null || role.isEmpty()){
 			out.println("<p><b>Invalid role. Please specify your " 
 				+ "identity by a signle character.<p><b>" 
 				+ "<p><b>You are: a doctor(d), a radiologist(r), " 
@@ -87,8 +87,8 @@
 		}else if(stmt.executeQuery(emailCheck).next()){
 			out.println("<p><b>The email has been registered with other "
 				+ "users.<p><b>");
-        	}else if(address == null || address.isEmpty()
-                		|| address.length() < 1){
+        }else if(address == null || address.isEmpty()
+                || address.length() < 1){
 			out.println("<p><b>Please re-enter the address.<p><b>");
 		}else if(phone == null || phone.isEmpty() || phone.length() != 10
 				|| !phone.matches("[0-9]+")){
@@ -111,12 +111,12 @@
 				String sqlGetNextId = "select * from PERSONS";
 				persons = stmt.executeQuery(sqlGetNextId);	
 				out.println(persons);
-			    	while(persons.next()){
+			    while(persons.next()){
 					personId++;
-			    	}
+			    }
 			}else{
 				personId = Integer.parseInt(JOptionPane.showInputDialog(null, 
-			    		"Please enter the person id: "));
+			    	"Please enter the person id: "));
 			}
 
 		
@@ -131,13 +131,13 @@
 				insertPersons.executeUpdate();
 				conn.commit();
 			}catch(Exception ex){
-		        	out.println("<hr>" + ex.getMessage() + "<hr>");
-		        	try{
-	                		conn.close();
+		        out.println("<hr>" + ex.getMessage() + "<hr>");
+		        try{
+	                	conn.close();
 				}catch(Exception ex){
-	                		out.println("<hr>" + ex.getMessage() + "<hr>");
+	                	out.println("<hr>" + ex.getMessage() + "<hr>");
 				}
-	        	}
+	        }
 	        	
 			try{
 				insertUsers = conn.prepareStatement(sqlUsers);
@@ -147,23 +147,22 @@
 				insertUsers.setString(2, passwd);
 				insertUsers.setString(3, role);
 				insertUsers.setInt(4, personId);
-		    		insertUsers.setDate(5, sqlDate);
+		    	insertUsers.setDate(5, sqlDate);
 				insertUsers.executeUpdate();
-		    		conn.commit();
-
+		    	conn.commit();
 			}catch(Exception ex){
-		        	out.println("<hr>" + ex.getMessage() + "<hr>");
-		        	try{
-	                		conn.close();
+		        out.println("<hr>" + ex.getMessage() + "<hr>");
+		        try{
+		        	conn.close();
 				}catch(Exception ex){
-	                		out.println("<hr>" + ex.getMessage() + "<hr>");
+					out.println("<hr>" + ex.getMessage() + "<hr>");
 				}
 			}
 			
 			try{
-                		conn.close();
+                conn.close();
 			}catch(Exception ex){
-                		out.println("<hr>" + ex.getMessage() + "<hr>");
+                out.println("<hr>" + ex.getMessage() + "<hr>");
 			}
 			
 			JOptionPane.showMessageDialog(null, "The user has been registered successfully!");
@@ -207,8 +206,7 @@
 	out.println("<form action=adminhomepage.jsp>");
 	out.println("<input type=submit name=Back value='Go Back'><br>");
 	out.println("</form>");										 
-     
-        
+      
 %>
 
 
