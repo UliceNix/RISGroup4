@@ -10,12 +10,12 @@
    java.util.*,
    java.text.*" %>
 <%
-        Integer person_id = (Integer) session.getAttribtue("Person_Id");
-        String role = (String) session.getAttribute("PermissionLevel");
-        
-        if(person_id == null || !role.equals("a")){
-                     response.sendRedirect("login.jsp");
-        }
+	Integer person_id = (Integer) session.getAttribtue("Person_Id");
+	String role = (String) session.getAttribute("PermissionLevel");
+	
+	if(person_id == null || !role.equals("a")){
+		response.sendRedirect("login.jsp");
+	}
 
 %>
 </BODY>
