@@ -9,13 +9,14 @@
 
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*" %>
 <% 
-    out.println("<p><b>Welcome to Administrator's Homepage, " 
-	+ session.getAttribute("UserName") + "!</b></p>");
-    out.println("<p><b>Manage the user's information (update an " 
-	+ "exisiting user or register a new user).</b></p>");
-    out.println("<p><b>Search for radiologist records.</b></p>");
-    out.println("<p><b>Generate the report of all patients..</b></p>");
-   out.println("<b>Find out more help information by clicking <a href='help.html#adminHomepage' target='blank'>Help</a></b><br><br>");
+	out.println("<p><b>Welcome to Administrator's Homepage, "
+		+ session.getAttribute("UserName") + "!</b></p>");
+	out.println("<p><b>Manage the user's information (update an " 
+		+ "exisiting user or register a new user).</b></p>");
+	out.println("<p><b>Search for radiologist records.</b></p>");
+	out.println("<p><b>Generate the report of all patients..</b></p>");
+	out.println("<b>Find out more help information by clicking <a "
+		+"href='help.html#adminHomepage' target='blank'>Help</a></b><br><br>");
     out.println("<hr>");
     out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=NewUser value='Register a New "
