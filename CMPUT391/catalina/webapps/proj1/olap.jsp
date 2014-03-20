@@ -55,7 +55,9 @@
 			+" value=year required><br>");
 	out.println("<input type=submit name=generate value='Go'><br>");
 	
-	
+
+	}
+
 %>
 </BODY>
 </HTML>
