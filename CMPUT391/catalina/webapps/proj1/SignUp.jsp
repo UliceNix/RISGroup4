@@ -194,8 +194,10 @@
 		+ "required>");
 	out.println("<label for='doctor'>Doctor</label>");
 	out.println("<input type=radio name=CLASS id=doctor value=d"
+	out.println("<label for='admin'>Admin</label>");
+	out.println("<input type=radio name=CLASS id=admin value=a"
 		+ " required><br>");
-	out.println("Email     : <input type=email name=EMAIL maxlength=128"
+	out.println("Email     : <input type=text name=EMAIL maxlength=128"
 		+ " required><br>");
 	out.println("Address   : <input type=text name=ADDRESS maxlength=128"
 		+ " required><br>");
