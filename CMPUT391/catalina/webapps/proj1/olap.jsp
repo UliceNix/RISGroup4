@@ -59,9 +59,7 @@
 	out.println("<b>year</b>: <input type=radio name=timestamp "
 		+" id=year value=year required><br>");
 	out.println("<input type=submit name=generate value='Go'><br>");
-	
 
-	}
 
 %>
 </BODY>
