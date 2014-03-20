@@ -99,8 +99,8 @@
 			+" id=type value=type><br>");
 	out.println("</a></td>");
 	out.println("<td><p>Or you would like to specify a test type</p>");
-	out.println("<select name=selectTypes>");
-	out.println("<option value='empty'>----</option>");
+	out.println("<select name=selectTypes style='width: 400px'>")
+	out.println("<option value='empty'>N/A</option>");
 	for(int i = 0; i < types.size(); i++){
 		out.println("<option value=\""+ types.get(i)+"\">" 
 			+ types.get(i) + "</option>");
@@ -121,12 +121,6 @@
 		names.add(rset.getString(2));
 	}
 	
-	try{
-		conn.close();
-	}catch(Exception ex){
-		out.println("<hr>Error" + ex.getMessage() + "<hr>");
-	}
-	
 	out.println("<tr><td>");	
 	out.println("<p>for each:</p>");
 	out.println("<label for='patient'></label>");
@@ -136,8 +130,8 @@
 	
 	out.println("<td>");
 	out.println("<p>Or you would like to specify a patient id</p>");
-	out.println("<select name=selectPatientId>");
-	out.println("<option value='empty'>----</option>");
+	out.println("<select name=selectPatientId style='width: 400px'>");
+	out.println("<option value='empty'>N/A</option>");
 	for(int i = 0; i < ids.size(); i++){
 		out.println("<option value=\"" + ids.get(i) + "\">" + ids.get(i) 
 			+ ": " + names.get(i) + "</option>");
@@ -163,16 +157,16 @@
 	out.println("<td><p>Or you would like to specify a date/week/month/year"
 		+ "</p>");
 	out.println("<p> Specify the result by week, month, year. </p>");
-	out.println("Week number: <select name=selectWeek>");
-	out.println("<option value='empty'>--</option>");
+	out.println("Week&nbsp: <select name=selectWeek style='width: 150px'>");
+	out.println("<option value='empty'>N/A</option>");
 	for(int i = 1; i < 54; i++){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select>");
 	
 	out.println("<br>");
-	out.println("Month      : <select name=selectMonth>");
-	out.println("<option value='empty'>---</option>");
+	out.println("Month: <select name=selectMonth style='width: 150px'>");
+	out.println("<option value='empty'>N/A</option>");
 	out.println("<option value='JAN'>January</option>");
 	out.println("<option value='FEB'>February</option>");
 	out.println("<option value='MAR'>March</option>");
@@ -187,21 +181,31 @@
 	out.println("<option value='DEC'>December</option>");
 	out.println("</select><br>");
 	
-	out.println("Year       : <select name=selectYear>");
-	out.println("<option value='empty'>----</option>");
+	out.println("Year&nbsp&nbsp: <select name=selectYear style='width: 150px'>");
+	out.println("<option value='empty'>N/A</option>");
 	for(int i = 1900; i < 2015; i++){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select><br><hr>");
 	
-	out.println("<p> Specify the result date. </p>");
-	out.println("Date: <input type=text name=date maxlength=11>(Eg. JUN-01-2013)<br>");
-	
-	
+	out.println("<p> Or specify the result by exact date. </p>");
+	out.println("Date: <input type=text name=date maxlength=11>(Eg. JUN-01-2013)<br>");	
 	out.println("</a></td>");
-	
 	out.println("</table>");
 	out.println("<input type=submit name=generate value='Go'><br>");
+	out.println("<hr>");
+	
+	
+	if(request.getParameter("generate") != null){
+		
+		
+	}
+	
+	try{
+		conn.close();
+	}catch(Exception ex){
+		out.println("<hr>Error" + ex.getMessage() + "<hr>");
+	}
 
 
 %>
