@@ -485,6 +485,7 @@
 			String selectYear = request.getParameter("selectYear");
 			String selectDate = request.getParameter("date");
 			out.println(selectWeek + selectMonth + selectYear + selectDate);
+		
 			
 			if(selectDate != null && !selectDate.isEmpty()){
 				
@@ -538,6 +539,45 @@
 					groupby += ", ";
 				}
 				groupby += " to_char(test_date, '" + format + "')";
+			}else if(selectMonth != null && !selectMonth.equals("NA")){
+				String foramt = "";
+				String targetDate = "";
+				
+				if(selectYear != null && !selectYear.equals("NA")){
+					format = "YYYY-MON";
+					targetDate = selectYear + "-" + selectMonth;
+				}else{
+					format = "MON";
+					targetDate = selectMonth;
+				}
+				
+				select += ", to_char(test_date, '" + format + "') as test_date";
+				selectElements.add("test_date");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += " to_char(test_date, '" + format +"')='" + targetDate + "'";
+				
+				if(selectElements.size() > 1){
+					groupby += ", ";
+				}
+				groupby += " to_char(test_date, '" + format + "')";
+				
+			}else if(selectYear != null && !selectYear.equals("NA")){
+				select += ", to_char(test_date, 'YYYY') as test_date";
+				selectElements.add("test_date");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "to_char(test_date, 'YYYY')='" + selectYear + "'";
+				if(selectElements.size() > 1){
+					groupby += ", ";
+				}
+				groupby += " to_char(test_date, 'YYYY');
 			}
 			
 			
