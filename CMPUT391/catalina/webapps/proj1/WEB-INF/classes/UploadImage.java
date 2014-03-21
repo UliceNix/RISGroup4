@@ -141,7 +141,7 @@ public class UploadImage extends HttpServlet {
 /*
  * First, to generate a unique pic_id using an SQL sequence
  */
-                    ResultSet rset1 = stmt.executeQuery("SELECT count(*) from pacs_images");
+                    ResultSet rset1 = stmt.executeQuery("SELECT max(image_id) from pacs_images");
                     rset1.next();
                     int pic_id = rset1.getInt(1) + 1;
                     out.println("<p> in while "+ pic_id + "</p>");

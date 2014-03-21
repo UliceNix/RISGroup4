@@ -108,12 +108,11 @@
 			int personId = 1;
 			if(pid == null || pid.isEmpty()){
 				ResultSet persons = null;
-				String sqlGetNextId = "select * from PERSONS";
+				String sqlGetNextId = "select max(person_id) from PERSONS";
 				persons = stmt.executeQuery(sqlGetNextId);	
 				out.println(persons);
-			    while(persons.next()){
-					personId++;
-			    }
+			    persons.next();
+				personId = persons.getInt(1) + 1;
 			}else{
 				personId = Integer.parseInt(JOptionPane.showInputDialog(null, 
 			    	"Please enter the person id: "));

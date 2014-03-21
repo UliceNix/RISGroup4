@@ -54,7 +54,7 @@
     ResultSet rset = null;
     String sql = "";
 
-    sql = "SELECT COUNT(*) AS NEXT_RID FROM RADIOLOGY_RECORD";
+    sql = "SELECT MAX(RECORD_ID) AS NEXT_RID FROM RADIOLOGY_RECORD";
     rset = stmt.executeQuery(sql);
     int rid = 0;
     
