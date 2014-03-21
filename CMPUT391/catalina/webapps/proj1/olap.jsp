@@ -594,15 +594,52 @@
 					where += " and ";
 				}
 				
-				where += "to_char(test_date, 'YYYY-MON')='" 
+				where += "to_char(test_date, 'MON')='" 
 					+ selectDate.trim() + "' ";
 				
 				if(selectElements.size() > 1){
 					groupby += ",";
 				}
 				
-				groupby += "to_char(test_date, 'YYYY-MON');	
+				groupby += "to_char(test_date, 'MON');	
+			}else if(!selectWeek.equals("NA") && selectYear.equals("NA")){
+				
+				select += ", to_char(test_date, 'WW') as test_week '";
+				selectElements.add("test_week");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "to_char(test_date, 'WW')='" 
+					+ selectDate.trim() + "' ";
+				
+				if(selectElements.size() > 1){
+					groupby += ",";
+				}
+				
+				groupby += "to_char(test_date, 'WW');	
+			}else if(selectWeek.equals("NA") 
+					&& selectMonth.equals("NA") && !selectYear.equals("NA")){
+				select += ", to_char(test_date, 'YYYY') as test_year '";
+				selectElements.add("test_year");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "to_char(test_date, 'YYYY')='" 
+					+ selectDate.trim() + "' ";
+				
+				if(selectElements.size() > 1){
+					groupby += ",";
+				}
+				
+				groupby += "to_char(test_date, 'YYYY');
 			}
+				
+		}else if (timestamp.equlas("period")){
+			
 		}
 		
 		
