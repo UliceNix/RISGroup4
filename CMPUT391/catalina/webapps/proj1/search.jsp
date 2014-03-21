@@ -58,7 +58,28 @@
 	* before executing any search queries. We need to build a 
 	* materialized view and related indecies
 	*/
-
+	ArrayList<String> preparework = new ArrayList<String>();
+	
+	preparework.add("drop table rp_join");
+	preparework.add("create table rp_join"
+		+ "as"
+		+ "select r.*, CONCAT(CONCAT(p.first_name, ''), p.last_name) as patient_name"
+		+ "from radiology_record r left join persons p on patient_id = person_id"
+		+ "order by record_id asc");
+	preparework.add("drop index index_des");
+	preparework.add("drop index index_dia");
+	preparework.add("drop index index_name");
+	
+	preparework.add("create index index_des on rp_join "
+		+"(description) INDEXTYPE IS ctxsys.context");
+	preparework.add("create index index_dia on rp_join "
+		+"(diagnosis) INDEXTYPE IS ctxsys.context");
+	preparework.add("create index index_name on rp_join"
+		+" (patient_name) INDEXTYPE IS ctxsys.context");
+	
+	Connection conn = null;	
+	String driverName = "oracle.jdbc.driver.OracleDriver";
+	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 
 	try {
 		Class drvClass = Class.forName(driverName); 
@@ -76,6 +97,7 @@
 	}
 
 	Statement stmt = null;
+	
 	try{
 		stmt = conn.createStatement();
 	}catch(Exception ex){
@@ -92,9 +114,7 @@
 		}
     	
 	}
-	
-    
-    
+  
 	if(request.getParameter("Back") != null){
 
 		if(role.equals("a")){
