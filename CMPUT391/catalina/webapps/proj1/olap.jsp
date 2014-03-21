@@ -16,6 +16,84 @@
 		document.getElementById('none').onchange = disablefield;
 		document.getElementById('period').onchange = disablefield;
 		document.getElementById('exact').onchange = disablefield;	
+		
+		document.getElementById('fweek').onchange = function(){
+			if(this.value != 'NA'){
+				document.getElementById('fmonth').value = 'NA';
+				document.getElementById('tmonth').value = 'NA';
+				document.getElementById('fdate').value = null;
+				document.getElementById('tdate').value = null;
+				document.getElementById('fmonth').disabled = true;
+				document.getElementById('tmonth').disabled = true;
+				document.getElementById('fdate').disabled = true;
+				document.getElementById('tdate').disabled = true;
+			}else{
+				document.getElementById('fweek').value = 'NA';
+				document.getElementById('fmonth').disabled = false;
+				document.getElementById('tmonth').disabled = false;
+				document.getElementById('fdate').disabled = false;
+				document.getElementById('tdate').disabled = false;				
+			}
+		};
+		
+		document.getElementById('tweek').onchange = function(){
+			if(this.value != 'NA'){
+				document.getElementById('fmonth').value = 'NA';
+				document.getElementById('tmonth').value = 'NA';
+				document.getElementById('fdate').value = null;
+				document.getElementById('tdate').value = null;
+				document.getElementById('fmonth').disabled = true;
+				document.getElementById('tmonth').disabled = true;
+				document.getElementById('fdate').disabled = true;
+				document.getElementById('tdate').disabled = true;
+			}else{
+				document.getElementById('tweek').value = 'NA';
+				document.getElementById('fmonth').disabled = false;
+				document.getElementById('tmonth').disabled = false;
+				document.getElementById('fdate').disabled = false;
+				document.getElementById('tdate').disabled = false;				
+			}
+		};
+		
+		document.getElementById('fmonth').onchange = function(){
+			if(this.value != 'NA'){
+				document.getElementById('fweek').value = 'NA';
+				document.getElementById('tweek').value = 'NA';
+				document.getElementById('fdate').value = null;
+				document.getElementById('tdate').value = null;
+				document.getElementById('fweek').disabled = true;
+				document.getElementById('tweek').disabled = true;
+				document.getElementById('fdate').disabled = true;
+				document.getElementById('tdate').disabled = true;
+			}else{
+				document.getElementById('fmonth').value = 'NA';
+				document.getElementById('fweek').disabled = false;
+				document.getElementById('tweek').disabled = false;
+				document.getElementById('fdate').disabled = false;
+				document.getElementById('tdate').disabled = false;				
+			}
+		};
+		
+		document.getElementById('tmonth').onchange = function(){
+			if(this.value != 'NA'){
+				document.getElementById('fweek').value = 'NA';
+				document.getElementById('tweek').value = 'NA';
+				document.getElementById('fdate').value = null;
+				document.getElementById('tdate').value = null;
+				document.getElementById('fweek').disabled = true;
+				document.getElementById('tweek').disabled = true;
+				document.getElementById('fdate').disabled = true;
+				document.getElementById('tdate').disabled = true;
+			}else{
+				document.getElementById('tmonth').value = 'NA'
+				document.getElementById('fweek').disabled = false;
+				document.getElementById('tweek').disabled = false;
+				document.getElementById('fdate').disabled = false;
+				document.getElementById('tdate').disabled = false;				
+			}
+		};
+		
+		
 	}
 
 	
@@ -528,15 +606,23 @@
 				||(!selectWeek.equals("NA") && selectDate != null)
 				||(!selectMonth.equals("NA") && selectDate != null)
 				||(!selectYear.equals("NA") && selectDate != null)){
-				JOptionPane.showMessageDialog(null, "Error 0: invalid "
-					+"date! Please refer to help menu for error information.");
+				try{
+					JOptionPane.showMessageDialog(null, "Error 0: invalid "
+						+"date! Please refer to help menu for error information.");
+				}catch(Exception ex){
+					out.printnln("no display error");
+				}
 				request.sendRedirect("olap.jsp");
 			}else if(!selectDate.isEmpty() && selectDate != null){
 				
 				if(!ValidateDate(selectDate.trim())){
-					JOptionPane.showMessageDialog(null, "Error 1: invalid "
-						+ "date format! Please make sure date is in "
-						+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+					try{
+						JOptionPane.showMessageDialog(null, "Error 1: invalid "
+							+ "date format! Please make sure date is in "
+							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+					}catch(Exception ex){
+						out.println("error on display or others");
+					}
 					request.sendRedirect("olap.jsp");
 				}
 				select += ", test_date";
@@ -635,11 +721,11 @@
 					groupby += ",";
 				}
 				
-				groupby += "to_char(test_date, 'YYYY');
+				groupby += "to_char(test_date, 'YYYY')";
 			}
 				
 		}else if (timestamp.equlas("period")){
-			
+			if(fromDate == null || fromDate.isEmpty() || )
 		}
 		
 		
