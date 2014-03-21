@@ -219,26 +219,30 @@
 	
 	out.println("<tr><td>");
 	out.println("<p>for test date in each:</p>");
+	
 	out.println("<b>day</b>: <input type=radio name=timestamp "
-		+" id=day value=date><br>");
+		+" id=day value=date required><br>");
 	out.println("<label for='week'></label>");
+			
 	out.println("<b>week</b>: <input type=radio name=timestamp "
-		+" id=week value=week><br>");
+		+" id=week value=week required><br>");
 	out.println("<label for='month'></label>");
+			
 	out.println("<b>month</b>: <input type=radio name=timestamp "
-		+" id=month value=month><br>");
+		+" id=month value=month required><br>");
 	out.println("<label for='year'></label>");
+			
 	out.println("<b>year</b>: <input type=radio name=timestamp "
-		+" id=year value=year><br>");
+		+" id=year value=year required><br>");
 
 	out.println("<b>a time period</b>: <input type=radio name=timestamp"
-		+ " id=period value=period ><br>");
+		+ " id=period value=period required><br>");
 
 	out.println("<b>exact time</b>: <input type=radio name=timestamp"
-		+ " id=exact value=exact><br>");
+		+ " id=exact value=exact required><br>");
 
 	out.println("<b>none of above</b>: <input type=radio name=timestamp"
-		+ " id=none value=none><br>");
+		+ " id=none value=none required><br>");
 	
 	out.println("</a></td>");
 	out.println("<td><p>Or you would like to specify a date/week/month/year"
@@ -363,6 +367,7 @@
 		 * images or records.
 		 */
 		String target = (request.getParameter("target")).trim();
+		String timestamp = (request.getParameter("timestamp")).trim();
 		
 		/*
 		 * Since type and other choices are optional, the strings may be null.
@@ -374,19 +379,232 @@
 		String people = request.getParameter("people");
 		String selectPeople = request.getParameter("selectPatientId");
 		
-		String timestamp = request.getParameter("timestamp");
+		String toWeek = request.getParameter("toWeek");
+		String fromWeek = request.getParameter("fromWeek");
 		
-		String selectWeek = request.getParameter("selectWeek");
-		String selectMonth = request.getParameter("selectMonth");
-		String selectYear = request.getParameter("selectYear");
-		String selectDate = request.getParameter("date");
+		String fromMonth = request.getParameter("fromMonth");
+		String toMonth = request.getParameter("toMonth");
 		
-		String select = "";
-		String where = "";
-		String groupby = "";
-		String having = "";
+		String fromYear = request.getParameter("fyear");
+		String toYear = request.getParameter("tyear");
+		
+		String fromDate = request.getParameter();
+		
+		String select = "select ";
+		String from = " from fact_comb"
+		String where = " where ";
+		String groupby = " group by ";
 		
 		ArrayList<String> selectElements = new ArrayList<String>();
+		
+		if(target.equals("record")){
+			select += "count(distinct(record_id)) ";
+		}else{
+			select += "count(distinct(image_id)) ";
+		}
+		
+		/* when checkbox is checked to see number of records
+		 * for each patient.
+		 */
+		if(people != null && !people.isEmpty()){
+			
+			select += ", patient_id ";
+			selectElements.add("patient_id");
+			where += "patient_id is not null ";
+			groupby += "patient_id";
+		}else if(people == null && selectPeople != null 
+				&& !selectPeople.equals("NA")){
+			
+			/* else if a specific person is selected*/
+			select += ", patient_id ";
+			selectElements.add("patient_id");
+			where += "patient_id='" + selectPeople.trim() + "' ";	
+			groupby += "patient_id";
+		}
+		
+		if(type != null && !type.isEmpty()){
+			
+			select += ", test_type ";
+			selectElements.add("test_type");
+					
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += "test_type is not null";
+			
+			if(selectElements.size() > 1){
+				groupby += ",";
+			}
+			groupby += "test_type";
+		}else if(type == null && selectType != null
+				&& !selectType.equals("NA")){
+			
+			select += ", test_type";
+			selectElements.add("test_type");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += "test_type='" + selectType.trim() + "'";
+			
+			if(selectElements.size() > 1){
+				groupby += ",";
+			}
+			groupby += "test_type";
+			
+		}
+		
+		if(timestamp.equals("day")){
+			select += ", test_date";
+			selectElements.add("test_date");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += "test_date is not null ";
+			
+			if(selectElements.size() > 1){
+				groupby += ",";
+			}
+			
+			groupby += "test_date";			
+		}else if (timestamp.equals("week")){
+			select += ", to_char(test_date, 'WW') as test_week";
+			selectElements.add("test_week");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += "test_date is not null ";
+			
+			if(selectElements.size() > 1){
+				groupby += ",";
+			}
+			
+			groupby += "to_char(test_date, 'WW')";
+		}else if(timestamp.equals("month")){
+			
+			select += ", to_char(test_date, 'MON') as test_month";
+			selectElements.add("test_month");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += "test_date is not null ";
+			
+			if(selectElements.size() > 1){
+				groupby += ",";
+			}
+			
+			groupby += "to_char(test_date, 'MON')";			
+		}else if(timestamp.equals("year")){
+			
+			select += ", to_char(test_date, 'YYYY') as test_year";
+			selectElements.add("test_year");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += "test_date is not null ";
+			
+			if(selectElements.size() > 1){
+				groupby += ",";
+			}
+			
+			groupby += "to_char(test_date, 'YYYY')";					
+		}else if(timestamp.equals("exact")){
+			String selectWeek = request.getParameter("selectWeek");
+			String selectMonth = request.getParameter("selectMonth");
+			String selectYear = request.getParameter("selectYear");
+			String selectDate = request.getParameter("date");
+			
+			if((!selectWeek.equals("NA") && !selectMonth.equals("NA")
+				||(!selectWeek.equals("NA") && selectDate != null)
+				||(!selectMonth.equals("NA") && selectDate != null)
+				||(!selectYear.equals("NA") && selectDate != null)){
+				JOptionPane.showMessageDialog(null, "Error 0: invalid "
+					+"date! Please refer to help menu for error information.");
+				request.sendRedirect("olap.jsp");
+			}else if(!selectDate.isEmpty() && selectDate != null){
+				
+				if(!ValidateDate(selectDate.trim())){
+					JOptionPane.showMessageDialog(null, "Error 1: invalid "
+						+ "date format! Please make sure date is in "
+						+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+					request.sendRedirect("olap.jsp");
+				}
+				select += ", test_date";
+				selectElements.add("test_date");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "test_date='" + selectDate.trim() + "' ";
+				
+				if(selectElements.size() > 1){
+					groupby += ",";
+				}
+				
+				groupby += "test_date ";				
+			}else if(!selectWeek.equals("NA") && !selectYear.equals("NA")){
+				select += ", to_char(test_date, 'YYYY-WW') as test_yearweek '";
+				selectElements.add("test_yearweek");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "to_char(test_date, 'YYYY-WW')='" 
+					+ selectDate.trim() + "' ";
+				
+				if(selectElements.size() > 1){
+					groupby += ",";
+				}
+				
+				groupby += "to_char(test_date, 'YYYY-WW');				
+				
+			}else if(!selectMonth.equals("NA") && !selectYear.equals("NA")){
+				select += ", to_char(test_date, 'YYYY-MON') as test_yearmon '";
+				selectElements.add("test_yearmon");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "to_char(test_date, 'YYYY-MON')='" 
+					+ selectDate.trim() + "' ";
+				
+				if(selectElements.size() > 1){
+					groupby += ",";
+				}
+				
+				groupby += "to_char(test_date, 'YYYY-MON');		
+			}else if(!selectMonth.equals("NA") && selectYear.equals("NA")){
+				select += ", to_char(test_date, 'MON') as test_month '";
+				selectElements.add("test_month");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += "to_char(test_date, 'YYYY-MON')='" 
+					+ selectDate.trim() + "' ";
+				
+				if(selectElements.size() > 1){
+					groupby += ",";
+				}
+				
+				groupby += "to_char(test_date, 'YYYY-MON');	
+			}
+		}
+		
 		
 	
 		
@@ -401,5 +619,26 @@
 
 
 %>
+<%!
+	private String ConvertDate(String date, String format){
+			return "to_char(" + date + ", '"+ format +"')";
+	}
+%>
+
+<%!
+	private boolean ValidateDate(String date){
+		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
+		sdformat.setLenient(false);
+
+   		try{
+			sdformat.parse(from);
+			sdformat.parse(to);
+   		}catch(Exception ex){
+			return false;
+   		}
+   		return true;
+	}
+%>
+
 </BODY>
 </HTML>
