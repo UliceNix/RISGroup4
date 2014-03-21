@@ -2,7 +2,7 @@
 <HEAD>
 
 
-<TITLE>Report page</TITLE>
+<TITLE>Search Engine</TITLE>
 </HEAD>
 
 <BODY>
@@ -114,7 +114,11 @@
 		}
     	
 	}
-  
+	
+	String selectcols = "select record_id, patient_id, doctor_id, "
+		+"radiologist_id,test_type, prescribing_date, "
+		+"test_date, diagnosis, description";
+	
 	if(request.getParameter("Back") != null){
 
 		if(role.equals("a")){
