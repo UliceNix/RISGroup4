@@ -744,14 +744,16 @@
 				
 				select += ", to_char(test_date, '"+ format1 +"') as test_date";
 				selectElements.add("test_date");
+				out.println("line 747 okay <br>");
 				
 				where = (where.length() > 6) ? where + " and " : where;
-				where += "to_char(test_date, '"+ format1 +"')<'" + target1 +"'";
+				where += "to_char(test_date, '"+ format1 +"')>='" + target1 +"'";
 				where += " and  to_char(test_date, '" + format1 +"') is not null ";
 				groupby = (selectElements.size() > 2) ? 
 						groupby + ", to_char(test_date, '"+ format1 +"')" 
 						: groupby + " to_char(test_date, '"+ format1 +"')";
 				boolean checkYM = (format1.equals("MON") == true) ? false : true;
+				out.println("line 756 okay checkYearMonth:"+checkYM+"<br>");
 				if(checkYM){
 					if((NotEmpty(toYear) && Empty(toMonth))
 							|| (Empty(toYear) && NotEmpty(toMonth))){
@@ -769,10 +771,9 @@
 				}else{
 					if(NotEmpty(toMonth)){
 						where += " and to_char(test_date, 'MON')<'" 
-							+ toWeek.trim() + "'";
+							+ toMonth.trim() + "'";
 					}					
-				}
-				
+				}				
  			}else if (NotEmpty(toMonth)){
  				
 				if(NotEmpty(fromYear)){
