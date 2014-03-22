@@ -565,6 +565,29 @@
 	
 	if(request.getParameter("generate") != null){
 		out.println("In");
+		String dropTable = "drop table fact_comb";
+		String createTable = "select i.image_id, patient_id, test_type,"
+			+ " test_date, count(distinct(i.image_id)) as number_of_images"
+			+ " from radiology_record r left join "
+			+ " (select record_id, image_id from pacs_images) i "
+			+ " on i.record_id = r.record_id"
+			+ " group by cube(i.image_id, patient_id, test_type, test_date)";
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		try{
+			statement = conn.createStatement();
+			statement.executeUpdate(dropTable);
+			statement.executeUpdate(createTable);
+			conn.commit();
+		}catch(SQLException ex){
+			try{
+				conn.rollback();
+			}catch(SQLException ex1){
+				JOptionPane.showMessageDialog("Database is busy now."
+			+ " Please try later");
+			}
+		}
 		
 		String timestamp = (request.getParameter("timestamp")).trim();
 		
@@ -1070,15 +1093,12 @@
 		}
 		String sql = select + from + where + groupby;
 		
-		Statement statement = null;
-		ResultSet resultSet = null;
-		
 		try{
-			statement = conn.createStatement();
 			resultSet = statement.executeQuery(sql);
 		}catch(Exception ex){
 			out.println("<hr>Error: " + ex.getMessage() + "<hr>");
 		}
+		out.println("<hr><b>Result: </b><br>");
 		out.println("<table border=1>");
 		out.println("<tr>");
 		for(int i = 0; i < selectElements.size(); i++){
