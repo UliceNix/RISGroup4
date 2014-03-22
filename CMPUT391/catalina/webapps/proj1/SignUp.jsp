@@ -133,8 +133,8 @@
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
 		        try{
 	                	conn.close();
-				}catch(Exception ex){
-	                	out.println("<hr>" + ex.getMessage() + "<hr>");
+				}catch(Exception ex1){
+	                	out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
 	        }
 	        	
@@ -153,8 +153,8 @@
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
 		        try{
 		        	conn.close();
-				}catch(Exception ex){
-					out.println("<hr>" + ex.getMessage() + "<hr>");
+				}catch(Exception ex1){
+					out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
 			}
 			
@@ -193,6 +193,7 @@
 		+ "required>");
 	out.println("<label for='doctor'>Doctor</label>");
 	out.println("<input type=radio name=CLASS id=doctor value=d"
+		+ "required>");
 	out.println("<label for='admin'>Admin</label>");
 	out.println("<input type=radio name=CLASS id=admin value=a"
 		+ " required><br>");
