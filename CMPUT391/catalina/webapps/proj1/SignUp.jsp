@@ -51,49 +51,36 @@
 		
 		String sql = "select user_name from USERS where USER_NAME = '"
 			+ userName + "'";
-		String emailCheck = "select email from PERSONS where EMAIL = '"
-			+ email.toLowerCase() + "'";
 
-   		if(pid == null || pid.isEmpty()){
-			out.println("<p><b>Please indicate if registering a new user" 
-   				+ ".</b></p>");   			
-   		}else if(!userName.matches("\\w.*")){
-			out.println("<p><b>The username can only contain a-z, A-Z,"
-   				+ " 0-9.</b></p>");
+		if(!userName.matches("\\w+\\.?")){
+			JOptionPane.showMessageDialog(null, "The username can only contain a-z,"
+				+" A-Z.");
 		}else if(stmt.executeQuery(sql).next()){
-			out.println("<p><b>This username is taken.</b></p>");			
-		}else if(passwd == null || passwd.isEmpty() || passwd.length() < 6){
-			out.println("<p><b>Password's should be at least 6 characters." 
-				+ "</b></p>");
-		}else if(!passwd.matches("\\w.*")){
-			out.println("<p><b>The password can only contain a-z, A-Z, " 
-				+ "0-9.</b></p>");
-		}else if(!firstName.matches("\\w+\\.?") ){
-			out.println("<p><b>The first name can only contain alphabets." 
-				+ "</b></p>");
-		}else if(!lastName.toLowerCase().matches("[a-z].*")){
-			out.println("<p><b>The last name can only contain alphabets." 
-				+ "</b></p>");
-		}else if("prd".indexOf(role) < 0 || role.length() != 1 
-			|| role == null || role.isEmpty()){
-			out.println("<p><b>Invalid role. Please specify your " 
-				+ "identity by a signle character.<p><b>" 
-				+ "<p><b>You are: a doctor(d), a radiologist(r), " 
-				+ "or a patient(p). </b></p>");
-		}else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
-				+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
-			out.println("<p><b>The email address contains illegal " 
-				+ "characters.<p><b>");
-		}else if(stmt.executeQuery(emailCheck).next()){
-			out.println("<p><b>The email has been registered with other "
-				+ "users.<p><b>");
-        }else if(address == null || address.isEmpty()
-                || address.length() < 1){
-			out.println("<p><b>Please re-enter the address.<p><b>");
-		}else if(phone == null || phone.isEmpty() || phone.length() != 10
-				|| !phone.matches("[0-9]+")){
-			out.println("<p><b>Please make sure the phone number is valid."
-				+ "<p><b>");
+			JOptionPane.showMessageDialog(null,"This username is taken.");
+		}else if(passwd.length() < 1){
+			out.println("<p><b>Password can't be empty!</b></p>");
+		}else if(!passwd.matches("\\w+\\.?")){
+			JOptionPane.showMessageDialog(null,"The password can only contain a-z,"
+				+ " A-Z, 0-9.");
+		}else if(firstName != null && !firstName.isEmpty() 
+				&& !firstName.matches("[a-zA-Z]+\\.?")){
+			JOptionPane.showMessageDialog(null,"The first name can only contain "
+				+ "alphabets.");
+		}else if(lastName != null && !lastName.isEmpty() 
+				&& !lastName.toLowerCase().matches("[a-zA-Z]+\\.?")){
+			JOptionPane.showMessageDialog(null,"The last name can only contain "
+				+ "alphabets.");
+		}else if(role == null){
+			JOptionPane.showMessageDialog(null,"Please pick a class.");
+		}else if(email != null && !email.isEmpty()
+				&& !email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
+			+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+			JOptionPane.showMessageDialog(null,"The email address contains illegal "
+			+ "characters.");
+		}else if(phone != null && !phone.isEmpty() &&
+			( phone.length() != 10 || !phone.matches("[0-9]+"))){
+			JOptionPane.showMessageDialog(null,"Please make sure the phone number "
+			+ "is valid.");
 		}else{
 			PreparedStatement insertPersons = null;
 			PreparedStatement insertUsers = null;
@@ -106,19 +93,49 @@
 				+ " VALUES (?, ?, ?, ?, ?)";
 			
 			int personId = 1;
-			if(pid == null || pid.isEmpty()){
+			
+			if(pid.equals("new")){
 				ResultSet persons = null;
 				String sqlGetNextId = "select max(person_id) from PERSONS";
-				persons = stmt.executeQuery(sqlGetNextId);	
-				out.println(persons);
-			    persons.next();
+				try{
+					persons = stmt.executeQuery(sqlGetNextId);	
+				}catch (Exception ex){
+					out.println("<hr>" + ex.getMessage() + "<hr>");
+				}
+				persons.next();
 				personId = persons.getInt(1) + 1;
 			}else{
-				personId = Integer.parseInt(JOptionPane.showInputDialog(null, 
-			    	"Please enter the person id: "));
+				boolean proceed = false;
+				
+				while(!proceed){
+					boolean success = false;
+					String inputId = JOptionPane.showInputDialog(null,
+						"Please enter the person id: ");
+					
+					try{
+						personId = Integer.parseInt(inputId);
+						success = true;
+					}catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Please "
+						+"enter only numbers! Please try again.");
+					}
+					if(success){
+						ResultSet test = null;
+						try{
+							test = stmt.executeQuery("select * from users "
+							+"where person_id='" + personId + "'");
+						}catch(Exception ex){
+							out.println("<hr>" + ex.getMessage() + "<hr>");
+						}
+						if(test != null && test.next()){
+							proceed = true;
+						}
+					}
+				}
+					
 			}
 
-		
+			
 			try{
 				insertPersons = conn.prepareStatement(sqlPersons);
 				insertPersons.setInt(1, personId);
@@ -130,13 +147,19 @@
 				insertPersons.executeUpdate();
 				conn.commit();
 			}catch(Exception ex){
-		        out.println("<hr>" + ex.getMessage() + "<hr>");
 		        try{
+		        	conn.rollback();
+		        }catch(Exception ex2){
+		        	out.println("<hr>" + ex2.getMessage() + "<hr>");
+		        	JOptionPane.showMessageDialog(null,"Database busy.");
+		        	try{
 	                	conn.close();
-				}catch(Exception ex1){
+					}catch(Exception ex1){
 	                	out.println("<hr>" + ex1.getMessage() + "<hr>");
-				}
-	        }
+					}
+		        	response.sendRedirect("SignUp.jsp");
+		        }
+			}
 	        	
 			try{
 				insertUsers = conn.prepareStatement(sqlUsers);
@@ -150,12 +173,18 @@
 				insertUsers.executeUpdate();
 		    	conn.commit();
 			}catch(Exception ex){
-		        out.println("<hr>" + ex.getMessage() + "<hr>");
 		        try{
-		        	conn.close();
-				}catch(Exception ex1){
-					out.println("<hr>" + ex1.getMessage() + "<hr>");
-				}
+		        	conn.rollback();
+		        }catch(Exception ex2){
+		        	out.println("<hr>" + ex2.getMessage() + "<hr>");
+		        	JOptionPane.showMessageDialog(null, "Database busy.");
+		        	try{
+	                	conn.close();
+					}catch(Exception ex1){
+	                	out.println("<hr>" + ex1.getMessage() + "<hr>");
+					}
+		        	response.sendRedirect("SignUp.jsp");
+		        }
 			}
 			
 			try{
@@ -179,13 +208,13 @@
 	out.println("<label for='new user'>New User</label>");
 	out.println("<input type=radio name=PID id=NU value=new required><br>");
 	out.println("UserName  : <input type=text name=USERID maxlength=20 "
-		+ "required><br>");
+		+ ">* please use only letters and numbers <br>");
 	out.println("Password  : <input type=password name=PASSWD maxlength=20"
-		+" required><br>");
+		+" >* please use only letters and numbers <br>");
 	out.println("First Name: <input type=text name=FNAME maxlength=24"
-		+" required><br>");
+		+" ><br>");
 	out.println("Last  Name: <input type=text name=LNAME maxlength=24"
-		+" required><br>");
+		+" ><br>");
 	out.println("<label for='patient'>Patient</label>");
 	out.println("<input type=radio name=CLASS id=patient value=p required>");
 	out.println("<label for='radiologist'>Radiologist</label>");
@@ -198,11 +227,11 @@
 	out.println("<input type=radio name=CLASS id=admin value=a"
 		+ " required><br>");
 	out.println("Email     : <input type=text name=EMAIL maxlength=128"
-		+ " required><br>");
+		+ " ><br>");
 	out.println("Address   : <input type=text name=ADDRESS maxlength=128"
-		+ " required><br>");
+		+ " ><br>");
 	out.println("Phone     : <input type=text name=PHONE maxlenght=10"
-		+ " required><br>");
+		+ " ><br>");
 	out.println("<input type=submit name=bSignUp value=SignUp>");
 	out.println("</form>");
 	out.println("<form action=adminhomepage.jsp>");

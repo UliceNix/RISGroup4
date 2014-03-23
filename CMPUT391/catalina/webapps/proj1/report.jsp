@@ -21,9 +21,9 @@
     out.println("<form action=report.jsp>");
     out.println("<input type=text name=ReportKeyWord align=right required> " 
 	+ "Enter a specific diagnosis.<br>");
-    out.println("<input type=date name=ReportStart align=right required> " 
+    out.println("<input type=text name=ReportStart align=right required> " 
 	+ "From (eg.02-FEB-2012)");
-    out.println("<input type=date name=ReportEnd align=right required> " 
+    out.println("<input type=text name=ReportEnd align=right required> " 
 	+ "To (eg.02-FEB-2012)<br>");
     out.println("<input type=submit name=Generate value='Go'><br>");
     out.println("<hr>");
@@ -51,7 +51,7 @@
 	
 	   	Statement stmt = null;
 	   	try{
-	   		conn.createStatement();
+	   		stmt = conn.createStatement();
 	   	}catch(Exception ex){
 	   		out.println("<hr>" + ex.getMessage() + "<hr>");
 	   	}
@@ -71,8 +71,8 @@
 	   	}catch(Exception ex){
 			try{    
 				conn.close();
-			}catch(Exception ex){
-				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}catch(Exception es){
+				out.println("<hr>" + es.getMessage() + "<hr>");
 			}
 	   	    JOptionPane.showMessageDialog(null,"Please check the date format,"
 	   			+"make sure it's in dd-MMM-yyyy");
@@ -97,11 +97,12 @@
 		}catch(Exception ex){
 			try{    
 				conn.close();
-			}catch(Exception ex){
-				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}catch(Exception es){
+				out.println("<hr>" + es.getMessage() + "<hr>");
 			}
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
+		
 		
 	   	ArrayList<String> id = new ArrayList<String>();
 	   	ArrayList<String> fName = new ArrayList<String>();

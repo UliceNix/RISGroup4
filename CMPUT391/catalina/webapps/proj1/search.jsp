@@ -64,8 +64,9 @@
 	preparework.add("create table rp_join"
 		+ "as"
 		+ "select r.*, CONCAT(CONCAT(p.first_name, ''), p.last_name) as patient_name"
-		+ "from radiology_record r left join persons p on patient_id = person_id"
-		+ "order by record_id asc");
+		+ " from radiology_record r left join persons p on patient_id = person_id"
+		+ " where p.first_name is not null and p.last_name is not null "
+		+ " order by record_id asc");
 	preparework.add("drop index index_des");
 	preparework.add("drop index index_dia");
 	preparework.add("drop index index_name");
@@ -109,10 +110,16 @@
 	for(int i = 0; i < preparework.size(); i++){
 		try{
 			stmt.executeUpdate(preparework.get(i));
-		}catch(SQLException e){
-			continue;
-		}
-    	
+		}catch(Exception ex){
+			try{
+	  			conn.rollback();
+	  		}catch(SQLException ex1){
+		    	JOptionPane.showMessageDialog(null, "Database is busy now."
+		    	+ " Please try later");
+		    	conn.close();
+		    	response.sendRedirect("homepage.jsp");
+		    }
+	  	}
 	}
 	
 	String selectcols = "select record_id, patient_id, doctor_id, "
@@ -347,7 +354,8 @@
 			select  = selectcols + " from radiology_record";
 		}
 		
-        	try{
+		select += " order by record_id";
+        try{
 			rset = stmt.executeQuery(select);
 		}catch(Exception ex){
 			out.println("<hr>" + ex.getMessage() + "<hr>");

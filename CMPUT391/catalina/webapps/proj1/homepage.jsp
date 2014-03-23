@@ -61,9 +61,9 @@
        	out.println("<br>");
        	out.println("<form action=homepage.jsp>");
        	out.println("Old Password: <input type=password name=OLDPWD"
-       		+"  maxlength=20><br>");
+       		+"  maxlength=20 required><br>");
        	out.println("New Password: <input type=password name=NEWPWD"
-       		+"  maxlength=20><br>");
+       		+"  maxlength=20 required><br>");
        	out.println("<input type=submit name=SavePassword value=Save>");
        	out.println("</form>");
    	}		
@@ -107,15 +107,16 @@
 	   	while(rset != null && rset.next())
 	   		truepwd = (rset.getString(1)).trim();
 
-	   	if(!oldPassword.equals(truepwd) || oldPassword == null 
-	   			|| oldPassword.isEmpty()){
+	   	if(oldPassword == null 
+	   			|| oldPassword.isEmpty()
+	   			|| !oldPassword.equals(truepwd) ){
 	   		out.println("<br>");
 	   		out.println("<p>Your old password is incorrect.</p>");
 	   		out.println("<form action=homepage.jsp>");
 	   		out.println("<input type=submit name=TryPassword "
 	   			+ "value='Try Again'>");
 	   		out.println("</form>");
-	   	}else if (!newPassword.matches("\\w.*")){
+	   	}else if (!newPassword.matches("\\w+\\.?")){
 	   		out.println("<br>");
 	   		out.println("<p>Your new password contains illegal "
 	   			+ "characters.</p>");
@@ -131,9 +132,21 @@
 	  			stmt = conn.createStatement();
 	  			stmt.executeUpdate(sql);
 				conn.commit();
-				conn.close();
 	   		}catch(Exception ex){
-	  			 out.println("<hr>" + ex.getMessage() + "<hr>");
+	  			 try{
+	  				 conn.rollback();
+	  			 }catch(SQLException ex1){
+		    		JOptionPane.showMessageDialog(null, "Database is busy now."
+		    			+ " Please try later");
+		    		conn.close();
+		    		response.sendRedirect("homepage.jsp");
+		    	}
+	  		}finally{
+	  			try{
+	  				conn.close();
+	  			}catch(Exception ex){
+	  				out.println("<hr>" + ex.getMessage() + "<hr>");
+	  			}
 	  		}
 	   
 	  		JOptionPane.showMessageDialog(null, "Your password has been "
@@ -148,7 +161,7 @@
 		out.println("<br>");
 		out.println("<form action=homepage.jsp>");
 		out.println("New Firstname: <input type=text name=NewFirstName"
-			+ "  maxlength=24><br>");
+			+ "  maxlength=24 required><br>");
 		out.println("<input type=submit name=SaveFirstName value=Save>");
 		out.println("</form>");
 	}	
@@ -179,7 +192,7 @@
 		String sql;
 		String newFirstname = (request.getParameter("NewFirstName")).trim();
 		
-		if(!newFirstname.matches("\\w+\\.?") 
+		if(!newFirstname.matches("[a-zA-Z]+\\.?") 
 			|| newFirstname == null || newFirstname.isEmpty()){
 			out.println("<br>");
    			out.println("<p>Your new first name contains illegal "
@@ -195,13 +208,25 @@
 				+" user_name='"+session.getAttribute("UserName")+"')";
 		 	
 			try{
-  				stmt = conn.createStatement();
-  				stmt.executeUpdate(sql);
+	  			stmt = conn.createStatement();
+	  			stmt.executeUpdate(sql);
 				conn.commit();
-				conn.close();
-   			}catch(Exception ex){
-  			 	out.println("<hr>" + ex.getMessage() + "<hr>");
-  		 	}
+	   		}catch(Exception ex){
+	  			 try{
+	  				 conn.rollback();
+	  			 }catch(SQLException ex1){
+		    		JOptionPane.showMessageDialog(null, "Database is busy now."
+		    			+ " Please try later");
+		    		conn.close();
+		    		response.sendRedirect("homepage.jsp");
+		    	}
+	  		}finally{
+	  			try{
+	  				conn.close();
+	  			}catch(Exception ex){
+	  				out.println("<hr>" + ex.getMessage() + "<hr>");
+	  			}
+	  		}
    
   			JOptionPane.showMessageDialog(null, "Your first name has "
   				+"been reset to " + newFirstname + " !");
@@ -214,7 +239,7 @@
 		out.println("<br>");
 		out.println("<form action=homepage.jsp>");
 		out.println("New Lastname: <input type=text name=NewLastName"
-       		+"  maxlength=24><br>");
+       		+"  maxlength=24 required><br>");
 		out.println("<input type=submit name=SaveLastName value=Save>");
 		out.println("</form>");
 	}	
@@ -247,7 +272,7 @@
 
 		String newLastname = (request.getParameter("NewLastName")).trim();
 	
-		if(!newLastname.matches("\\w+\\.?") 
+		if(!newLastname.matches("[a-zA-Z]+\\.?") 
 			|| newLastname == null || newLastname.isEmpty()){
 			out.println("<br>");
    			out.println("<p>Your new last name contains illegal "
@@ -262,13 +287,25 @@
 				+" user_name='"+session.getAttribute("UserName")+"')";
 		 		 
 			try{
-  				stmt = conn.createStatement();
-  				stmt.executeUpdate(sql);
+	  			stmt = conn.createStatement();
+	  			stmt.executeUpdate(sql);
 				conn.commit();
-				conn.close();
-   			}catch(Exception ex){
-  			 	out.println("<hr>" + ex.getMessage() + "<hr>");
-  		 	}
+	   		}catch(Exception ex){
+	  			 try{
+	  				 conn.rollback();
+	  			 }catch(SQLException ex1){
+		    		JOptionPane.showMessageDialog(null, "Database is busy now."
+		    			+ " Please try later");
+		    		conn.close();
+		    		response.sendRedirect("homepage.jsp");
+		    	}
+	  		}finally{
+	  			try{
+	  				conn.close();
+	  			}catch(Exception ex){
+	  				out.println("<hr>" + ex.getMessage() + "<hr>");
+	  			}
+	  		}
    
   			JOptionPane.showMessageDialog(null, "Your last name has been"
   				+ " reset to "+ newLastname + " !");
@@ -281,7 +318,7 @@
        		out.println("<br>");
        		out.println("<form action=homepage.jsp>");
        		out.println("New Address: <input type=text name=NEWADD  "
-       			+ "maxlength=128><br>");
+       			+ "maxlength=128 required><br>");
        		out.println("<input type=submit name=SaveAddress value=Save>");
        		out.println("</form>");
 	}
@@ -328,10 +365,22 @@
 				updateAddress.setString(1, newAddress);
 				updateAddress.executeUpdate();
 				conn.commit();
-				conn.close();
 			}catch(Exception ex){
-  			 	out.println("<hr>" + ex.getMessage() + "<hr>");
-  		 	}
+				 try{
+	  				 conn.rollback();
+	  			 }catch(SQLException ex1){
+		    		JOptionPane.showMessageDialog(null, "Database is busy now."
+		    		+ " Please try later");
+		    		conn.close();
+		    		response.sendRedirect("homepage.jsp");
+		    	}
+  		 	}finally{
+	  			try{
+	  				conn.close();
+	  			}catch(Exception ex){
+	  				out.println("<hr>" + ex.getMessage() + "<hr>");
+	  			}
+	  		}
 
 			JOptionPane.showMessageDialog(null, "Your address has been"
 				+ " reset to " + newAddress + " !");
@@ -345,7 +394,7 @@
        		out.println("<br>");
        		out.println("<form action=homepage.jsp>");
        		out.println("New Phone: <input type=text name=NEWPHONE"
-       			+ "  maxlength=10><br>");
+       			+ "  maxlength=10 required><br>");
        		out.println("<input type=submit name=SavePhone value=Save>");
        		out.println("</form>");		
 	}
@@ -388,13 +437,25 @@
 				+ " WHERE USER_NAME='"+session.getAttribute("UserName")+"')";
 			
 			try{
-				stmt = conn.createStatement();
-  				stmt.executeUpdate(sql);
+	  			stmt = conn.createStatement();
+	  			stmt.executeUpdate(sql);
 				conn.commit();
-				conn.close();
-			}catch(Exception ex){
-  			 	out.println("<hr>" + ex.getMessage() + "<hr>");
-  		 	}
+	   		}catch(Exception ex){
+	  			 try{
+	  				 conn.rollback();
+	  			 }catch(SQLException ex1){
+		    		JOptionPane.showMessageDialog(null, "Database is busy now."
+		    			+ " Please try later");
+		    		conn.close();
+		    		response.sendRedirect("homepage.jsp");
+		    	}
+	  		}finally{
+	  			try{
+	  				conn.close();
+	  			}catch(Exception ex){
+	  				out.println("<hr>" + ex.getMessage() + "<hr>");
+	  			}
+	  		}
 	
 			out.println(sql);
 			JOptionPane.showMessageDialog(null, "Your phone has been reset to " 

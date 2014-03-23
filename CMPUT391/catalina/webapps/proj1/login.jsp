@@ -119,16 +119,16 @@
 		}
 		
 	}else{
+		out.println("<b>Find out more help information by clicking "
+			+ "<a href='help.html#logIn' target='blank'>Help</a>"
+			+ "</b><br><br>");
 		out.println("<form action=login.jsp>");
-		out.println("UserName: <input type=text name=USERID maxlength=20>"
-			+ "<br>");
+		out.println("UserName: <input type=text name=USERID maxlength=20"
+			+ " required><br>");
 		out.println("Password: <input type=password name=PASSWD "
-			+ "maxlength=20><br>");
-		out.println("<input type=submit name=bLogin value=LogIn>");
-		out.println("</form>");
-		out.println("<form action=help.html#logIn>");
-		out.println("<input type=submit value=Help>");
-		out.println("</form>");     
+			+ "required maxlength=20><br>");
+		out.println("<input type=submit name=bLogin value='Log In'>");
+		out.println("</form>");   
 	}      
 %>
 

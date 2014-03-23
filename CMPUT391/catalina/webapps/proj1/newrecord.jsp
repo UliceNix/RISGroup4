@@ -23,45 +23,7 @@
 	out.println("<input type=submit name=Back value='Go Back'><br>");
 	out.println("</form>");
 	out.println("<b>Find out more help information by clicking <a href='help.html#record' target='blank'>Help</a></b><br><br>");
-	Connection conn = null;
-	String driverName = "oracle.jdbc.driver.OracleDriver";
-	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-   
-	try {
- 		Class drvClass = Class.forName(driverName); 
-		DriverManager.registerDriver((Driver) drvClass.newInstance());
-	}catch(Exception ex){
-		out.println("<hr>" + ex.getMessage() + "<hr>");
-	}
-    
-    try {
-   		conn = DriverManager.getConnection(dbstring,"mingxun",
-			"hellxbox_4801");
-   		conn.setAutoCommit(false);
-    }catch(Exception ex){
-		out.println("<hr>" + ex.getMessage() + "<hr>");
-		return;
-    }
-
-    Statement stmt = null;
-    try{
-    	stmt = conn.createStatement();
-    }catch (Exception ex){
-    	out.println("<hr>" + ex.getMessage() + "<hr>");
-    	return;
-    }
-    
-    ResultSet rset = null;
-    String sql = "";
-
-    sql = "SELECT MAX(RECORD_ID) AS NEXT_RID FROM RADIOLOGY_RECORD";
-    rset = stmt.executeQuery(sql);
-    int rid = 0;
-    
-    while(rset != null && rset.next()){
-        rid = rset.getInt("NEXT_RID") + 1;
-    }   
-   
+ 
     Integer id = (Integer) session.getAttribute("Person_Id");
 
     String pid = "";
@@ -72,7 +34,46 @@
     String diag = "";
     String description = "";
 
-    if(request.getParameter("SaveRecord") != null){   
+    if(request.getParameter("SaveRecord") != null){ 
+    	Connection conn = null;
+    	String driverName = "oracle.jdbc.driver.OracleDriver";
+    	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+       
+    	try {
+     		Class drvClass = Class.forName(driverName); 
+    		DriverManager.registerDriver((Driver) drvClass.newInstance());
+    	}catch(Exception ex){
+    		out.println("<hr>" + ex.getMessage() + "<hr>");
+    	}
+        
+        try {
+       		conn = DriverManager.getConnection(dbstring,"mingxun",
+    			"hellxbox_4801");
+       		conn.setAutoCommit(false);
+        }catch(Exception ex){
+    		out.println("<hr>" + ex.getMessage() + "<hr>");
+    		return;
+        }
+
+        Statement stmt = null;
+        try{
+        	stmt = conn.createStatement();
+        }catch (Exception ex){
+        	out.println("<hr>" + ex.getMessage() + "<hr>");
+        	return;
+        }
+        
+        ResultSet rset = null;
+        String sql = "";
+
+        sql = "SELECT MAX(RECORD_ID) AS NEXT_RID FROM RADIOLOGY_RECORD";
+        rset = stmt.executeQuery(sql);
+        int rid = 0;
+        
+        while(rset != null && rset.next()){
+            rid = rset.getInt("NEXT_RID") + 1;
+        }   
+      
     	pid = request.getParameter("pid");
     	did = request.getParameter("did");
         type = request.getParameter("type");
@@ -96,8 +97,8 @@
 	        	try{
 	                conn.close();
 				}
-				catch(Exception ex){
-	                out.println("<hr>" + ex.getMessage() + "<hr>");
+				catch(Exception ex1){
+	                out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
                 response.sendRedirect("newrecord.jsp");
 	    	}
@@ -135,8 +136,8 @@
 	    		try{
 	                conn.close();
 				}
-				catch(Exception ex){
-	                out.println("<hr>" + ex.getMessage() + "<hr>");
+				catch(Exception ex1){
+	                out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
             	response.sendRedirect("newrecord.jsp");	            	
 	 		}
@@ -182,8 +183,8 @@
 	    		try{
                 	conn.close();
 				}
-				catch(Exception ex){
-                	out.println("<hr>" + ex.getMessage() + "<hr>");
+				catch(Exception ex1){
+                	out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
 	    		response.sendRedirect("newrecord.jsp");
 	 		}
@@ -206,8 +207,8 @@
 		 	  	try{
 	              conn.close();
 				}
-				catch(Exception ex){
-	              out.println("<hr>" + ex.getMessage() + "<hr>");
+				catch(Exception ex1){
+	              out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
 	            response.sendRedirect("newrecord.jsp");
 	      	}  
@@ -236,20 +237,17 @@
 	 		insertRecord.executeUpdate();
 	 		conn.commit();
 	 		session.setAttribute("Saved_Record_Id", rid);
+	 		conn.close();
 	 		response.sendRedirect("/proj1/newrecord.jsp");
       	}catch(Exception ex){
 	 		out.println("<hr>" + ex.getMessage() + "<hr>");      
       	}
+      	
+      	
    
 	}else if (request.getParameter("Cancel") != null){
 		session.removeAttribute("Saved_Record_Id");
-	   	try{
-           conn.close();
-		}
-		catch(Exception ex){
-           out.println("<hr>" + ex.getMessage() + "<hr>");
-		}
-	   response.sendRedirect("/proj1/homepage.jsp");
+		response.sendRedirect("/proj1/homepage.jsp");
 		   
    	}else if (session.getAttribute("Saved_Record_Id") != null){
         out.println("<p>");
@@ -277,8 +275,7 @@
 	    out.println("<form action=newrecord.jsp>");
 	    out.println("<input type=submit name=Cancel value='No Images "
 	    	+ "To Upload'><br>");
-	    out.println("</form>");
-	   
+	    out.println("</form>");	   
 	}else{         
       	out.println("<p> As a radiologsit, you could create a new radiology "
 	 		+ "record by entering the information first and add pacs.</p>");

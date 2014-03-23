@@ -339,6 +339,483 @@
 		+ "<a href='help.html#olap' target='blank'>Help</a></b><br>");	
 	out.println("<hr>");
 	
+	if(request.getParameter("generate") != null){
+		
+		Statement statement = null;
+		ResultSet resultSet = null;
+			
+		String timestamp = (request.getParameter("timestamp")).trim();
+		
+		/*
+		 * Since type and other choices are optional, the strings may be null.
+		 * Using trim() function on them is unsafe.
+		 */
+		String type = request.getParameter("type");
+		String selectType = request.getParameter("selectType");
+	
+		String people = request.getParameter("people");
+		String selectPeople = request.getParameter("selectPatientId");
+		
+		String with = "with fact_comb as (select i.image_id, patient_id, test_type,"
+				+ " test_date, count(distinct(i.image_id)) as number_of_images"
+				+ " from radiology_record r left join "
+				+ " (select record_id, image_id from pacs_images) i "
+				+ " on i.record_id = r.record_id"
+				+ " group by cube(i.image_id, patient_id, test_type, test_date)) ";
+		String select = " select ";
+		String from = " from fact_comb ";
+		String where = "where ";
+		String groupby = " group by ";
+		
+		ArrayList<String> selectElements = new ArrayList<String>();
+		
+		select += "count(distinct(image_id)) ";
+		selectElements.add("Number Of Images");
+		/* when checkbox is checked to see number of records
+		 * for each patient.
+		 */
+		 
+		if(people != null && !people.isEmpty()){
+			
+			select += ", patient_id ";
+			selectElements.add("Patient Id");
+			where += " patient_id is not null ";
+			groupby += "patient_id";
+		}else if(people == null && selectPeople != null 
+				&& !selectPeople.equals("NA")){
+			
+			/* else if a specific person is selected*/
+		
+			select += ", patient_id ";
+			selectElements.add("Patient Id");
+			where += " patient_id='" + selectPeople.trim() + "' ";	
+			groupby += "patient_id";
+		}
+		
+		if(type != null && !type.isEmpty()){
+			
+			select += ", test_type ";
+			selectElements.add("Test Type");
+					
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += " test_type is not null";
+			
+			if(selectElements.size() > 2){
+				groupby += ",";
+			}
+			groupby += "test_type";
+		}else if(type == null && selectType != null
+				&& !selectType.equals("NA")){
+			
+			select += ", test_type";
+			selectElements.add("Test Type");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += " test_type='" + selectType.trim() + "'";
+			
+			if(selectElements.size() > 2){
+				groupby += ",";
+			}
+			groupby += "test_type";
+			
+		}
+		
+		
+		if(timestamp.equals("date")){
+			select += ", test_date";
+			selectElements.add("Test Time");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += " test_date is not null ";
+			
+			if(selectElements.size() > 2){
+				groupby += ",";
+			}
+			
+			groupby += "test_date";			
+		}else if (timestamp.equals("week")){
+			select += ", to_char(test_date, 'WW') as test_week";
+			selectElements.add("Test Time");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += " test_date is not null ";
+			
+			if(selectElements.size() > 2){
+				groupby += ",";
+			}
+			
+			groupby += "to_char(test_date, 'WW')";
+		}else if(timestamp.equals("month")){
+			
+			select += ", to_char(test_date, 'MON') as test_month";
+			selectElements.add("Test TDate");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += " test_date is not null ";
+			
+			if(selectElements.size() > 2){
+				groupby += ",";
+			}
+			
+			groupby += "to_char(test_date, 'MON')";			
+		}else if(timestamp.equals("year")){
+			
+			select += ", to_char(test_date, 'YYYY') as test_year";
+			selectElements.add("test Time");
+			
+			if(where.length() > 6){
+				where += " and ";
+			}
+			
+			where += " test_date is not null ";
+			
+			if(selectElements.size() > 2){
+				groupby += ",";
+			}
+			
+			groupby += "to_char(test_date, 'YYYY')";	
+			
+		}else if(timestamp.equals("exact")){
+			
+			String selectWeek = request.getParameter("selectWeek");
+			String selectMonth = request.getParameter("selectMonth");
+			String selectYear = request.getParameter("selectYear");
+			String selectDate = request.getParameter("date");
+		
+			if(Empty(selectDate) && Empty(selectMonth) && Empty(selectYear)
+					&& Empty(selectWeek)){
+				try{
+					JOptionPane.showMessageDialog(null, "Error 3: please make"
+						+"sure that you have entered correct time information"
+						+" in Week or Month or Year or Date.");
+					response.sendRedirect("/proj1/olap.jsp");
+					return;
+				}catch(Exception ex){
+					out.println("error on display or others");
+				}
+			}else if(selectDate != null && !selectDate.isEmpty()){
+				
+				if(!ValidateDate(selectDate.trim())){
+					try{
+						JOptionPane.showMessageDialog(null, "Error 1: invalid "
+							+ "date format! Please make sure date is in "
+							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+						response.sendRedirect("/proj1/olap.jsp");
+						return;
+					}catch(Exception ex){
+						out.println("error on display or others");
+					}
+				}
+				out.println("<hr>" + selectDate + "<hr>");
+				select += ", test_date";
+				selectElements.add("Test Time");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += " test_date='" + selectDate.trim() + "' ";
+				where += " and  test_date is not null ";
+				
+				if(selectElements.size() > 2){
+					groupby += ",";
+				}
+				
+				groupby += "test_date ";				
+			}else if(selectWeek != null && !selectWeek.equals("NA")){
+				String format = "";
+				String targetDate = "";
+				if(selectYear != null && !selectYear.equals("NA")){
+					format = "YYYY-WW";
+					targetDate = selectYear + "-" + selectWeek;
+				}else{
+					format = "WW";
+					targetDate = selectWeek;
+				}
+				select += ", to_char(test_date, '" + format + "') as test_date";
+				selectElements.add("Test Time");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += " to_date(to_char(test_date, '" + format +"'), '" 
+					+ format + "')=to_date('" + targetDate + "', '" 
+					+ format + "') ";
+				where += " and test_date is not null ";
+				if(selectElements.size() > 2){
+					groupby += ", ";
+				}
+				groupby += " to_char(test_date, '" + format + "')";
+			}else if(selectMonth != null && !selectMonth.equals("NA")){
+				String format = "";
+				String targetDate = "";
+				
+				if(selectYear != null && !selectYear.equals("NA")){
+					format = "YYYY-MON";
+					targetDate = selectYear + "-" + selectMonth;
+				}else{
+					format = "MON";
+					targetDate = selectMonth;
+				}
+				
+				select += ", to_char(test_date, '" + format + "') as test_date";
+				selectElements.add("Test Time");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += " to_char(test_date, '" + format +"')='" + targetDate + "'";
+				where += " and to_char(test_date, '" + format +"') is not null ";
+				if(selectElements.size() > 2){
+					groupby += ", ";
+				}
+				groupby += " to_char(test_date, '" + format + "')";
+				
+			}else if(selectYear != null && !selectYear.equals("NA")){
+				select += ", to_char(test_date, 'YYYY') as test_date";
+				selectElements.add("Test Time");
+				
+				if(where.length() > 6){
+					where += " and ";
+				}
+				
+				where += " to_char(test_date, 'YYYY')='" + selectYear + "'";
+				where += " and  to_char(test_date, 'YYYY') is not null ";
+				if(selectElements.size() > 2){
+					groupby += ", ";
+				}
+				groupby += " to_char(test_date, 'YYYY')";
+			}			
+		}else if(timestamp.equals("period")){
+			
+			String toWeek = request.getParameter("toWeek");
+			String fromWeek = request.getParameter("fromWeek");
+			
+			String fromMonth = request.getParameter("fromMonth");
+			String toMonth = request.getParameter("toMonth");
+			
+			String fromYear = request.getParameter("fYear");
+			String toYear = request.getParameter("tYear");
+			
+			String fromDate = request.getParameter("fdate");
+			String toDate = request.getParameter("tdate");
+			
+			String format1 = "";
+			String target1 = "";
+			String target2 = "";
+			
+			if(Empty(toWeek) && Empty(fromWeek)
+					&& Empty(toMonth) && Empty(fromMonth)
+					&& Empty(toYear) && Empty(fromYear)
+					&& Empty(fromDate) && Empty(toDate)){
+				try{
+					JOptionPane.showMessageDialog(null, "636Error 3: please make"
+						+"sure that you have entered correct time information"
+						+" in Week or Month or Year or Date.");
+					response.sendRedirect("/proj1/olap.jsp");
+					return;
+				}catch(Exception ex){
+					out.println("error on display or others");
+				}				
+			}else if(NotEmpty(fromDate)){
+				if(!ValidateDate(fromDate.trim())){
+					try{
+						JOptionPane.showMessageDialog(null, "Error 1: invalid "
+							+ "date format! Please make sure date is in "
+							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+						response.sendRedirect("/proj1/olap.jsp");
+						return;
+					}catch(Exception ex){
+						out.println("error on display or others");
+					}
+				}
+				
+				if(NotEmpty(toDate) || !ValidateDate(toDate.trim())){
+					try{
+						JOptionPane.showMessageDialog(null, "Error 1: invalid "
+							+ "date format! Please make sure date is in "
+							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+						response.sendRedirect("/proj1/olap.jsp");
+						return;
+					}catch(Exception ex){
+						out.println("error on display or others");
+					}
+				}
+				
+				format1 = "dd-MON-YYYY";
+				target1 = toDate.trim();
+				target2 = toDate.trim();
+				
+			}else if(NotEmpty(toDate)){
+				
+				if(!ValidateDate(toDate.trim())){
+					try{
+						JOptionPane.showMessageDialog(null, "Error 1: invalid "
+							+ "date format! Please make sure date is in "
+							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
+						response.sendRedirect("/proj1/olap.jsp");
+						return;
+					}catch(Exception ex){
+						out.println("error on display or others");
+					}
+				}
+				format1 = "dd-MON-YYYY";
+				target2= toDate.trim();
+				
+			}else if(NotEmpty(fromWeek)){				
+				
+				format1 = (NotEmpty(fromYear)) ? "YYYY-WW" : "WW";
+				target1 = (format1.equals("WW")) ? fromWeek.trim() 
+						: fromYear.trim() + "-" + fromWeek.trim();
+			
+				boolean checkYW = (format1.equals("WW") == true) ? false : true;
+				
+				if(checkYW){
+					if((NotEmpty(toYear) && Empty(toWeek))
+						|| (Empty(toYear) && NotEmpty(toWeek))){
+						try{
+							JOptionPane.showMessageDialog(null, "Error 4: "
+								+ "Unpaired date. Please check your input.");
+							response.sendRedirect("/proj1/olap.jsp");
+							return;
+						}catch(Exception ex){
+							out.println("error on display or others");
+						}
+					}else if(NotEmpty(toYear) && NotEmpty(toWeek)){
+						target2 = toYear.trim() + "-" + toWeek.trim();
+					}
+				}else{
+					target2 = toWeek.trim();
+				}
+ 			}else if(NotEmpty(toWeek)){
+
+				if(NotEmpty(fromYear)){
+					JOptionPane.showMessageDialog(null, "Unpaired Date! Please make" 
+						+ " sure you only select Week or Year-Week.");
+					response.sendRedirect("olap.jsp");
+					return;
+				}
+				
+				format1 = (NotEmpty(toYear)) ? "YYYY-WW" : "WW";
+				target2 = (format1.equals("WW")) ? toWeek.trim() 
+						: toYear.trim() + "-" + toWeek.trim();
+ 			}else if(NotEmpty(fromMonth)){				
+				format1 = (NotEmpty(fromYear)) ? "YYYY-MON" : "MON";
+				target1 = (format1.equals("MON")) ? fromMonth.trim() 
+						: fromYear.trim() + "-" + fromMonth.trim();
+
+				boolean checkYM = (format1.equals("MON") == true) ? false : true;
+				if(checkYM){
+					if((NotEmpty(toYear) && Empty(toMonth))
+							|| (Empty(toYear) && NotEmpty(toMonth))){
+							try{
+								JOptionPane.showMessageDialog(null, "Error 4: "
+									+ "Unpaired date. Please check your input.");
+								response.sendRedirect("/proj1/olap.jsp");
+								return;
+							}catch(Exception ex){
+								out.println("error on display or others");
+							}
+						}else if(NotEmpty(toYear) && NotEmpty(toMonth)){
+							target2 = toYear.trim() + "-" + toWeek.trim();
+						}	
+				}else{
+					if(NotEmpty(toMonth)){
+						target2 = toMonth.trim();
+					}					
+				}				
+ 			}else if (NotEmpty(toMonth)){
+ 				
+				if(NotEmpty(fromYear)){
+					JOptionPane.showMessageDialog(null, "Unpaired Date! Please make" 
+						+ " sure you only select Month or Year-Month.");
+					response.sendRedirect("olap.jsp");
+					return;
+				}
+				format1 = (NotEmpty(toYear)) ? "YYYY-MON" : "MON";
+				target2 = (format1.equals("MON")) ? toMonth.trim() 
+						: toYear.trim() + "-" + toMonth.trim();
+				
+ 			}else if(NotEmpty(fromYear)){
+ 				format1 = "YYYY";
+ 				target1 = fromYear.trim();
+
+				if(NotEmpty(toYear)){
+					target2 = toYear.trim();
+				}
+ 			}else if(NotEmpty(toYear)){
+ 				format1 = "YYYY";
+ 				target2 = toYear.trim();				
+ 			}
+			
+			select += ", to_char(test_date,'"+format1+"')";
+			selectElements.add("Test Time");
+			where = (where.length() > 6) ? where + " and " : where;
+			where += "test_date is not null ";
+			
+			if(target1 != null && !target1.isEmpty()){
+				where += " and " + toTestDate(format1) + " >= " + toTargetDate(target1, format1);
+			}
+			if(target2 != null && !target2.isEmpty()){
+				where = where + " and " + toTestDate(format1) + " < " + toTargetDate(target2, format1);
+			}
+			
+			groupby = (selectElements.size() > 2) ? groupby + "," : groupby;
+			groupby += "to_char(test_date,'"+format1+"')";
+			
+		}
+		
+		for(int i = 0 ; i < selectElements.size(); i++){
+			out.println(selectElements.get(i) + "<br>");
+		}
+		
+		String sql = with + select + from;
+
+		sql = (where.length() > 6) ? sql + where: sql;
+		sql = (groupby.length() > 10) ? sql + groupby : sql;
+		
+		out.println(sql + "<hr>");
+		/*
+		try{
+			statement = conn.createStatement();
+			resultSet = statement.executeQuery(sql);
+		}catch(Exception ex){
+			out.println("<hr>Error: " + ex.getMessage() + "<hr>");
+		}
+		out.println("<hr><b>Result: </b><br>");
+		out.println("<table border=1>");
+		out.println("<tr>");
+		for(int i = 0; i < selectElements.size(); i++){
+			out.println("<td><p>" + selectElements.get(i) + "<p></a></td>");
+		}
+		while(resultSet.next() && resultSet != null){
+			out.println("<tr>");
+			for(int i = 0; i < selectElements.size(); i++){
+				out.println("<td><p>" + resultSet.getString(i+1) + "<p></a></td>");
+			}
+		}
+		out.println("</table>");
+		out.println("<br><hr>");
+	*/
+	}
+
 	
 	/************************************************************************
 	*  
@@ -349,10 +826,12 @@
 	ResultSet rset = null;
 	
 	String test_types = "select distinct(test_type) from radiology_record";
-	String patient_ids = "select u.person_id, "
+	String patient_ids = "select distinct(u.person_id), "
 		+ "CONCAT(CONCAT(p.first_name, ''), p.last_name) as patient_name "
 		+ "from users u, persons p "
-		+ "where u.person_id=p.PERSON_ID and u.CLASS='p'";
+		+ "where u.person_id=p.PERSON_ID and u.CLASS='p'"
+		+ " and p.first_name is not null and p.last_name is not null"
+		+ " order by u.person_id";
 	
 	try{
 		stmt = conn.createStatement();
@@ -478,7 +957,7 @@
 	
 	out.println("Year&nbsp&nbsp: <select name=selectYear id=syear style='width: 150px'>");
 	out.println("<option value='NA'>N/A</option>");
-	for(int i = 1900; i < 2015; i++){
+	for(int i = 2014; i > 1899; i--){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select><br>");
@@ -538,7 +1017,7 @@
 	out.println("From Year&nbsp&nbsp: <select name=fYear id=fyear "
 		+"style='width: 100px'>");
 	out.println("<option value='NA'>N/A</option>");
-	for(int i = 1900; i < 2015; i++){
+	for(int i = 2014; i > 1899; i--){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select>");
@@ -546,7 +1025,7 @@
 	out.println("To year&nbsp&nbsp: <select name=tYear id=tyear "
 		+"style='width: 100px'>");
 	out.println("<option value='NA'>N/A</option>");
-	for(int i = 1900; i < 2015; i++){
+	for(int i = 2014; i > 1899; i--){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select>");
@@ -562,557 +1041,6 @@
 	out.println("</table>");
 	out.println("<input type=submit name=generate value='Go'><br>");
 	out.println("<hr>");
-	
-	if(request.getParameter("generate") != null){
-		out.println("In");
-		String dropTable = "drop table fact_comb";
-		String createTable = "select i.image_id, patient_id, test_type,"
-			+ " test_date, count(distinct(i.image_id)) as number_of_images"
-			+ " from radiology_record r left join "
-			+ " (select record_id, image_id from pacs_images) i "
-			+ " on i.record_id = r.record_id"
-			+ " group by cube(i.image_id, patient_id, test_type, test_date)";
-		Statement statement = null;
-		ResultSet resultSet = null;
-		
-		try{
-			statement = conn.createStatement();
-			statement.executeUpdate(dropTable);
-			statement.executeUpdate(createTable);
-			conn.commit();
-		}catch(SQLException ex){
-			try{
-				conn.rollback();
-			}catch(SQLException ex1){
-				JOptionPane.showMessageDialog("Database is busy now."
-			+ " Please try later");
-			}
-		}
-		
-		String timestamp = (request.getParameter("timestamp")).trim();
-		
-		/*
-		 * Since type and other choices are optional, the strings may be null.
-		 * Using trim() function on them is unsafe.
-		 */
-		String type = request.getParameter("type");
-		String selectType = request.getParameter("selectType");
-	
-		String people = request.getParameter("people");
-		String selectPeople = request.getParameter("selectPatientId");
-		
-		String select = "select ";
-		String from = " from fact_comb";
-		String where = " where ";
-		String groupby = " group by ";
-		
-		ArrayList<String> selectElements = new ArrayList<String>();
-		
-		select += "count(distinct(image_id)) ";
-		selectElements.add("number_of_images");
-		
-		out.println("<p> timstamp : " + timestamp + "</p>");
-		out.println("<p> people : " + people + "</p>");
-		out.println("<p> test type : " + type + "</p>");
-		out.println("<p> selected test type : " + selectType + "</p>");
-		/* when checkbox is checked to see number of records
-		 * for each patient.
-		 */
-		 
-		if(people != null && !people.isEmpty()){
-			
-			select += ", patient_id ";
-			selectElements.add("patient_id");
-			where += " patient_id is not null ";
-			groupby += "patient_id";
-		}else if(people == null && selectPeople != null 
-				&& !selectPeople.equals("NA")){
-			
-			/* else if a specific person is selected*/
-		
-			select += ", patient_id ";
-			selectElements.add("patient_id");
-			where += " patient_id='" + selectPeople.trim() + "' ";	
-			groupby += "patient_id";
-		}
-		
-		if(type != null && !type.isEmpty()){
-			
-			select += ", test_type ";
-			selectElements.add("test_type");
-					
-			if(where.length() > 6){
-				where += " and ";
-			}
-			
-			where += " test_type is not null";
-			
-			if(selectElements.size() > 2){
-				groupby += ",";
-			}
-			groupby += "test_type";
-		}else if(type == null && selectType != null
-				&& !selectType.equals("NA")){
-			
-			select += ", test_type";
-			selectElements.add("test_type");
-			
-			if(where.length() > 6){
-				where += " and ";
-			}
-			
-			where += " test_type='" + selectType.trim() + "'";
-			
-			if(selectElements.size() > 2){
-				groupby += ",";
-			}
-			groupby += "test_type";
-			
-		}
-		
-		
-		if(timestamp.equals("day")){
-			select += ", test_date";
-			selectElements.add("test_date");
-			
-			if(where.length() > 6){
-				where += " and ";
-			}
-			
-			where += " test_date is not null ";
-			
-			if(selectElements.size() > 2){
-				groupby += ",";
-			}
-			
-			groupby += "test_date";			
-		}else if (timestamp.equals("week")){
-			select += ", to_char(test_date, 'WW') as test_week";
-			selectElements.add("test_week");
-			
-			if(where.length() > 6){
-				where += " and ";
-			}
-			
-			where += " test_date is not null ";
-			
-			if(selectElements.size() > 2){
-				groupby += ",";
-			}
-			
-			groupby += "to_char(test_date, 'WW')";
-		}else if(timestamp.equals("month")){
-			
-			select += ", to_char(test_date, 'MON') as test_month";
-			selectElements.add("test_month");
-			
-			if(where.length() > 6){
-				where += " and ";
-			}
-			
-			where += " test_date is not null ";
-			
-			if(selectElements.size() > 2){
-				groupby += ",";
-			}
-			
-			groupby += "to_char(test_date, 'MON')";			
-		}else if(timestamp.equals("year")){
-			
-			select += ", to_char(test_date, 'YYYY') as test_year";
-			selectElements.add("test_year");
-			
-			if(where.length() > 6){
-				where += " and ";
-			}
-			
-			where += " test_date is not null ";
-			
-			if(selectElements.size() > 2){
-				groupby += ",";
-			}
-			
-			groupby += "to_char(test_date, 'YYYY')";	
-			
-		}else if(timestamp.equals("exact")){
-			
-			String selectWeek = request.getParameter("selectWeek");
-			String selectMonth = request.getParameter("selectMonth");
-			String selectYear = request.getParameter("selectYear");
-			String selectDate = request.getParameter("date");
-			out.println(selectWeek + selectMonth + selectYear + selectDate);
-		
-			if(Empty(selectDate) && Empty(selectMonth) && Empty(selectYear)
-					&& Empty(selectWeek)){
-				try{
-					JOptionPane.showMessageDialog(null, "Error 3: please make"
-						+"sure that you have entered correct time information"
-						+" in Week or Month or Year or Date.");
-					response.sendRedirect("/proj1/olap.jsp");
-				}catch(Exception ex){
-					out.println("error on display or others");
-				}
-			}else if(selectDate != null && !selectDate.isEmpty()){
-				
-				if(!ValidateDate(selectDate.trim())){
-					try{
-						JOptionPane.showMessageDialog(null, "Error 1: invalid "
-							+ "date format! Please make sure date is in "
-							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("/proj1/olap.jsp");
-					}catch(Exception ex){
-						out.println("error on display or others");
-					}
-					
-					
-				}
-				out.println("<hr>" + selectDate + "<hr>");
-				select += ", test_date";
-				selectElements.add("test_date");
-				
-				if(where.length() > 6){
-					where += " and ";
-				}
-				
-				where += " test_date='" + selectDate.trim() + "' ";
-				where += " and  test_date is not null ";
-				
-				if(selectElements.size() > 2){
-					groupby += ",";
-				}
-				
-				groupby += "test_date ";				
-			}else if(selectWeek != null && !selectWeek.equals("NA")){
-				String format = "";
-				String targetDate = "";
-				if(selectYear != null && !selectYear.equals("NA")){
-					format = "YYYY-WW";
-					targetDate = selectYear + "-" + selectWeek;
-				}else{
-					format = "WW";
-					targetDate = selectWeek;
-				}
-				select += ", to_char(test_date, '" + format + "') as test_date";
-				selectElements.add("test_date");
-				
-				if(where.length() > 6){
-					where += " and ";
-				}
-				
-				where += " to_char(test_date, '" + format +"')='" + targetDate + "'";
-				where += " and  to_char(test_date, '" + format +"') is not null ";
-				if(selectElements.size() > 2){
-					groupby += ", ";
-				}
-				groupby += " to_char(test_date, '" + format + "')";
-			}else if(selectMonth != null && !selectMonth.equals("NA")){
-				String format = "";
-				String targetDate = "";
-				
-				if(selectYear != null && !selectYear.equals("NA")){
-					format = "YYYY-MON";
-					targetDate = selectYear + "-" + selectMonth;
-				}else{
-					format = "MON";
-					targetDate = selectMonth;
-				}
-				
-				select += ", to_char(test_date, '" + format + "') as test_date";
-				selectElements.add("test_date");
-				
-				if(where.length() > 6){
-					where += " and ";
-				}
-				
-				where += " to_char(test_date, '" + format +"')='" + targetDate + "'";
-				where += " and to_char(test_date, '" + format +"') is not null ";
-				if(selectElements.size() > 2){
-					groupby += ", ";
-				}
-				groupby += " to_char(test_date, '" + format + "')";
-				
-			}else if(selectYear != null && !selectYear.equals("NA")){
-				select += ", to_char(test_date, 'YYYY') as test_date";
-				selectElements.add("test_date");
-				
-				if(where.length() > 6){
-					where += " and ";
-				}
-				
-				where += " to_char(test_date, 'YYYY')='" + selectYear + "'";
-				where += " and  to_char(test_date, 'YYYY') is not null ";
-				if(selectElements.size() > 2){
-					groupby += ", ";
-				}
-				groupby += " to_char(test_date, 'YYYY')";
-			}			
-		}else if(timestamp.equals("period")){
-			out.println("<p>period!</p>");
-			
-			String toWeek = request.getParameter("toWeek");
-			String fromWeek = request.getParameter("fromWeek");
-			
-			String fromMonth = request.getParameter("fromMonth");
-			String toMonth = request.getParameter("toMonth");
-			
-			String fromYear = request.getParameter("fyear");
-			String toYear = request.getParameter("tyear");
-			
-			String fromDate = request.getParameter("fdate");
-			String toDate = request.getParameter("tdate");
-			
-			if(Empty(toWeek) && Empty(fromWeek)
-					&& Empty(toMonth) && Empty(fromMonth)
-					&& Empty(toYear) && Empty(fromYear)
-					&& Empty(fromDate) && Empty(toDate)){
-				try{
-					JOptionPane.showMessageDialog(null, "Error 3: please make"
-						+"sure that you have entered correct time information"
-						+" in Week or Month or Year or Date.");
-					response.sendRedirect("/proj1/olap.jsp");
-				}catch(Exception ex){
-					out.println("error on display or others");
-				}				
-			}else if(NotEmpty(fromDate)){
-				if(!ValidateDate(fromDate.trim())){
-					try{
-						JOptionPane.showMessageDialog(null, "Error 1: invalid "
-							+ "date format! Please make sure date is in "
-							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("/proj1/olap.jsp");
-					}catch(Exception ex){
-						out.println("error on display or others");
-					}
-				}
-				
-				select += ", test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " test_date>='" + fromDate.trim() +"'";
-				
-				if(NotEmpty(toDate) || !ValidateDate(toDate.trim())){
-					try{
-						JOptionPane.showMessageDialog(null, "Error 1: invalid "
-							+ "date format! Please make sure date is in "
-							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("/proj1/olap.jsp");
-					}catch(Exception ex){
-						out.println("error on display or others");
-					}
-				}
-				
-				where += " and test_date<'"+ toDate.trim() +"'";
-				where += " and test_dateis not null ";
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", test_date" : groupby + " test_date";				
-			}else if(NotEmpty(toDate)){
-				
-				if(!ValidateDate(toDate.trim())){
-					try{
-						JOptionPane.showMessageDialog(null, "Error 1: invalid "
-							+ "date format! Please make sure date is in "
-							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("/proj1/olap.jsp");
-					}catch(Exception ex){
-						out.println("error on display or others");
-					}
-				}
-				
-				select += ", test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " test_date<'" + toDate.trim() +"'";
-				where += " and test_date is not null ";
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", test_date" : groupby + " test_date";
-				
-			}else if(NotEmpty(fromWeek)){				
-				String format1 = "";
-				String target1 = "";
-				
-				format1 = (NotEmpty(fromYear)) ? "YYYY-WW" : "WW";
-				target1 = (format1.equals("WW")) ? fromWeek.trim() 
-						: fromYear.trim() + "-" + fromWeek.trim();
-				
-				select += ", to_char(test_date, '"+ format1 +"') as test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " to_char(test_date, '"+ format1 +"')>='" + target1 +"'";
-				where += " and  to_char(test_date, '" + format1 +"') is not null ";
-				
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", to_char(test_date, '"+ format1 +"')" 
-						: groupby + " to_char(test_date, '"+ format1 +"')";
-				
-				boolean checkYW = (format1.equals("WW") == true) ? false : true;
-				
-				if(checkYW){
-					if((NotEmpty(toYear) && Empty(toWeek))
-						|| (Empty(toYear) && NotEmpty(toWeek))){
-						try{
-							JOptionPane.showMessageDialog(null, "Error 4: "
-								+ "Unpaired date. Please check your input.");
-							response.sendRedirect("/proj1/olap.jsp");
-						}catch(Exception ex){
-							out.println("error on display or others");
-						}
-					}else if(NotEmpty(toYear) && NotEmpty(toWeek)){
-						where += " and to_char(test_date, 'YYYY-WW')<'"
-						+ toYear.trim() + "-" + toWeek.trim() +"'";
-					}
-				}else{
-					if(NotEmpty(toWeek)){
-						where += " and to_char(test_date, 'WW')<'" 
-							+ toWeek.trim() + "'";
-					}
-				}
- 			}else if(NotEmpty(toWeek)){
- 				String format1 = "";
-				String target1 = "";
-				
-				if(NotEmpty(fromYear)){
-					JOptionPane.showMessageDialog(null, "Unpaired Date! Please make" 
-						+ " sure you only select Week or Year-Week.");
-					response.sendRedirect("olap.jsp");
-				}
-				
-				format1 = (NotEmpty(toYear)) ? "YYYY-WW" : "WW";
-				target1 = (format1.equals("WW")) ? toWeek.trim() 
-						: toYear.trim() + "-" + toWeek.trim();
-				
-				select += ", to_char(test_date, '"+ format1 +"') as test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " to_char(test_date, '"+ format1 +"')<'" + target1 +"'";
-				where += " and  to_char(test_date, '" + format1 +"') is not null ";
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", to_char(test_date, '"+ format1 +"')" 
-						: groupby + " to_char(test_date, '"+ format1 +"')";
- 			}else if(NotEmpty(fromMonth)){
- 				String format1 = "";
-				String target1 = "";
-				
-				format1 = (NotEmpty(fromYear)) ? "YYYY-MON" : "MON";
-				target1 = (format1.equals("MON")) ? fromMonth.trim() 
-						: fromYear.trim() + "-" + fromMonth.trim();
-				
-				select += ", to_char(test_date, '"+ format1 +"') as test_date";
-				selectElements.add("test_date");
-				out.println("line 747 okay <br>");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += "to_char(test_date, '"+ format1 +"')>='" + target1 +"'";
-				where += " and  to_char(test_date, '" + format1 +"') is not null ";
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", to_char(test_date, '"+ format1 +"')" 
-						: groupby + " to_char(test_date, '"+ format1 +"')";
-				boolean checkYM = (format1.equals("MON") == true) ? false : true;
-				out.println("line 756 okay checkYearMonth:"+checkYM+"<br>");
-				if(checkYM){
-					if((NotEmpty(toYear) && Empty(toMonth))
-							|| (Empty(toYear) && NotEmpty(toMonth))){
-							try{
-								JOptionPane.showMessageDialog(null, "Error 4: "
-									+ "Unpaired date. Please check your input.");
-								response.sendRedirect("/proj1/olap.jsp");
-							}catch(Exception ex){
-								out.println("error on display or others");
-							}
-						}else if(NotEmpty(toYear) && NotEmpty(toMonth)){
-							where += " and to_char(test_date, 'YYYY-MON')<'"
-							+ toYear.trim() + "-" + toWeek.trim() +"'";
-						}	
-				}else{
-					if(NotEmpty(toMonth)){
-						where += " and to_char(test_date, 'MON')<'" 
-							+ toMonth.trim() + "'";
-					}					
-				}				
- 			}else if (NotEmpty(toMonth)){
- 				
-				if(NotEmpty(fromYear)){
-					JOptionPane.showMessageDialog(null, "Unpaired Date! Please make" 
-						+ " sure you only select Month or Year-Month.");
-					response.sendRedirect("olap.jsp");
-				}
-				String format1 = "";
-				String target1 = "";
-				
-				format1 = (NotEmpty(toYear)) ? "YYYY-MON" : "MON";
-				target1 = (format1.equals("MON")) ? toMonth.trim() 
-						: toYear.trim() + "-" + toMonth.trim();
-				
-				select += ", to_char(test_date, '"+ format1 +"') as test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " to_char(test_date, '"+ format1 +"')<'" + target1 +"'";
-				where += " and  to_char(test_date, '" + format1 +"') is not null ";
-				
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", to_char(test_date, '"+ format1 +"')" 
-						: groupby + " to_char(test_date, '"+ format1 +"')";
-				
- 			}else if(NotEmpty(fromYear)){
-				select += ", to_char(test_date, 'YYYY') as test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " to_char(test_date, 'YYYY')>='" + fromYear.trim() +"'";
-				where += " and  to_char(test_date, 'YYYY') is not null ";
-				
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", to_char(test_date, 'YYYY')" 
-						: groupby + " to_char(test_date, 'YYYY')";
-				if(NotEmpty(toYear)){
-					where += " and to_char(test_date, 'YYYY')<'"
-						+ toYear.trim() +"'";
-				}
- 			}else if(NotEmpty(toYear)){
- 				select += ", to_char(test_date, 'YYYY') as test_date";
-				selectElements.add("test_date");
-				
-				where = (where.length() > 6) ? where + " and " : where;
-				where += " to_char(test_date, 'YYYY')<'" + toYear.trim() +"'";
-				where += " and  to_char(test_date, 'YYYY') is not null ";
-				
-				groupby = (selectElements.size() > 2) ? 
-						groupby + ", to_char(test_date, 'YYYY')" 
-						: groupby + " to_char(test_date, 'YYYY')";
- 				
- 			}
-			
-		}
-		out.println(select + from + where + groupby + "<br>");
-		for(int i =0 ; i < selectElements.size(); i++){
-			out.println(selectElements.get(i) + "<br>");
-		}
-		String sql = select + from + where + groupby;
-		
-		try{
-			resultSet = statement.executeQuery(sql);
-		}catch(Exception ex){
-			out.println("<hr>Error: " + ex.getMessage() + "<hr>");
-		}
-		out.println("<hr><b>Result: </b><br>");
-		out.println("<table border=1>");
-		out.println("<tr>");
-		for(int i = 0; i < selectElements.size(); i++){
-			out.println("<td><p>" + selectElements.get(i) + "<p></a></td>");
-		}
-		while(resultSet.next() && resultSet != null){
-			out.println("<tr>");
-			for(int i = 0; i < selectElements.size(); i++){
-				out.println("<td><p>" + resultSet.getString(i+1) + "<p></a></td>");
-			}
-		}
-		out.println("</table>");
-		out.println("<br><hr>");
-	}
 	
 	/*********************************************************************
 	 *    				Close Connection								 *
@@ -1151,6 +1079,20 @@
 		return (str != null && !str.isEmpty() && !str.equals("NA"));
 	}
 %>
+
+<%!
+	private String toTargetDate(String targetdate, String format){
+		return "to_date('" + targetdate + "', '" + format + "')";
+	}
+%>
+
+<%!
+	private String toTestDate(String format){
+		return "to_date(to_char(test_date, '" + format + "'), '" + format + "') ";
+	}
+%>
+
+
 
 </BODY>
 </HTML>
