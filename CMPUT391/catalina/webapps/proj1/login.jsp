@@ -20,6 +20,7 @@
 		}
 		
 	}else if(request.getParameter("bLogin") != null){
+		
 		//get the user input from the login page
 		String userName = (request.getParameter("USERID")).trim();
 		String passwd = (request.getParameter("PASSWD")).trim();
@@ -96,6 +97,13 @@
 				person_id = rset.getInt(1);
 			}
 			
+			try{
+				conn.close();
+			}
+				catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
+			
 			session.setAttribute("Person_Id", person_id);
 			out.println("<p><b>Your Login is Successful!</b></p>");
 			session.setAttribute("PermissionLevel", role);
@@ -108,15 +116,15 @@
 		}else{
 			JOptionPane.showMessageDialog(null, "Either your username or your"
 				+" password is invalid, please try again!");
+			try{
+				conn.close();
+			}
+				catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
 			response.sendRedirect("/proj1/login.jsp");
 		}
-	
-		try{
-			conn.close();
-		}
-			catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
-		}
+
 		
 	}else{
 		out.println("<b>Find out more help information by clicking "

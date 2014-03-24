@@ -457,7 +457,7 @@
 	out.println("<p> Specify the result by week, month, year. </p>");
 	out.println("Week&nbsp: <select name=selectWeek id=sweek style='width: 100px'>");
 	out.println("<option value='NA'>N/A</option>");
-	for(int i = 1; i < 54; i++){
+	for(int i = 1; i < 6; i++){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select>");
@@ -494,13 +494,13 @@
 	out.println("<p> Or choose a time period</p>");
 	out.println("From Week&nbsp: <select name=fromWeek id=fweek style='width: 100px'>");
 	out.println("<option value='NA'>N/A</option>");
-	for(int i = 1; i < 54; i++){
+	for(int i = 1; i < 6; i++){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select>");
 	out.println("To Week &nbsp: <select name=toWeek id=tweek style='width: 100px'>");
 	out.println("<option value='NA'>N/A</option>");
-	for(int i = 1; i < 54; i++){
+	for(int i = 1; i < 6; i++){
 		out.println("<option value="+ i + ">"+i+"</option>");
 	}
 	out.println("</select>");
@@ -649,45 +649,45 @@
 		* 			When a time option is selected 
 		************************************************************/
 		if(timestamp.equals("date")){
-			select += ", test_date";
+			select += ", t.test_date";
 			selectElements.add("Test Time");
 			
 			where = (where.length() > 6) ? where + " and " : where;
 			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
 			
-			where += " test_date is not null ";
-			groupby += "test_date";			
+			where += " t.test_date is not null ";
+			groupby += "t.test_date";			
 			
 		}else if (timestamp.equals("week")){
-			select += ", to_char(test_date, 'WW') as test_week";
+			select += ", to_char(t.test_date, 'WW') as test_week";
 			selectElements.add("Test Time");
 			
 			where = (where.length() > 6) ? where + " and " : where;
 			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
 			
-			where += " test_date is not null ";			
-			groupby += "to_char(test_date, 'WW')";
+			where += " t.test_date is not null ";			
+			groupby += "to_char(t.test_date, 'WW')";
 			
 		}else if(timestamp.equals("month")){
 			
-			select += ", to_char(test_date, 'MON') as test_month";
+			select += ", to_char(t.test_date, 'MON') as test_month";
 			selectElements.add("Test TDate");
 			
 			where = (where.length() > 6) ? where + " and " : where;
 			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
 			
-			where += " test_date is not null ";			
-			groupby += "to_char(test_date, 'MON')";			
+			where += " t.test_date is not null ";			
+			groupby += "to_char(t.test_date, 'MON')";			
 		}else if(timestamp.equals("year")){
 			
-			select += ", to_char(test_date, 'YYYY') as test_year";
+			select += ", to_char(t.test_date, 'YYYY') as test_year";
 			selectElements.add("test Time");
 			
 			where = (where.length() > 6) ? where + " and " : where;
 			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
 			
-			where += " test_date is not null ";
-			groupby += "to_char(test_date, 'YYYY')";	
+			where += " t.test_date is not null ";
+			groupby += "to_char(t.test_date, 'YYYY')";	
 			
 		}else if(timestamp.equals("exact")){
 			
@@ -724,16 +724,16 @@
 					}
 				}
 				
-				select += ", test_date";
+				select += ", t.test_date";
 				selectElements.add("Test Time");
 				
 				where = (where.length() > 6) ? where + " and " : where;
-				where += " test_date='" + selectDate.trim() + "' ";
-				where += " and  test_date is not null ";
+				where += " t.test_date='" + selectDate.trim() + "' ";
+				where += " and  t.test_date is not null ";
 				
 				groupby = (selectElements.size() > 2) 
 						? groupby + "," : groupby;
-				groupby += "test_date ";				
+				groupby += "t.test_date ";				
 			}else if(NotEmpty(selectWeek)){
 				select += ", t.test_week";
 				selectElements.add("Test Week");
@@ -769,7 +769,7 @@
 						groupby + "," : groupby;
 				
 				where += " t.test_month='" + selectMonth.trim() + "'";
-				groupby += ", t.test_month ";
+				groupby += " t.test_month ";
 				
 				if(NotEmpty(selectYear)){
 					select += ", t.test_year";
@@ -788,7 +788,7 @@
 						groupby + "," : groupby;
 				
 				where += " t.test_year='" + selectYear.trim() + "'";
-				groupby += ", t.test_year ";
+				groupby += " t.test_year ";
 			}
 			
 		}else if(timestamp.equals("period")){
@@ -832,15 +832,15 @@
 				}
 				
 				/* the input date is valid*/
-				select += ", test_date";
+				select += ", t.test_date";
 				selectElements.add("Test Date");
 				
 				where = (where.length() > 6) ? where + " and " : where;
 				groupby = (selectElements.size() > 2) ? 
 						groupby + "," : groupby;
 				
-				where += " test_date >= '" + fromDate.trim() + "' ";
-				groupby += " test_date";
+				where += " t.test_date >= '" + fromDate.trim() + "' ";
+				groupby += " t.test_date";
 				
 				if(NotEmpty(toDate) && !ValidateDate(toDate.trim())){
 					try{
@@ -853,7 +853,7 @@
 						out.println("error on display or others");
 					}
 				}else if(NotEmpty(toDate) && ValidateDate(toDate.trim())){
-					where += " and test_date < '" + toDate.trim() + "' ";
+					where += " and t.test_date < '" + toDate.trim() + "' ";
 				}
 				
 			}else if(NotEmpty(toDate)){
@@ -868,15 +868,15 @@
 						out.println("error on display or others");
 					}
 				}
-				select += ", test_date";
+				select += ", t.test_date";
 				selectElements.add("Test Date");
 				
 				where = (where.length() > 6) ? where + " and " : where;
 				groupby = (selectElements.size() > 2) ? 
 						groupby + "," : groupby;
 				
-				where += " test_date < '" + toDate.trim() + "' ";
-				groupby += " test_date";
+				where += " t.test_date < '" + toDate.trim() + "' ";
+				groupby += " t.test_date";
 			}else if(NotEmpty(fromWeek) && NotEmpty(toWeek)){
 				
 				select += ", t.test_week";
@@ -1059,15 +1059,17 @@
 		out.println(sql + "<hr>");
 		
 		conn = getConnection();
-		if(conn == null{
+		if(conn == null){
 			JOptionPane.showMessageDialog(null, "Can't get a connection."
 			+" Please try again.");
 			response.sendRedirect("olap.jsp");
 		}
 		
+		
+		
 		try{
-			statement = conn.createStatement();
-			resultSet = statement.executeQuery(sql);
+			sm = conn.createStatement();
+			rs = sm.executeQuery(sql);
 		}catch(Exception ex){
 			out.println("<hr>Error: " + ex.getMessage() + "<hr>");
 		}
@@ -1079,14 +1081,22 @@
 			out.println("<td><p>" + selectElements.get(i) + "<p></a></td>");
 		}
 		
-		while(resultSet.next() && resultSet != null){
+		while(rs.next() && rs != null){
 			out.println("<tr>");
 			for(int i = 0; i < selectElements.size(); i++){
-				out.println("<td><p>" + resultSet.getString(i+1) + "<p></a></td>");
+				out.println("<td><p>" + rs.getString(i+1) + "<p></a></td>");
 			}
 		}
 		out.println("</table>");
 		out.println("<br><hr>");
+		
+		try{
+			conn.close();
+		}catch(Exception ex){
+			out.println("<hr>Error" + ex.getMessage() + "<hr>");
+		}
+		
+		
 		
 	}
 	

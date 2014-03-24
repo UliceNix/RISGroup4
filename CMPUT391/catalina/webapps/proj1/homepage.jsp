@@ -11,50 +11,55 @@
 <% 
    	out.println("<p><b>Welcome to your homepage " 
 		+ session.getAttribute("UserName") + "!</b></p>");
-   	out.println("<p><b>You could change your password and your personal "
-		+ "information.</b></p>");
-   	out.println("<p><b>And you could also enter the search module to "
-		+ "search for radiology records.</b></p>");
-   	out.println("<b>For more help information, please click on </b><a "
+   	out.println("<p>You could change your password and your personal "
+		+ "information.</p>");
+   	out.println("<p>And you could also enter the search module to "
+		+ "search for radiology records.</p>");
+   	out.println("For more help information, please click on <a "
 		+ "href='help.html#homepage' target=blank>Help </a><br>");
+				
+	out.println("<br><hr><b>Edit Your Personal Information<b><hr>")	;		
    	out.println("<form action=homepage.jsp>");
    	out.println("<input type=submit name=ChangePassword value='Change "
-   		+ "Password'><br>");
+   		+ "Password' style='width: 200px'>");
    	out.println("</form>");
    	out.println("<form action=homepage.jsp>");
    	out.println("<input type=submit name=ChangeFirstName value='Change "
-   		+ "Firstname'><br>");
+   		+ "Firstname' style='width: 200px'><br>");
    	out.println("</form>");
    	out.println("<form action=homepage.jsp>");
    	out.println("<input type=submit name=ChangeLastName value='Change "
-   		+ "Lastname'><br>");
+   		+ "Lastname' style='width: 200px'>");
    	out.println("</form>");
    	out.println("<form action=homepage.jsp>");
    	out.println("<input type=submit name=ChangeAddress value='Change "
-   		+ "Address'><br>");
+   		+ "Address' style='width: 200px'><br>");
    	out.println("</form>");
    	out.println("<form action=homepage.jsp>");
    	out.println("<input type=submit name=ChangePhoneNumber value='Change "
-   		+ "Phone Number'><br>");
+   		+ "Phone Number' style='width: 200px'>");
+   	out.println("<hr>");
 
+   	out.println("<b> Function </b><hr>");
    	if(session.getAttribute("PermissionLevel").equals("r")){
    		out.println("</form>");
    		out.println("<form action=newrecord.jsp>");
    		out.println("<input type=submit name=NewRecord value='Create a "
-   			+"New Radiology Record'><br>");
+   			+"New Radiology Record' style='width: 200px'><br>");
    		out.println("</form>");
    	}
    	
    	out.println("</form>");
    	out.println("<form action=search.jsp>");
    	out.println("<input type=submit name=SearchEngine value='Enter "
-   		+"Search Engine'><br>");
+   		+"Search Engine' style='width: 200px'><br>");
    	out.println("</form>");
 
    	out.println("</form>");
    	out.println("<form action=homepage.jsp>");
-   	out.println("<input type=submit name=LogOut value='Log Out'><br>");
+   	out.println("<input type=submit name=LogOut value='Log Out' style='width: 200px'><br>");
    	out.println("</form>");
+   	out.println("<hr>");
   	 
    	if(request.getParameter("ChangePassword") != null 
    		|| request.getParameter("TryPassword") != null){

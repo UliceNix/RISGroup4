@@ -11,42 +11,44 @@
 <% 
 	out.println("<p><b>Welcome to Administrator's Homepage, "
 		+ session.getAttribute("UserName") + "!</b></p>");
-	out.println("<p><b>Manage the user's information (update an " 
-		+ "exisiting user or register a new user).</b></p>");
-	out.println("<p><b>Search for radiologist records.</b></p>");
-	out.println("<p><b>Generate the report of all patients..</b></p>");
+	out.println("<p>Manage the user's information (update an " 
+		+ "exisiting user or register a new user).</p>");
+	out.println("<p>Search for radiologist records.</p>");
+	out.println("<p>Generate the report of all patients.</p>");
 	out.println("<b>Find out more help information by clicking <a "
 		+"href='help.html#adminHomepage' target='blank'>Help</a></b><br><br>");
-    out.println("<hr>");
+	
+    out.println("<br><hr><b>Edit User Information</b><hr>");
     out.println("<form action=adminhomepage.jsp>");
     out.println("<input type=submit name=NewUser value='Register a New "
-	+ "User'><br>");
+	+ "User' style='width: 200px'><br>");
     out.println("</form>");
-    out.println("<hr>");
     out.println("<form action=adminhomepage.jsp>");
     out.println("<p>Enter the user's person_id</p><input type=text "
-	+ "name=PersonId required><br>");
+	+ "name=PersonId required style='width: 200px'><br>");
     out.println("<input type=submit name=UpdateUser value='Update a"
-	+ " User'><br>");
+	+ " User' style='width: 200px'><br>");
     out.println("</form>");
-    out.println("<hr>");
+    
+    out.println("<hr><b>Edit Family Doctor Relationship</b><hr>");
     out.println("<form action=editfamdoc.jsp>");
     out.println("<input type=submit name=EditFamDoc value='Update Family"
-	+ " Doctor Information'><br>");
+	+ " Doctor Info' style='width: 200px'><br>");
 	out.println("</form>");
-    out.println("<hr>");
+    
+	out.println("<hr><b>Functions</b><hr>");
     out.println("<form action=search.jsp>");
-    out.println("<input type=submit name=Search value='Use Search Engine'>");
+    out.println("<input type=submit name=Search value='Use Search Engine' style='width: 200px'>");
     out.println("</form>");
     out.println("<form action=report.jsp>");
-    out.println("<input type=submit name=Report value='Generate a Report'>");
+    out.println("<input type=submit name=Report value='Generate a Report' style='width: 200px'>");
     out.println("</form>");
     out.println("<form action=olap.jsp>");
-    out.println("<input type=submit name=DataAnalysis value='OLAP Report Generator'><br>");
+    out.println("<input type=submit name=DataAnalysis value='OLAP Report Generator' style='width: 200px'><br>");
     out.println("</form>");
-    out.println("<hr>");
+
     out.println("<form action=adminhomepage.jsp>");
-    out.println("<input type=submit name=LogOut value='Log Out'><br>");
+    out.println("<input type=submit name=LogOut value='Log Out' style='width: 200px'><br>");
     out.println("</form>");
     
 	Integer person_id = (Integer) session.getAttribute("Person_Id");

@@ -55,7 +55,7 @@
     	
         Connection conn = getConnection();
         
-        if(conn == null{
+        if(conn == null){
 			JOptionPane.showMessageDialog(null, "Can't get a connection."
 			+" Please try again.");
 			response.sendRedirect("report.jsp");

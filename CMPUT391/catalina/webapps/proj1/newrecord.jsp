@@ -62,7 +62,7 @@
 		
     	Connection conn = getConnection();
     	
-    	if(conn == null{
+    	if(conn == null){
 			JOptionPane.showMessageDialog(null, "Can't get a connection."
 			+" Please try again.");
 			response.sendRedirect("newrecord.jsp");
@@ -200,7 +200,10 @@
                 	out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
 	    		response.sendRedirect("newrecord.jsp");
+	 			return;
 	 		}
+	 		
+	 		
 	 
       	} else {
 			pDate = null;      
@@ -224,6 +227,7 @@
 	              out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
 	            response.sendRedirect("newrecord.jsp");
+	            return;
 	      	}  
 	    }else{
 		 	tDate = null;      

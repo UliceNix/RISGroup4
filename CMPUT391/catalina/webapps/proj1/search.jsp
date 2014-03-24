@@ -58,26 +58,7 @@
 	* before executing any search queries. We need to build a 
 	* materialized view and related indecies
 	*/
-	ArrayList<String> preparework = new ArrayList<String>();
-	
-	preparework.add("drop table rp_join");
-	preparework.add("create table rp_join"
-		+ "as"
-		+ "select r.*, CONCAT(CONCAT(p.first_name, ''), p.last_name) as patient_name"
-		+ " from radiology_record r left join persons p on patient_id = person_id"
-		+ " where p.first_name is not null and p.last_name is not null "
-		+ " order by record_id asc");
-	preparework.add("drop index index_des");
-	preparework.add("drop index index_dia");
-	preparework.add("drop index index_name");
-	
-	preparework.add("create index index_des on rp_join "
-		+"(description) INDEXTYPE IS ctxsys.context");
-	preparework.add("create index index_dia on rp_join "
-		+"(diagnosis) INDEXTYPE IS ctxsys.context");
-	preparework.add("create index index_name on rp_join"
-		+" (patient_name) INDEXTYPE IS ctxsys.context");
-	
+
 	Connection conn = null;	
 	String driverName = "oracle.jdbc.driver.OracleDriver";
 	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
@@ -106,27 +87,17 @@
 	}
     
 	ResultSet rset = null;
-    
-	for(int i = 0; i < preparework.size(); i++){
-		try{
-			stmt.executeUpdate(preparework.get(i));
-		}catch(Exception ex){
-			try{
-	  			conn.rollback();
-	  		}catch(SQLException ex1){
-		    	JOptionPane.showMessageDialog(null, "Database is busy now."
-		    	+ " Please try later");
-		    	conn.close();
-		    	response.sendRedirect("homepage.jsp");
-		    }
-	  	}
-	}
-	
+    	
 	String selectcols = "select record_id, patient_id, doctor_id, "
 		+"radiologist_id,test_type, prescribing_date, "
 		+"test_date, diagnosis, description";
 	
 	if(request.getParameter("Back") != null){
+		try{
+			conn.close();
+		}catch(Exception ex){
+			out.println(ex.getMessage());
+		}
 
 		if(role.equals("a")){
 			response.sendRedirect("adminhomepage.jsp");	
@@ -148,7 +119,12 @@
 			sdformat.parse(to);
 	   	}catch(Exception ex){
 			JOptionPane.showMessageDialog(null, "Please check the date " 
-	   			+ "format, make sure it's in dd-MMM-yyyy");    	   		
+	   			+ "format, make sure it's in dd-MMM-yyyy");   
+			try{
+				conn.close();
+			}catch(Exception ex1){
+				out.println(ex1.getMessage());
+			}
 			response.sendRedirect("search.jsp");
 			return;
 	   	}
@@ -164,6 +140,11 @@
 
 			JOptionPane.showMessageDialog(null, "Please make sure " 
 				+ "you only use 'and' or 'or' to join your key words.");
+			try{
+				conn.close();
+			}catch(Exception ex1){
+				out.println(ex1.getMessage());
+			}
 			response.sendRedirect("search.jsp");
 			return;
 		}
@@ -182,7 +163,6 @@
 			for(int i = 1; i < keywords.length; i++){
 				keyword = keyword + " and " + keywords[i];
 			}
-			out.println(keyword + "<br>");
            
 		}else{
 
@@ -197,7 +177,6 @@
 			for(int i = 1; i < keywords.length; i++){
 				keyword = keyword + " or " + keywords[i];
 			}
-			out.println(keyword + "<br>");
 		}
         
 		String order = request.getParameter("Order");
@@ -220,25 +199,25 @@
         
 		/* build select from clause*/
 		if(role.equals("p")){
-			select  = selectcols + " from rp_join where patient_id='" 
+			select  = selectcols + " from rp where patient_id='" 
 				+ personId + "' and ";
 		}else if (role.equals("r")){
 
-			select  = selectcols + " from rp_join where radiologist_id='" 
+			select  = selectcols + " from rp where radiologist_id='" 
 			+ personId + "' and ";
 		}else if (role.equals("d")){
 
-			select  = selectcols + " from rp_join where doctor_id='" 
+			select  = selectcols + " from rp where doctor_id='" 
 			+ personId + "' and ";
 		}else{
 
-			select  = selectcols + " from rp_join where ";
+			select  = selectcols + " from rp where ";
 		}
         
 		/* add contains clause */
 		select += "(contains(description, '" + keyword + "', 1) > 0" +
-			" and contains(diagnosis, '" + keyword + "', 2) > 0" +
-			" and contains(patient_name, '" + keyword + "', 3) > 0)";
+			" or contains(diagnosis, '" + keyword + "', 2) > 0" +
+			" or contains(patient_name, '" + keyword + "', 3) > 0)";
       
 		/* add test_date selection constraint */
 		select += " and test_date >='" + from 
@@ -251,8 +230,18 @@
 		out.println(select + "<br>");
         
 		/* execute select query*/
-		rset = stmt.executeQuery(select);
-        
+		try{
+			rset = stmt.executeQuery(select);
+		}catch(SQLException ex){
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+			try{
+				conn.close();
+			}catch(Exception ex1){
+				out.println(ex1.getMessage());
+			}
+			response.sendRedirect("search.jsp");
+		}
+		
 		out.println("<table BORDER=1>");
 		out.println("<tr><td>Record ID</a></td>");
 		out.println("    <td >Patient ID</a></td>");
@@ -321,6 +310,12 @@
 			
 		}
 		out.println("</table>");  
+		
+		try{
+			conn.close();
+		}catch(Exception ex){
+			out.println(ex.getMessage());
+		}
               	
 	}else{
 		out.println("<table BORDER=1>");
@@ -394,7 +389,18 @@
 	    	
 			String getPics = "select image_id from pacs_images where" 
 				+ " record_id='" + rids.get(i) + "'";
-			rset = stmt.executeQuery(getPics);
+			try{
+				rset = stmt.executeQuery(getPics);
+			}catch(SQLException ex){
+				JOptionPane.showMessageDialog(null, ex.getMessage());
+				try{
+					conn.close();
+				}catch(Exception ex1){
+					out.println(ex1.getMessage());
+				}
+				response.sendRedirect("search.jsp");
+			}
+			
 			out.println("<td>");
 	    	
 			if(rset.next()){
@@ -410,15 +416,22 @@
 			while(rset.next()){
 				String pic_id = rset.getString(1);
 				
+				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
+						+ "pic" + pic_id + "\"></a>");
+				
 				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i) 
 					+ "pic" + pic_id + "\" target=\"_blank\">");
-				
-				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
-					+ "pic" + pic_id + "\"></a>");
+
 			}
 			out.println("</a></td>");
 		}
 		out.println("</table>");
+		
+		try{
+			conn.close();
+		}catch(Exception ex){
+			out.println(ex.getMessage());
+		}
 	}
 
 %>
