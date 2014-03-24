@@ -301,32 +301,7 @@
 <%
 	Integer person_id = (Integer) session.getAttribute("Person_Id");
 	String role = (String) session.getAttribute("PermissionLevel");
-	
-	/*********************************************************************
-	 *    				Establish Connection							 *
-	 *********************************************************************/
-	Connection conn = null;
-	
-	String driverName = "oracle.jdbc.driver.OracleDriver";
-	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 
-	try{
-		//load and register the driver
-		Class drvClass = Class.forName(driverName); 
-		DriverManager.registerDriver((Driver) drvClass.newInstance());
-	}catch(Exception ex){
-		out.println("<hr>" + ex.getMessage() + "<hr>");
-	}
-	
-	try{
-		//establish the connection 
-		conn = DriverManager.getConnection(dbstring,"mingxun",
-			"hellxbox_4801");
-		conn.setAutoCommit(false);
-	}catch(Exception ex){
-       	out.println("<hr>" + ex.getMessage() + "<hr>");
-	}
-	
 	if(person_id == null || !role.equals("a")){
 		response.sendRedirect("login.jsp");
     }
@@ -338,6 +313,8 @@
 	out.println("<b>Find out more help information by clicking "
 		+ "<a href='help.html#olap' target='blank'>Help</a></b><br>");	
 	out.println("<hr>");
+	
+	Connection conn = null;
 	
 	if(request.getParameter("generate") != null){
 		
@@ -793,18 +770,27 @@
 		
 		out.println(sql + "<hr>");
 		/*
+		conn = getConnection();
+		if(conn == null{
+			JOptionPane.showMessageDialog(null, "Can't get a connection."
+			+" Please try again.");
+			response.sendRedirect("olap.jsp");
+		}
+		
 		try{
 			statement = conn.createStatement();
 			resultSet = statement.executeQuery(sql);
 		}catch(Exception ex){
 			out.println("<hr>Error: " + ex.getMessage() + "<hr>");
 		}
+		
 		out.println("<hr><b>Result: </b><br>");
 		out.println("<table border=1>");
 		out.println("<tr>");
 		for(int i = 0; i < selectElements.size(); i++){
 			out.println("<td><p>" + selectElements.get(i) + "<p></a></td>");
 		}
+		
 		while(resultSet.next() && resultSet != null){
 			out.println("<tr>");
 			for(int i = 0; i < selectElements.size(); i++){
@@ -816,12 +802,19 @@
 	*/
 	}
 
-	
 	/************************************************************************
 	*  
 	*                  UI Design Part starts here
 	*
 	*************************************************************************/
+	conn = getConnection();
+	
+	if(conn == null{
+		JOptionPane.showMessageDialog(null, "Can't get a connection."
+		+" Please try again.");
+		response.sendRedirect("olap.jsp");
+	}
+	
 	Statement stmt = null;
 	ResultSet rset = null;
 	
@@ -1090,6 +1083,31 @@
 	private String toTestDate(String format){
 		return "to_date(to_char(test_date, '" + format + "'), '" + format + "') ";
 	}
+%>
+
+<%!
+	private Connection getConnection(){
+		Connection conn = null;
+	   	String driverName = "oracle.jdbc.driver.OracleDriver";
+	   	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+	
+	   	try {
+	   	    Class drvClass = Class.forName(driverName); 
+		    DriverManager.registerDriver((Driver) drvClass.newInstance());
+	   	}catch(Exception ex){
+	   	    out.println("<hr>" + ex.getMessage() + "<hr>");
+	   	}
+	   	
+	   	try {
+	   		conn = DriverManager.getConnection(dbstring,"mingxun",
+		    	"hellxbox_4801");
+		    conn.setAutoCommit(false);
+		    return conn;
+	    }catch(Exception ex){
+		    out.println("<hr>" + ex.getMessage() + "<hr>");
+		   	return null;
+	   	}
+}
 %>
 
 

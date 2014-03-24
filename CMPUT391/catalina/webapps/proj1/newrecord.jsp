@@ -3,6 +3,31 @@
 <title>Create a New Radiology Record(Step 1 of 2)</title>
 </head>
 <body>
+<%!
+	private Connection getConnection(){
+		Connection conn = null;
+		String driverName = "oracle.jdbc.driver.OracleDriver";
+		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+	   
+		try {
+	 		Class drvClass = Class.forName(driverName); 
+			DriverManager.registerDriver((Driver) drvClass.newInstance());
+		}catch(Exception ex){
+			out.println("<hr>" + ex.getMessage() + "<hr>");
+		}
+	    
+	    try {
+	   		conn = DriverManager.getConnection(dbstring,"mingxun",
+				"hellxbox_4801");
+	   		conn.setAutoCommit(false);
+	   		return conn;
+	    }catch(Exception ex){
+			out.println("<hr>" + ex.getMessage() + "<hr>");
+			return null;
+	    }
+	
+	}
+%>
 <%@ page
 	import="java.sql.*,javax.portlet.ActionResponse.*, 
 		javax.swing.*, 
@@ -35,26 +60,15 @@
     String description = "";
 
     if(request.getParameter("SaveRecord") != null){ 
-    	Connection conn = null;
-    	String driverName = "oracle.jdbc.driver.OracleDriver";
-    	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-       
-    	try {
-     		Class drvClass = Class.forName(driverName); 
-    		DriverManager.registerDriver((Driver) drvClass.newInstance());
-    	}catch(Exception ex){
-    		out.println("<hr>" + ex.getMessage() + "<hr>");
-    	}
-        
-        try {
-       		conn = DriverManager.getConnection(dbstring,"mingxun",
-    			"hellxbox_4801");
-       		conn.setAutoCommit(false);
-        }catch(Exception ex){
-    		out.println("<hr>" + ex.getMessage() + "<hr>");
-    		return;
-        }
-
+		
+    	Connection conn = getConnection();
+    	
+    	if(conn == null{
+			JOptionPane.showMessageDialog(null, "Can't get a connection."
+			+" Please try again.");
+			response.sendRedirect("newrecord.jsp");
+		}
+    	
         Statement stmt = null;
         try{
         	stmt = conn.createStatement();
@@ -300,10 +314,6 @@
       	out.println("</form>");
       	out.println("<hr>");
    	}
-   
- 
-      
-   
 %>
 
 
