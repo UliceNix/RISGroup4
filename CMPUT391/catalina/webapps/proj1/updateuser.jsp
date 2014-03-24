@@ -254,6 +254,12 @@
 		out.println("<form action=adminhomepage.jsp>");
 		out.println("<input type=submit name=Back value='Go Back'><br>");
 		out.println("</form>");		
+		
+		try{
+			conn.close();
+		}catch(SQLException ex){
+			out.println(ex.getMessage());
+		}
 	}     
 %>
 <%!

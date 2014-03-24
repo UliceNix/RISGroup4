@@ -13,7 +13,7 @@
 	 		Class drvClass = Class.forName(driverName); 
 			DriverManager.registerDriver((Driver) drvClass.newInstance());
 		}catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
+			return null;
 		}
 	    
 	    try {
@@ -22,7 +22,6 @@
 	   		conn.setAutoCommit(false);
 	   		return conn;
 	    }catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
 			return null;
 	    }
 	
