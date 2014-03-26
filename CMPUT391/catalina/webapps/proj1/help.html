@@ -20,7 +20,7 @@
 <li><a href="#help">User Manual</a></li>
 </ul>
 <hr>
-<a id="installation"><h3>Install Instruction</a></li>
+<a id="installation"><h3>Install Instruction</a></h3>
 <ol>
 <li> Make sure you have installed <a href="http://tomcat.apache.org/" target=_blank>tomcat</a> in your system.</li>
 <li> Create/Edit .catalinarc in your home directory. Modify CLASSPATH to "CLASSPATH='[your oracle jdbc library]:~/catalina/webapps/proj1/WEB-INF/lib/*'". Comment out the lines 'JAVA_HOME=/usr/local/java' and 'export JAVA_HOME' by adding a '#' symbol at the beginning of these two lines (if two lines exist). Also, comment out LD_LIBRARY_PATH and export LD_LIBRARY_PATH if applicable. </li>
@@ -70,36 +70,48 @@
 <br>
 
 <a id="homepage"><h3>Homepage</h3></a>
+<p><ul> Homepage is a module that provides doctors, patients, and radiologists to modify his/her personal information or explore the functions provided by Radiology Information System, such as the search engine.</ul></p>
 <p><ul> On homepage, you'll be given choices to change your personal information including password, firstname, lastname, address or phone number.</ul></p>
-<p><ul> Also, you could click on "Enter Search Engine", to search radiology records in the system</ul></p>
+
+<ul>
+<li> Passwords are consist of numbers and letters. Special characters are illegal.</li>
+<li> A person's first name and last name should contain only letters.</li>
+<li> The maximum length of address is 128 characters.</li>
+<li> A valid phone number should contain no spaces but only 10 digits.</li>
+</ul>
+
+<p><ul> Also, you could click on "Enter Search Engine", to search radiology records in the system. For more information on search engine, please refer to search engine section.</ul></p>
+<p><ul> For radiologists only, the function "Create a New Radiology Record" is available for radiologists to add a new radiology record to system.</ul></p>
 <p><ul> To safely log out, you need to click on Log Out button. </ul></p> 
 <br>
 
 <a id="adminHomepage"><h3>Admin Homepage</h3></a>
+<p><ul>Admin homepage is a place, in which an administrator will perform jobs such as modifying a user's information, signing up a new user, updating family doctor relationship, etc.</ul></p>
 <p><ul>You could register a new user by clicking on "Register a New User" button.</ul></p>
 <p><ul>And by entering a valid person id and clicking on the "Update a User" will direct you to a page on which you could change the user's personal information (Of course, you could change your information on this page!)</ul></p>
-<p><ul>"Update Family Doctor Information" will allow you to add a new family doctor relationship or delete a relationship.</ul><p>
-<p><ul> Also, you could click on "Enter Search Engine", to search radiology records in the system</ul></p>
-<p><ul>We also provide a report generating module, in which you could get a list of all patients with a specified diagnosis in a given time period by simply clicking on "Generate a report" button.</ul></p>
+<p><ul>"Update Family Doctor Information" will allow an administrator to add a new family doctor relationship or delete a relationship.</ul><p>
+<p><ul> Also, an administrator could click on "Enter Search Engine", to search radiology records in the system</ul></p>
+<p><ul>We also provide a report generating module, in which an administrator could get a list of all patients with a specified diagnosis in a given time period by simply clicking on "Generate a report" button.</ul></p>
 
 <p><ul> To safely log out, you need to click on Log Out button. </ul></p> 
 <br>
 
 <a id="signUp"><h3>Sign Up</h3></a>
 <p><font color="red">**You must be an administrator to perform this job**</font></p>
+<p><ul> Sign Up module is used by an administrator to register a new user in Radiology Information System. The registration form requires the username, password, class (role), the information that if the user is an existing user or a new user.</ul></p>
 <ol>
 <li>Decide if you are going to register a new account for an existing user or a new user by select one of the options(Existing User & New User) with the radio button</li>
-<li>Enter the username of the new account in UserName block. The limit of characters is 24.</li>
-<li>Enter the password of the new account in Password block. The limit of characters is 24 and no special character is allowed.</li>
-<li>Enter the first name of the new account in First Name block. The limit of characters is 24 and no special character is allowed.</li>
-<li>Enter the last name of the new account in First Name block. The limit of characters is 24 and no special character is allowed.</li>
+<li>Enter the username of the new account in UserName block. The limit of characters is 24, only letters and numbers are allowed.</li>
+<li>Enter the password of the new account in Password block. The limit of characters is 24, and should only contain letters and numebrs.</li>
+<li>Enter the first name of the new account in First Name block. The limit of characters is 24 and no special character or number is allowed.(Optional)</li>
+<li>Enter the last name of the new account in First Name block. The limit of characters is 24 and no special character or number  is allowed.(Optional)</li>
 <li>Choose a role for the new account (a patient, radiologist or doctor or admin?)</li>
 <li>Enter the email of the new account in Email block. (Optional)</li>
 <li>Enter the address of the new account in Address block. The maximum number of characters is 128.(Optional)</li>
 <li>Enter the phone number of the new account in Phone block. A valid phone number must consist of 10 digits. No special characters, spaces, or dashes.(Optional)</li>
 <li>After filling in all the blanks, click on SignUp button.</li>
 	<ul>
-	<li> If registering an existing user, a dialog window will prompt you for his/her person id.</li>
+	<li> If registering an existing user, a dialog window will prompt you for his/her person id. Please only enter legal person id. Else the window will keep asking for the correct person id.</li>
 	<li> Otherwise a new person id will be assigned to the new user automatically. </li>
 	</ul>
 </ol>
@@ -109,14 +121,14 @@
 
 <p>The user's information will be populated into the personal information form. Please note that you need to enter a new password to change his/her password or enter his/her odd password to confirm not changing his/her password.</p>
 <ol>
-<li>Enter the new Username in UserName block if you would like to change the user's username.</li>
-<li>Enter the new password to change the user's password. Or Enter the odd password in order to keep the odd password.</li>
+<li>Enter the new Username in UserName block if you would like to change the user's username. Only letters ane numbers are allowed in a username.</li>
+<li>Enter the new password to change the user's password. Or Enter the odd password in order to keep the odd password. A legal password contains only letters and numbers.</li>
 <li>Enter the new first name of the user's if you would like to change the user's first name.</li>
 <li>Enter the new last name of the user's if you would like to change the user's last name.</li>
 <li>Select a role for the user by click on radio buttons of patient or radiologist or doctor.</li>
 <li>Enter the new email address if you need to change the user's email address.</li>
-<li>Enter the new address if you need to change the user's address.</li> 
-<li>Enter the new phone number if you need to change the user's phone number.</li>
+<li>Enter the new address if you need to change the user's address. The maximum number of characters is 128.</li> 
+<li>Enter the new phone number if you need to change the user's phone number. A valid phone number consist of 10 digits and no spaces or other special characters are allowed.</li>
 <li>Click Save button to save or Go back button to discard your change.</li>
 </ol>
 
@@ -126,23 +138,30 @@
 <li>Change Firstname: click on Change Firstname button and then enter your new first name in New Firstname block at the bottom of this page. Click save to save your change.</li>
 <li>Change Lastname: click on Change Lastname button and then enter your new last name in New Lastname block at the bottom of this page. Click save to save your change.</li>
 <li>Change Address by clicking Change Address button, and enter the new address in the New Address block at the bottom of this page. Click Save to save your change.</li>
-<li>Change Phone number by clicking on Change Phone Number button. And enter your new phone number in New Phone block at the bottom of this page. Click Save button to save your change.</li>
+<li>Change Phone number by clicking on Change Phone Number button. And enter your new phone number in New Phone block at the bottom of this page. </li>
+<li>Click Save button to save your change.</li>
 </ul>
 <br>
 
 <a id="editFamDoctor"><h3>Update Family Doctor Information</h3></a>
 <p><font color="red">**You must be an administrator to perform this job.**</font></p>
-<p><ul>When at the page of Edit Family Doctor Information, you are provided with a table of current family doctor relationships.</ul></p>
-<p><ul>You could either add a new relationship or drop an odd one.</ul></p>
+<p><ul>When at the page of Edit Family Doctor Information, administrators are provided with a table of current family doctor relationships for reference. And an administrator is able to add a new famliy doctor relationship or delete one by entering valid doctor and patient id.</ul></p>
 <ol>
 <li>Entering a valid doctor's person id in the first block</li>
 <li>Entering a valid patient's person id in the second block</li>
-<li>Then click on "Add relationship" to add this new relationship to system or "Drop relationship" to delete this relationship from system.</li>
+<li>Then click on "Add relationship" to add this new relationship to the system or "Drop relationship" to delete this relationship from the system.</li>
 </ol>
 
 <a id="report"><h3>Generate a Report</h3></a>
 <p><font color="red">**You must be an administrator to perform this job.**</font></p>
-<ul><p>Please note: report is generated based on a very specific diagnosis. This is not like search module where multiple keywords are acceptable. </p></ul>
+<ul><p> The "Generate a Report" Module is responsible for taking in a specific diagnosis and a time period, returining a list of patients that qualify the diagnosis in their radiology records.</p></ul>
+<ul><ul><li>Please note: report is generated based on a very specific diagnosis. Thisis not like search module where multiple keywords are acceptable.  </li></ul></ul>
+
+<ul><ul>
+<li>
+If entering "cancer", then the people that has records that contains word "cancer" in their diagnosis column will be returned.</li>
+<li> If entering "cancer and cold", then people who has records that contains word "cancer and cold" in the diagnosis column will appear in the result table</li>
+</ul></ul>
 <ol>
 <li>Enter a specific diagnosis (eg. lung cancer) in the first blank</li>
 <li>Enter a time period in the from and to blank strictly following the given format (eg. 29-FEB-2008)</li>
@@ -154,11 +173,15 @@
 <p><ul>Search Engine first lists all the records that are available to users.</ul></p>
 <p><ul><font color="red" size="2">(Due to security concerns, doctors can only search radiology records of his patients', and radiologists only have access to records conducted by themselved, and patients can only see their records.)</font></ul></p>
 <p><ul>Search Engine will take in a list of keywords joined by only and or or and a time period and/or the order of results.</ul></p>
+<ul>
+<li> "and" and "or" are reserved keywords, which should never be used as a search word. </li>
+<li> A time period refers to a time interval with a start date and an end date.</li>
+</ul>
 
 <ol>
 <li>First enter the keywords in the first blank. (eg. Jully and cancer and Scully, Slim or Shady)</li>
 <li>Enter a time period. Enter the start date in From blank, and the end date in the To blank. (Not: please strictly follow the format of the date, and the search engine will do the search including the date entered in the From blank and excluding the date entered in the To blank)</li>
-<li><font color="grey">(Optional)</font> Select the order that you would like to see your results. The available orders are "Most recent first" and "Least recent first". If leave this blank, the results will be listed by the default order of our system.</li>
+<li><font color="grey">(Optional)</font> Select the order that you would like to see your results. The available orders are "Most recent first" and "Least recent first". If leave this blank, the results will be listed by the default order of our system, which is calculated by formula Rank(record_id) = 6*frequency(patient_name) + 3*frequency(diagnosis) + frequency(description), with the largest rank appearing first.</li>
 <li>Click Go to perform the search</li>
 </ol>
 <br>
