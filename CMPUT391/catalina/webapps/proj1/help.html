@@ -22,8 +22,10 @@
 <hr>
 <a id="installation"><h3>Install Instruction</a></li>
 <ol>
-<li> Make sure you have installed <a href="http://tomcat.apache.org/">tomcat</a> in your system.</li>
-<li> </li>
+<li> Make sure you have installed <a href="http://tomcat.apache.org/" target=_blank>tomcat</a> in your system.</li>
+<li> Create/Edit .catalinarc in your home directory. Modify CLASSPATH to "CLASSPATH='[your oracle jdbc library]:~/catalina/webapps/proj1/WEB-INF/lib/*'". Comment out the lines 'JAVA_HOME=/usr/local/java' and 'export JAVA_HOME' by adding a '#' symbol at the beginning of these two lines (if two lines exist). Also, comment out LD_LIBRARY_PATH and export LD_LIBRARY_PATH if applicable. </li>
+<li> Extract and move the whole folder "proj1" into webapps folder. And open the terminal, cd to proj1 directory, type in make. Then your installation is done.</li>
+<li> Before using the application, please restart your tomcat.</li>
 </ol>
 
 
@@ -91,11 +93,15 @@
 <li>Enter the password of the new account in Password block. The limit of characters is 24 and no special character is allowed.</li>
 <li>Enter the first name of the new account in First Name block. The limit of characters is 24 and no special character is allowed.</li>
 <li>Enter the last name of the new account in First Name block. The limit of characters is 24 and no special character is allowed.</li>
-<li>Choose a role for the new account (a patient, radiologist or doctor?)</li>
-<li>Enter the email of the new account in Email block. </li>
-<li>Enter the address of the new account in Address block. The maximum number of characters is 128.</li>
-<li>Enter the phone number of the new account in Phone block. A valid phone number must consist of 10 digits. No special characters, spaces, or dashes.</li>
+<li>Choose a role for the new account (a patient, radiologist or doctor or admin?)</li>
+<li>Enter the email of the new account in Email block. (Optional)</li>
+<li>Enter the address of the new account in Address block. The maximum number of characters is 128.(Optional)</li>
+<li>Enter the phone number of the new account in Phone block. A valid phone number must consist of 10 digits. No special characters, spaces, or dashes.(Optional)</li>
 <li>After filling in all the blanks, click on SignUp button.</li>
+	<ul>
+	<li> If registering an existing user, a dialog window will prompt you for his/her person id.</li>
+	<li> Otherwise a new person id will be assigned to the new user automatically. </li>
+	</ul>
 </ol>
 
 <h3>Update Personal Information</h3>
@@ -136,6 +142,7 @@
 
 <a id="report"><h3>Generate a Report</h3></a>
 <p><font color="red">**You must be an administrator to perform this job.**</font></p>
+<ul><p>Please note: report is generated based on a very specific diagnosis. This is not like search module where multiple keywords are acceptable. </p></ul>
 <ol>
 <li>Enter a specific diagnosis (eg. lung cancer) in the first blank</li>
 <li>Enter a time period in the from and to blank strictly following the given format (eg. 29-FEB-2008)</li>

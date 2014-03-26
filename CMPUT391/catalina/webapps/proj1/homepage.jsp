@@ -41,6 +41,11 @@
    	out.println("<hr>");
 
    	out.println("<b> Function </b><hr>");
+   	if(session.getAttribute("Person_Id") == null){
+   		response.sendRedirect("login.jsp");
+   		return;
+   	}
+   	
    	if(session.getAttribute("PermissionLevel").equals("r")){
    		out.println("</form>");
    		out.println("<form action=newrecord.jsp>");
@@ -57,7 +62,8 @@
 
    	out.println("</form>");
    	out.println("<form action=homepage.jsp>");
-   	out.println("<input type=submit name=LogOut value='Log Out' style='width: 200px'><br>");
+   	out.println("<input type=submit name=LogOut value='Log Out'"
+   		+" style='width: 200px'><br>");
    	out.println("</form>");
    	out.println("<hr>");
   	 
@@ -141,10 +147,11 @@
 	  			 try{
 	  				 conn.rollback();
 	  			 }catch(SQLException ex1){
-		    		JOptionPane.showMessageDialog(null, "Database is busy now."
-		    			+ " Please try later");
+		    		JOptionPane.showMessageDialog(null, "Database is "
+	  			 		+"busy now. Please try later");
 		    		conn.close();
 		    		response.sendRedirect("homepage.jsp");
+	  			 	return;
 		    	}
 	  		}finally{
 	  			try{
@@ -220,8 +227,8 @@
 	  			 try{
 	  				 conn.rollback();
 	  			 }catch(SQLException ex1){
-		    		JOptionPane.showMessageDialog(null, "Database is busy now."
-		    			+ " Please try later");
+		    		JOptionPane.showMessageDialog(null, "Database is busy "
+	  			 		+" now. Please try later");
 		    		conn.close();
 		    		response.sendRedirect("homepage.jsp");
 		    	}
@@ -299,8 +306,8 @@
 	  			 try{
 	  				 conn.rollback();
 	  			 }catch(SQLException ex1){
-		    		JOptionPane.showMessageDialog(null, "Database is busy now."
-		    			+ " Please try later");
+		    		JOptionPane.showMessageDialog(null, "Database is busy"
+	  			 		+" now. Please try later");
 		    		conn.close();
 		    		response.sendRedirect("homepage.jsp");
 		    	}
@@ -374,8 +381,8 @@
 				 try{
 	  				 conn.rollback();
 	  			 }catch(SQLException ex1){
-		    		JOptionPane.showMessageDialog(null, "Database is busy now."
-		    		+ " Please try later");
+		    		JOptionPane.showMessageDialog(null, "Database is busy "
+	  			 		+"now. Please try later");
 		    		conn.close();
 		    		response.sendRedirect("homepage.jsp");
 		    	}
@@ -449,8 +456,8 @@
 	  			 try{
 	  				 conn.rollback();
 	  			 }catch(SQLException ex1){
-		    		JOptionPane.showMessageDialog(null, "Database is busy now."
-		    			+ " Please try later");
+		    		JOptionPane.showMessageDialog(null, "Database is busy"
+	  			 		+" now. Please try later");
 		    		conn.close();
 		    		response.sendRedirect("homepage.jsp");
 		    	}
@@ -463,8 +470,8 @@
 	  		}
 	
 			out.println(sql);
-			JOptionPane.showMessageDialog(null, "Your phone has been reset to " 
-				+ newPhone + " !");
+			JOptionPane.showMessageDialog(null, "Your phone has been reset "
+				+"to " + newPhone + " !");
 			response.sendRedirect("/proj1/homepage.jsp");			
 		}
 		
@@ -474,7 +481,8 @@
 	    session.removeAttribute("UserName");
 	    session.removeAttribute("Person_Id");
 	    session.removeAttribute("PermissionLevel");
-	    JOptionPane.showMessageDialog(null, "You have been logged out successfully!");
+	    JOptionPane.showMessageDialog(null, "You have been logged out "
+	    	+"successfully!");
 	    response.sendRedirect("/proj1/login.jsp");		
 	}
 %>
