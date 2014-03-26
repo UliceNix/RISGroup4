@@ -114,36 +114,55 @@
 		|| request.getParameter("DropFamDoc") != null ){
 		String docID = (request.getParameter("Doctor")).trim();
 		String patID = (request.getParameter("Patient")).trim();
+		
 		String docSql = "select * from users where person_id = '" 
 			+ docID + "' and users.CLASS = 'd'";
 		String patSql = "select * from users where person_id = '" 
 			+ patID + "' and users.CLASS = 'p'";
 		
-		try{
-			rset = stmt.executeQuery(docSql);
-			rset1 = stmt.executeQuery(patSql);
-		}catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
-		}
-		
 		if(docID.isEmpty() || !docID.matches("[0-9]+")){
 	
-			JOptionPane.showMessageDialog(null, "Incorrect Doctor ID Format.");	      
+			JOptionPane.showMessageDialog(null, "Incorrect Doctor ID Format.");
+			try{
+				conn.close();
+			}catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
+			return;
 	
 		}else if(patID.isEmpty() || !patID.matches("[0-9]+")){
 	
-			JOptionPane.showMessageDialog(null, "Incorrect Patient ID Format.");	 
+			JOptionPane.showMessageDialog(null, "Incorrect Patient ID "
+				+"Format.");	 
+			try{
+				conn.close();
+			}catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
+			return;
 	
 		}else if(!(rset = stmt.executeQuery(docSql)).next()){
 	
 			JOptionPane.showMessageDialog(null, "Invalid Doctor ID.");
+			try{
+				conn.close();
+			}catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
+			return;
 	
 		}else if(!(rset = stmt.executeQuery(patSql)).next()){
 	
 			JOptionPane.showMessageDialog(null, "Invalid Patient ID.");
+			try{
+				conn.close();
+			}catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
+			return;
 	
 		}else{
-			String checkSQL =  "select * from family_doctor where doctor_id = '" 
+			String checkSQL =  "select * from family_doctor where doctor_id='" 
 				+ docID + "' and patient_id = '" + patID + "'";
 			if(request.getParameter("AddFamDoc") != null 
 				&& !(rset = stmt.executeQuery(checkSQL)).next()){
@@ -158,9 +177,10 @@
 					conn.rollback();
 				}catch(SQLException ex1){
 					JOptionPane.showMessageDialog(null, "Database is busy now."
-				+ " Please try later");
+						+ " Please try later");
 					conn.close();
 					response.sendRedirect("editfamdoc.jsp");
+					return;
 				}
 				
 			}
@@ -181,12 +201,14 @@
 		        		+"relationship already exists. Please try again.");
 		        	try{
 		        		conn.close();
-				}catch(Exception ex){
-					out.println("<hr>" + ex.getMessage() + "<hr>");
-				}
-		    		response.sendRedirect("/proj1/editfamdoc.jsp");	    
+					}catch(Exception ex){
+						out.println("<hr>" + ex.getMessage() + "<hr>");
+					}
+		    		response.sendRedirect("/proj1/editfamdoc.jsp");	  
+		    		return;
 		    	}else{
-		    		String deleteSQL = "delete from family_doctor where doctor_id = '"
+		    		String deleteSQL = "delete from family_doctor where "
+		    			+"doctor_id = '"
 		    			+ docID + "' and patient_id = '" + patID + "'";
 		    		rset = stmt.executeQuery(checkSQL);
 		    		if(!rset.next()){
@@ -197,7 +219,8 @@
 					}catch(Exception ex){
 						out.println("<hr>" + ex.getMessage() + "<hr>");
 					}
-					response.sendRedirect("/proj1/editfamdoc.jsp");	    
+					response.sendRedirect("/proj1/editfamdoc.jsp");	
+					return;
 				}else{
 					try{
 			    			stmt.executeUpdate(deleteSQL);
@@ -206,21 +229,23 @@
 			    		try{
 			    			conn.rollback();
 			    		}catch(SQLException ex1){
-			    			JOptionPane.showMessageDialog(null, "Database is busy now."
-			    			+ " Please try later");
+			    			JOptionPane.showMessageDialog(null, "Database is "
+			    			+"busy now. Please try later");
 			    			conn.close();
 			    			response.sendRedirect("editfamdoc.jsp");
+			    			return;
 			    		}
 			    	}
 			    	
-			    	JOptionPane.showMessageDialog(null, "The new family doctor "
-			    		+"relationship has been removed from database!"); 
+			    	JOptionPane.showMessageDialog(null, "The new family doctor"
+			    		+" relationship has been removed from database!"); 
 			    	try{
 			    		conn.close();
 					}catch(Exception ex){
 						out.println("<hr>" + ex.getMessage() + "<hr>");
 					}
 					response.sendRedirect("/proj1/editfamdoc.jsp");
+					return;
 				}
 			}
 		}

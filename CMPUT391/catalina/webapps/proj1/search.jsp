@@ -8,7 +8,11 @@
 <BODY>
 
 
-<%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*, java.util.*, java.text.*" %>
+<%@ page import="java.sql.*,
+	javax.portlet.ActionResponse.*, 
+	javax.swing.*, 
+	java.util.*, 
+	java.text.*" %>
 <%
 	String role = (String) session.getAttribute("PermissionLevel");
 	Integer personId = (Integer) session.getAttribute("Person_Id");
@@ -157,6 +161,7 @@
             
 			if(keywords.length < 1){
 				response.sendRedirect("search.jsp");
+				return;
 			}
             
 			keyword = keyword + keywords[0];
@@ -227,7 +232,7 @@
 		select += sqlOrder;
         		
 		/* print out the sql query for debugging use*/
-		out.println(select + "<br>");
+		//out.println(select + "<br>");
         
 		/* execute select query*/
 		try{
