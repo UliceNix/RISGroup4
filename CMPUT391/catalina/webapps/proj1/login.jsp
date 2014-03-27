@@ -43,17 +43,21 @@
 	
 		try{
 			//establish the connection 
-			conn = DriverManager.getConnection(dbstring,"mingxun","hellxbox_4801");
+			conn = DriverManager.getConnection(dbstring,"mingxun",
+					"hellxbox_4801");
 			conn.setAutoCommit(false);
 		}catch(Exception ex){	    
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 	
 	
-		//select the user table from the underlying db and validate the user name and password
+		/*select the user table from the underlying db and validate 
+		 *the user name and password
+		 */
 		Statement stmt = null;
 		ResultSet rset = null;
-		String sql = "select PASSWORD from USERS where USER_NAME = '"+userName+"'";
+		String sql = "select PASSWORD from USERS where USER_NAME = '"
+			+userName+"'";
 
 		try{
 			stmt = conn.createStatement();
@@ -84,7 +88,8 @@
 				role = (rset.getString(1)).trim();
 			}
 		
-			sql = "select person_id from users where USER_NAME = '"+userName+"'";
+			sql = "select person_id from users where USER_NAME = '"
+				+userName+"'";
 			try{
 				stmt = conn.createStatement();
 				rset = stmt.executeQuery(sql);			
@@ -114,8 +119,8 @@
 			}
 	
 		}else{
-			JOptionPane.showMessageDialog(null, "Either your username or your"
-				+" password is invalid, please try again!");
+			JOptionPane.showMessageDialog(null, "Either your username or "
+				+"your password is invalid, please try again!");
 			try{
 				conn.close();
 			}

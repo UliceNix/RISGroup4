@@ -78,8 +78,8 @@
 		}
 		
 		if(!userName.matches("\\w+\\.?")){
-			JOptionPane.showMessageDialog(null, "The username can only contain a-z,"
-				+" A-Z, 0-9.");
+			JOptionPane.showMessageDialog(null, "The username can only "
+				+"contain a-z, A-Z, 0-9.");
 		}else if(rset != null && rset.next() &&
 			!(rset.getString("PERSON_ID")).equals(
 				session.getAttribute("updatePersonId"))){
@@ -87,27 +87,27 @@
 		}else if(passwd.length() < 1){
 			out.println("<p><b>Password can't be empty!</b></p>");
 		}else if(!passwd.matches("\\w+\\.?")){
-			JOptionPane.showMessageDialog(null,"The password can only contain a-z,"
-				+ " A-Z, 0-9.");
+			JOptionPane.showMessageDialog(null,"The password can only "
+				+"contain a-z,A-Z, 0-9.");
 		}else if(firstName != null && !firstName.isEmpty() 
 				&& !firstName.matches("[a-zA-Z]+\\.?")){
-			JOptionPane.showMessageDialog(null,"The first name can only contain "
-				+ "alphabets.");
+			JOptionPane.showMessageDialog(null,"The first name can only"
+				+" contain alphabets.");
 		}else if(lastName != null && !lastName.isEmpty() 
 				&& !lastName.toLowerCase().matches("[a-zA-Z]+\\.?")){
-			JOptionPane.showMessageDialog(null,"The last name can only contain "
-				+ "alphabets.");
+			JOptionPane.showMessageDialog(null,"The last name can only contain"
+				+ " alphabets.");
 		}else if(role == null){
 			JOptionPane.showMessageDialog(null,"Please pick a class.");
 		}else if(email != null && !email.isEmpty()
 				&& !email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
 			+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
-			JOptionPane.showMessageDialog(null,"The email address contains illegal "
-			+ "characters.");
+			JOptionPane.showMessageDialog(null,"The email address contains"
+				+" illegal characters.");
 		}else if(phone != null && !phone.isEmpty() &&
 			( phone.length() != 10 || !phone.matches("[0-9]+"))){
-			JOptionPane.showMessageDialog(null,"Please make sure the phone number "
-			+ "is valid.");
+			JOptionPane.showMessageDialog(null,"Please make sure the phone "
+				+"number is valid.");
 		}else{			
 			PreparedStatement updatePersons = null;
 			PreparedStatement updateUsers = null;
@@ -211,15 +211,21 @@
 		}
 	
 		while(rset != null && rset.next()){
-			firstName = (rset.getString("FIRST_NAME")==null) ? "" :rset.getString("FIRST_NAME");
-			lastName = (rset.getString("LAST_NAME")== null) ? "" : rset.getString("LAST_NAME");
-			address = (rset.getString("ADDRESS")==null) ? "" : rset.getString("ADDRESS"); 
-			email = (rset.getString("EMAIL")==null) ? "" : rset.getString("EMAIL");
-			phone = (rset.getString("PHONE")==null) ? "" : rset.getString("PHONE");
+			firstName = (rset.getString("FIRST_NAME")==null) ? 
+					"" :rset.getString("FIRST_NAME");
+			lastName = (rset.getString("LAST_NAME")== null) ? 
+					"" : rset.getString("LAST_NAME");
+			address = (rset.getString("ADDRESS")==null) ? 
+					"" : rset.getString("ADDRESS"); 
+			email = (rset.getString("EMAIL")==null) ? 
+					"" : rset.getString("EMAIL");
+			phone = (rset.getString("PHONE")==null) ? 
+					"" : rset.getString("PHONE");
 		}
 
 		out.println("<b>Find out more help information by clicking " 
-			+ " <a href='help.html#update' target='blank'>Help</a></b><br><br>");
+			+ " <a href='help.html#update' target='blank'>Help</a></b>"
+			+"<br><br>");
 		out.println("<form action=updateuser.jsp>");
 		out.println("UserName  : <input type=text name=USERID value=" 
 			+ userName + " maxlength=24 required>* can only contain alphabet"
@@ -235,7 +241,8 @@
 		out.println("<input type=radio name=CLASS id=admin value=a"
 			+ " required>");
 		out.println("<label for='patient'>Patient</label>");
-		out.println("<input type=radio name=CLASS id=patient value=p required>");
+		out.println("<input type=radio name=CLASS id=patient value=p"
+			+" required>");
 		out.println("<label for='radiologist'>Radiologist</label>");
 		out.println("<input type=radio name=CLASS id=radiologist value=r "
 			+"required>");

@@ -53,34 +53,34 @@
 			+ userName + "'";
 
 		if(!userName.matches("\\w+\\.?")){
-			JOptionPane.showMessageDialog(null, "The username can only contain a-z,"
-				+" A-Z.");
+			JOptionPane.showMessageDialog(null, "The username can only "
+				+"contain a-z, A-Z.");
 		}else if(stmt.executeQuery(sql).next()){
 			JOptionPane.showMessageDialog(null,"This username is taken.");
 		}else if(passwd.length() < 1){
 			out.println("<p><b>Password can't be empty!</b></p>");
 		}else if(!passwd.matches("\\w+\\.?")){
-			JOptionPane.showMessageDialog(null,"The password can only contain a-z,"
-				+ " A-Z, 0-9.");
+			JOptionPane.showMessageDialog(null,"The password can only contain"
+			+" a-z, A-Z, 0-9.");
 		}else if(firstName != null && !firstName.isEmpty() 
 				&& !firstName.matches("[a-zA-Z]+\\.?")){
-			JOptionPane.showMessageDialog(null,"The first name can only contain "
-				+ "alphabets.");
+			JOptionPane.showMessageDialog(null,"The first name can only "
+				+"contain alphabets.");
 		}else if(lastName != null && !lastName.isEmpty() 
 				&& !lastName.toLowerCase().matches("[a-zA-Z]+\\.?")){
-			JOptionPane.showMessageDialog(null,"The last name can only contain "
-				+ "alphabets.");
+			JOptionPane.showMessageDialog(null,"The last name can only "
+				+"contain alphabets.");
 		}else if(role == null){
 			JOptionPane.showMessageDialog(null,"Please pick a class.");
 		}else if(email != null && !email.isEmpty()
 				&& !email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
 			+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
-			JOptionPane.showMessageDialog(null,"The email address contains illegal "
-			+ "characters.");
+			JOptionPane.showMessageDialog(null,"The email address contains "
+				+"illegal characters.");
 		}else if(phone != null && !phone.isEmpty() &&
 			( phone.length() != 10 || !phone.matches("[0-9]+"))){
-			JOptionPane.showMessageDialog(null,"Please make sure the phone number "
-			+ "is valid.");
+			JOptionPane.showMessageDialog(null,"Please make sure the phone "
+				+"number is valid.");
 		}else{
 			PreparedStatement insertPersons = null;
 			PreparedStatement insertUsers = null;
@@ -193,7 +193,8 @@
                 out.println("<hr>" + ex.getMessage() + "<hr>");
 			}
 			
-			JOptionPane.showMessageDialog(null, "The user has been registered successfully!");
+			JOptionPane.showMessageDialog(null, "The user has been registered"
+				+" successfully!");
 			response.sendRedirect("/proj1/adminhomepage.jsp");		
 		}
 	}  

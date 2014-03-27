@@ -7,7 +7,9 @@
 
 <BODY>
 
-<%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*" %>
+<%@ page import="java.sql.*,
+	javax.portlet.ActionResponse.*, 
+	javax.swing.*" %>
 <% 
 	out.println("<p><b>Welcome to Administrator's Homepage, "
 		+ session.getAttribute("UserName") + "!</b></p>");
@@ -16,7 +18,8 @@
 	out.println("<p>Search for radiologist records.</p>");
 	out.println("<p>Generate the report of all patients.</p>");
 	out.println("<b>Find out more help information by clicking <a "
-		+"href='help.html#adminHomepage' target='blank'>Help</a></b><br><br>");
+		+"href='help.html#adminHomepage' target='blank'>Help"
+		+"</a></b><br><br>");
 	
     out.println("<br><hr><b>Edit User Information</b><hr>");
     out.println("<form action=adminhomepage.jsp>");
@@ -38,17 +41,21 @@
     
 	out.println("<hr><b>Functions</b><hr>");
     out.println("<form action=search.jsp>");
-    out.println("<input type=submit name=Search value='Use Search Engine' style='width: 200px'>");
+    out.println("<input type=submit name=Search value='Use Search Engine'"
+    	+" style='width: 200px'>");
     out.println("</form>");
     out.println("<form action=report.jsp>");
-    out.println("<input type=submit name=Report value='Generate a Report' style='width: 200px'>");
+    out.println("<input type=submit name=Report value='Generate a Report'"
+    	+" style='width: 200px'>");
     out.println("</form>");
     out.println("<form action=olap.jsp>");
-    out.println("<input type=submit name=DataAnalysis value='OLAP Report Generator' style='width: 200px'><br>");
+    out.println("<input type=submit name=DataAnalysis value='OLAP Report "
+    	+"Generator' style='width: 200px'><br>");
     out.println("</form>");
 
     out.println("<form action=adminhomepage.jsp>");
-    out.println("<input type=submit name=LogOut value='Log Out' style='width: 200px'><br>");
+    out.println("<input type=submit name=LogOut value='Log Out' "
+    	+"style='width: 200px'><br>");
     out.println("</form>");
     
 	Integer person_id = (Integer) session.getAttribute("Person_Id");
