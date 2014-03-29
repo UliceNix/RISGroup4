@@ -110,6 +110,10 @@
 		}
 
 	}else if(request.getParameter("Generate") != null){
+		
+		String alterIndex1 = "ALTER index index_des REBUILD";
+		String alterIndex2 = "ALTER index index_dia REBUILD";
+		String alterIndex3 = "ALTER index index_name REBUILD";
     	
 		/* validate the format of date */
 		String from = (request.getParameter("Start")).trim();
@@ -137,52 +141,6 @@
 		String keyword = (request.getParameter("KeyWord")).trim();
 		keyword = keyword.toLowerCase();
         
-		int andCheck = keyword.indexOf(" and ");
-		int orCheck = keyword.indexOf(" or ");
-
-		if(andCheck >= 0 && orCheck >= 0) {
-
-			JOptionPane.showMessageDialog(null, "Please make sure " 
-				+ "you only use 'and' or 'or' to join your key words.");
-			try{
-				conn.close();
-			}catch(Exception ex1){
-				out.println(ex1.getMessage());
-			}
-			response.sendRedirect("search.jsp");
-			return;
-		}
-
-
-		if(andCheck >= 0){
-
-			String[] keywords = keyword.split(" and ");
-			keyword = "";
-            
-			if(keywords.length < 1){
-				response.sendRedirect("search.jsp");
-				return;
-			}
-            
-			keyword = keyword + keywords[0];
-			for(int i = 1; i < keywords.length; i++){
-				keyword = keyword + " and " + keywords[i];
-			}
-           
-		}else{
-
-			String[] keywords = keyword.split(" or ");
-			keyword = "";
-        	
-			if(keywords.length < 1){
-				response.sendRedirect("search.jsp");
-			}
-            
-			keyword = keyword + keywords[0];
-			for(int i = 1; i < keywords.length; i++){
-				keyword = keyword + " or " + keywords[i];
-			}
-		}
         
 		String order = request.getParameter("Order");
 		String sqlOrder = "";
@@ -231,12 +189,10 @@
 		/* add order by clause*/
 		select += sqlOrder;
         		
-		/* print out the sql query for debugging use*/
-		//out.println(select + "<br>");
-        
-		/* execute select query*/
 		try{
-			rset = stmt.executeQuery(select);
+			stmt.execute(alterIndex1);
+			stmt.execute(alterIndex2);
+			stmt.execute(alterIndex3);
 		}catch(SQLException ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 			try{
@@ -245,6 +201,27 @@
 				out.println(ex1.getMessage());
 			}
 			response.sendRedirect("search.jsp");
+			return;
+		}
+        
+		/* execute select query*/
+		try{
+			rset = stmt.executeQuery(select);
+		}catch(SQLException ex){
+			if(ex.getErrorCode() == 20000){
+				JOptionPane.showMessageDialog(null, "Invalid search word. "
+				+ "Please make sure you only use 'and' or 'or' "
+				+ "as your delimitet.");
+			}else{
+				JOptionPane.showMessageDialog(null, ex.getMessage());
+			}
+			try{
+				conn.close();
+			}catch(Exception ex1){
+				out.println(ex1.getMessage());
+			}
+			response.sendRedirect("search.jsp");
+			return;
 		}
 		
 		out.println("<table BORDER=1>");
@@ -296,20 +273,18 @@
 		    
 			if(rset.next()){
 				String pic_id = rset.getString(1);
-				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i) 
-					+ "pic" + pic_id + "\" target=\"_blank\">");
-				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
-					+ "pic" + pic_id + "\"></a>");
+				out.println("<a href=\"GetOnePic?big"+ pic_id 
+						+ "\" target=\"_blank\">");
+				out.println("<img src=\"GetOnePic?" + pic_id + "\"></a>");
 			}else{
 				out.println("N/A");
 			}
 	    	
 			while(rset.next()){
 				String pic_id = rset.getString(1);
-				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i) 
-					+ "pic" + pic_id + "\" target=\"_blank\">");
-				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
-					+ "pic" + pic_id + "\"></a>");
+				out.println("<a href=\"GetOnePic?big"+ pic_id 
+						+ "\" target=\"_blank\">");
+				out.println("<img src=\"GetOnePic?" + pic_id + "\"></a>");
 			}
 			out.println("</a></td>");
 			
@@ -404,16 +379,16 @@
 					out.println(ex1.getMessage());
 				}
 				response.sendRedirect("search.jsp");
+				return;
 			}
 			
 			out.println("<td>");
 	    	
 			if(rset.next()){
 				String pic_id = rset.getString(1);
-				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i)
-					+ "pic" + pic_id + "\" target=\"_blank\">");
-				out.println("<img src=\"GetOnePic?rid" + rids.get(i)
-					+ "pic" + pic_id + "\"></a>");
+				out.println("<a href=\"GetOnePic?big"+ pic_id 
+						+ "\" target=\"_blank\">");
+				out.println("<img src=\"GetOnePic?" + pic_id + "\"></a>");
 			}else{
 				out.println("N/A");
 			}
@@ -421,11 +396,9 @@
 			while(rset.next()){
 				String pic_id = rset.getString(1);
 				
-				out.println("<img src=\"GetOnePic?rid" + rids.get(i) 
-						+ "pic" + pic_id + "\"></a>");
-				
-				out.println("<a href=\"GetOnePic?bigrid" + rids.get(i) 
-					+ "pic" + pic_id + "\" target=\"_blank\">");
+				out.println("<a href=\"GetOnePic?big"+ pic_id 
+						+ "\" target=\"_blank\">");
+				out.println("<img src=\"GetOnePic?" + pic_id + "\"></a>");
 
 			}
 			out.println("</a></td>");

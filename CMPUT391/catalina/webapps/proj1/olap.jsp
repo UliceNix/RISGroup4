@@ -610,7 +610,7 @@
 		 * Using trim() function on them is unsafe.
 		 */
 		String type = request.getParameter("type");
-		String selectType = request.getParameter("selectType");
+		String selectType = request.getParameter("selectTypes");
 	
 		String people = request.getParameter("people");
 		String selectPeople = request.getParameter("selectPatientId");
@@ -665,7 +665,7 @@
 		* 			When a type is selected 
 		************************************************************/
 		if(type != null ||
-				(selectType != null && !selectType.isEmpty())){
+				(NotEmpty(selectType))){
 
 			select += ", test_type ";
 			selectElements.add("Test Type");
@@ -673,11 +673,12 @@
 			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
 			groupby += "test_type";
 			
-			if(type != null && !type.isEmpty()){
+			if(type != null){
 				where += " test_type is not null";
 			}else if(type == null && selectType != null
 					&& !selectType.equals("NA")){				
-				where += " test_type='" + selectType.trim() + "'";				
+				where += " test_type='" + selectType.trim() + "'";	
+				where += " and test_type is not null";
 			}
 		}
 		
@@ -748,7 +749,6 @@
 					JOptionPane.showMessageDialog(null, "Error 3: please make"
 						+"sure that you have entered correct time information"
 						+" in Week or Month or Year or Date.");
-					response.sendRedirect("olap.jsp");
 					return;
 				}catch(Exception ex){
 					out.println("error on display or others");
@@ -760,14 +760,12 @@
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
 							+ "date format! Please make sure date is in "
 							+" 'DD-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("olap.jsp");
 						return;
 					}catch(Exception ex){
 						out.println("error on display or others");
 					}
 				}
 				format = "DD-MON-YYYY";
-				out.println(selectDate);
 			}else if(NotEmpty(selectWeek)){
 				
 				/* first we are sure that we need the number of week
@@ -799,6 +797,7 @@
 				/* The only possible format is YYYY */
 				format = "YYYY";
 			}
+			selectElements.add("Test Time");
 			
 			where = (where.length() > 6) ? where + " and " : where;				
 			groupby = (selectElements.size() > 2) 
@@ -864,7 +863,6 @@
 					JOptionPane.showMessageDialog(null, "Error 3: please make"
 						+"sure that you have entered correct time information"
 						+" in Week or Month or Year or Date.");
-					response.sendRedirect("olap.jsp");
 					return;
 				}catch(Exception ex){
 					out.println("error on display or others");
@@ -875,7 +873,6 @@
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
 							+ "date format! Please make sure date is in "
 							+" 'DD-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("olap.jsp");
 						return;
 					}catch(Exception ex){
 						out.println("error on display or others");
@@ -897,7 +894,6 @@
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
 							+ "date format! Please make sure date is in "
 							+" 'DD-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("/proj1/olap.jsp");
 						return;
 					}catch(Exception ex){
 						out.println("error on display or others");
@@ -912,7 +908,6 @@
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
 							+ "date format! Please make sure date is in "
 							+" 'dd-MON-YYYY, eg. 02-FEB-2012'.");
-						response.sendRedirect("/proj1/olap.jsp");
 						return;
 					}catch(Exception ex){
 						out.println("error on display or others");
@@ -1174,11 +1169,10 @@
 		if(conn == null){
 			JOptionPane.showMessageDialog(null, "Can't get a connection."
 			+" Please try again.");
-			response.sendRedirect("olap.jsp");
 			return;
 		}
 		
-		
+		//out.println(sql + "<br>");
 		
 		try{
 			sm = conn.createStatement();

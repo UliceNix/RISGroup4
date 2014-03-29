@@ -36,13 +36,11 @@ public class GetOnePic extends HttpServlet
 	String query;
 
 	if ( picid.startsWith("big") )  
-	    query = "select full_size from pacs_images where record_id='" 
-	    		+ picid.substring(6, picid.indexOf("pic")) + "' and image_id='" 
-	    		+ picid.substring(picid.indexOf("pic")+3) + "'";
+	    query = "select full_size from pacs_images where image_id='" 
+	    		+ picid.substring(3) + "'";
 	else
-        query = "select thumbnail from pacs_images where record_id='" 
-        		+ picid.substring(3, picid.indexOf("pic")) + "' and image_id='" 
-        		+ picid.substring(picid.indexOf("pic")+3) + "'";
+        query = "select thumbnail from pacs_images where image_id='" 
+        		+ picid + "'";
  
         
 	ServletOutputStream out = response.getOutputStream();
