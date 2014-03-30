@@ -38,27 +38,27 @@
 <li><a href="#adminUpdate">Update user information on an existing user</a></li>
 <li><a href="#editFamDoctor">Add a new family doctor relationship</a></li>
 <li><a href="#report">Generate a report based on a specified diagnosis and a given time period</a></li>
-<li><a href="#search">Search users with keywords and/or a given time period</a></li>
+<li><a href="#search">Search users with keywords and a given time period</a></li>
 <li><a href="#olap">Data analysis module</a></li>
 </ul>
 
 <h3>Doctor</h3>
 <ul>
 <li><a href="#update">Change his/her own personal information</a></li>
-<li><a href="#search">Search his/her patients  with keywords and/or a given time period</a></li>
+<li><a href="#search">Search his/her patients  with keywords and a given time period</a></li>
 </ul>
 
 <h3>Radiologist</h3>
 <ul>
 <li><a href="#update">Change his/her own personal information</a></li>
-<li><a href="#search">Search his/her patients with keywords and/or a given time period</a></li>
+<li><a href="#search">Search his/her patients with keywords and a given time period</a></li>
 <li><a href="#record">Create a new radiology record</a></li>
 </ul>
 
 <h3>Patient</h3>
 <ul>
 <li><a href="#update">Change his/her own personal information</a></li>
-<li><a href="#search">Search his/her records with keywords and/or a given time period</a></li>
+<li><a href="#search">Search his/her records with keywords and a given time period</a></li>
 </ul>
 
 <hr>
@@ -145,17 +145,26 @@
 
 <a id="editFamDoctor"><h3>Update Family Doctor Information</h3></a>
 <p><font color="red">**You must be an administrator to perform this job.**</font></p>
-<p><ul>When at the page of Edit Family Doctor Information, administrators are provided with a table of current family doctor relationships for reference. And an administrator is able to add a new famliy doctor relationship or delete one by entering valid doctor and patient id.</ul></p>
+<p><ul>When at the page of Edit Family Doctor Information, administrators are provided with a table of current family doctor relationships for reference. And an administrator is able to add a new family doctor relationship or delete one by entering valid doctor and patient id.</ul></p>
 <ol>
 <li>Entering a valid doctor's person id in the first block</li>
 <li>Entering a valid patient's person id in the second block</li>
 <li>Then click on "Add relationship" to add this new relationship to the system or "Drop relationship" to delete this relationship from the system.</li>
 </ol>
 
+<a id="record"><h3>Create a New Radiology Record</h3></a>
+<ol>
+<li> First fill in all necessary information that required by a radiology record, eg. patient id, doctor id, diagnosis, description, etc.
+</li>
+<li> By clicking on save button, the system will prompt you for uploading images. If no images to upload, click "No image to upload" button. Or else, select multiple files or a single file to upload.
+</li>
+<li> After uploading, the system will ask you if you would love to upload more. Clicking yes would continue your uploading process. Otherwise, you will be directed to your homepage.
+</li>
+</ol>
 <a id="report"><h3>Generate a Report</h3></a>
 <p><font color="red">**You must be an administrator to perform this job.**</font></p>
-<ul><p> The "Generate a Report" Module is responsible for taking in a specific diagnosis and a time period, returining a list of patients that qualify the diagnosis in their radiology records.</p></ul>
-<ul><ul><li>Please note: report is generated based on a very specific diagnosis. Thisis not like search module where multiple keywords are acceptable.  </li></ul></ul>
+<ul><p> The "Generate a Report" Module is responsible for taking in a specific diagnosis and a time period, returning a list of patients that qualify the diagnosis in their radiology records.</p></ul>
+<ul><ul><li>Please note: report is generated based on a very specific diagnosis. This is not like in search module where multiple keywords are acceptable.  </li></ul></ul>
 
 <ul><ul>
 <li>
@@ -171,7 +180,7 @@ If entering "cancer", then the people that has records that contains word "cance
 
 <a id="search"><h3>Search Engine</h3></a>
 <p><ul>Search Engine first lists all the records that are available to users.</ul></p>
-<p><ul><font color="red" size="2">(Due to security concerns, doctors can only search radiology records of his patients', and radiologists only have access to records conducted by themselved, and patients can only see their records.)</font></ul></p>
+<p><ul><font color="red" size="2">(Due to security concerns, doctors can only search radiology records of his patients', and radiologists only have access to records conducted by themselves, and patients can only see their records.)</font></ul></p>
 <p><ul>Search Engine will take in a list of keywords joined by only and or or and a time period and/or the order of results.</ul></p>
 <ul>
 <li> "and" and "or" are reserved keywords, which should never be used as a search word. </li>
@@ -201,7 +210,7 @@ It will display the number of images for each patient, test type, and/or period 
 <li>Select <b>exact time</b> will show the result of number of images based on an exact time of your choice</li>
 	<ul>
 		<li> You can choose a single week, month, year or date.</li>
-		<li> Or combine week with year or month with year, but never week with month.</li>
+		<li> Or combine week and/or month and/or year.</li>
 		<li> When specifying a date, please strictly follow the format 'dd-MON-YYYY'.</li>
 	</ul>
 <li>Select <b>a time period</b> will show the result of number of images based a time period of your choice</li>
@@ -210,7 +219,7 @@ It will display the number of images for each patient, test type, and/or period 
 		<li> If only want the result before a week/month/year/date, please using only "To week/month/year/date".</li>		
 		<li> When selecting a time period with both "from" and "to" selections, please make sure the format of your selected date is correct.<br>
 		(eg. From week 12 From year 2011 + To week 16 To year 2012, From week 12 + To week 16)</li>
-		<li> Or combine week with year or month with year, but never week with month.</li>
+		<li> Or combine week and/or month and/or year.</li>
 		<li> When specifying a date, please strictly follow the format 'dd-MON-YYYY'.</li>
 	</ul>
 </ul>

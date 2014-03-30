@@ -108,7 +108,7 @@ public class UploadImage extends HttpServlet {
         
     	for (int y=0; y < h; ++y)
     		for (int x=0; x < w; ++x)
-    			shrunkImage.setRGB(x, y, image.getRGB(x*n, y*n));
+    			shrunkImage.setRGB(x, y, image.getRGB(80, 80));
     	return shrunkImage;
     }
     
