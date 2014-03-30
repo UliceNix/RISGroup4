@@ -1,3 +1,17 @@
+<!-- Copyright (C) 2014 Alice (Mingxun) Wu
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <HTML>
 <HEAD>
 
@@ -14,10 +28,19 @@
 	javax.servlet.*,
 	org.apache.commons.lang.*"%>
 <%
+	Integer person_id = (Integer) session.getAttribute("Person_Id");
+	String role = (String) session.getAttribute("PermissionLevel");
+	
+	/* in case the session expires, system will redirect the user to log in*/
+    if(person_id == null || !role.equals("a")){
+		response.sendRedirect("login.jsp");
+    }
+	
 	Connection conn = null;
 	String driverName = "oracle.jdbc.driver.OracleDriver";
 	String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-
+	
+	/* establish a connection to database*/
 	try{
 		Class drvClass = Class.forName(driverName); 
 		DriverManager.registerDriver((Driver) drvClass.newInstance());
@@ -33,6 +56,7 @@
 		out.println("<hr>" + ex.getMessage() + "<hr>");
 	}
 	
+	/* variables initialization */
 	Statement stmt = conn.createStatement();
 	ResultSet rset = null;
 	String userName = "";
@@ -50,11 +74,14 @@
 		JOptionPane.showMessageDialog(null, "Sorry, I'm lame."
 		+" I lost the id of the person you want to update!");
 		response.sendRedirect("adminhomepage.jsp");
+		
 	}else if(request.getParameter("back") != null){
 		session.removeAttribute("updatePersonId");
-		response.sendRedirect("adminhomepage.jsp");		
+		response.sendRedirect("adminhomepage.jsp");
+		
 	}else if(request.getParameter("bUpdate") != null){	 
 		
+		/* retrieve values from all input fields*/
 		userName = (request.getParameter("USERID")).trim();
 		passwd = (request.getParameter("PASSWD")).trim();
 		firstName = request.getParameter("FNAME");
@@ -66,8 +93,8 @@
 		phone = request.getParameter("PHONE");
 	
 	
-		sql = "SELECT * FROM USERS WHERE PERSON_ID='"
-			+ session.getAttribute("updatePersonId") +"'";
+		sql = "SELECT * FROM USERS WHERE USERNAME='"
+			+ userName.trim() +"'";
 		
 		try{
 			rset = stmt.executeQuery(sql);			
@@ -77,6 +104,12 @@
 			tryAgain(conn, response);
 		}
 		
+		/* regular expression and logic check
+		 * • password and username can only contain alphabets and numbers
+		 * • usernames are unique.
+		 * • first name and last name can only consist of alphabets
+		 * • phone number is 10-digit long.
+		 **/
 		if(!userName.matches("\\w+\\.?")){
 			JOptionPane.showMessageDialog(null, "The username can only "
 				+"contain a-z, A-Z, 0-9.");
@@ -109,6 +142,8 @@
 			JOptionPane.showMessageDialog(null,"Please make sure the phone "
 				+"number is valid.");
 		}else{			
+			
+			/* When all tests pass, update the user. */
 			PreparedStatement updatePersons = null;
 			PreparedStatement updateUsers = null;
 			
@@ -121,6 +156,7 @@
 				+ "USER_NAME = ?, PASSWORD = ?, CLASS = ? WHERE PERSON_ID='"
 				+ session.getAttribute("updatePersonId") + "'";
 			
+			/* Execute Update Queries*/
 			try{
 				updatePersons = conn.prepareStatement(sqlPersons);
 				updatePersons.setString(1, firstName);
@@ -171,6 +207,7 @@
 			success = true;
 		}
 		
+		/* close the connection */
 		try{
 			conn.close();
 		}catch(Exception ex){

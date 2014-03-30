@@ -1,3 +1,17 @@
+<!-- Copyright (C) 2014 Alice (Mingxun) Wu
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <HTML>
 <HEAD>
 
@@ -9,6 +23,9 @@
 
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*, javax.swing.*" %>
 <% 
+	/**********************************************************
+	*    	User Interface Section
+	***********************************************************/
    	out.println("<p><b>Welcome to your homepage " 
 		+ session.getAttribute("UserName") + "!</b></p>");
    	out.println("<p>You could change your password and your personal "
@@ -41,11 +58,7 @@
    	out.println("<hr>");
 
    	out.println("<b> Function </b><hr>");
-   	if(session.getAttribute("Person_Id") == null){
-   		response.sendRedirect("login.jsp");
-   		return;
-   	}
-   	
+   
    	if(session.getAttribute("PermissionLevel").equals("r")){
    		out.println("</form>");
    		out.println("<form action=newrecord.jsp>");
@@ -66,7 +79,17 @@
    		+" style='width: 200px'><br>");
    	out.println("</form>");
    	out.println("<hr>");
-  	 
+   	
+   	if(session.getAttribute("Person_Id") == null){
+   		response.sendRedirect("login.jsp");
+   		return;
+   	}
+   	
+   	/* handling a user's request of changing password
+   	 * part 1) change password 
+   	 * part 2) save password
+   	 * part 3) return or try again
+   	 */
    	if(request.getParameter("ChangePassword") != null 
    		|| request.getParameter("TryPassword") != null){
        	out.println("<br>");
@@ -80,9 +103,12 @@
    	}		
    
    	if(request.getParameter("SavePassword") != null){
+   		
+   		/* get the values of old and new passwords*/
    		String oldPassword = (request.getParameter("OLDPWD")).trim();
    		String newPassword = (request.getParameter("NEWPWD")).trim();
    
+   		/* get a conneciton*/
    		Connection conn = null;
    		String driverName = "oracle.jdbc.driver.OracleDriver";
    		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
@@ -102,9 +128,10 @@
 	   		out.println("<hr>" + ex.getMessage() + "<hr>");
 	   	}
 	   
-   
+   		/* test if old password matches the password stored in databse*/
 	   	Statement stmt = null;
 	   	ResultSet rset = null;
+	   	
 	   	String sql = "select PASSWORD from USERS where USER_NAME = '"
 	   		+session.getAttribute("UserName")+"'";
 		try{
@@ -117,7 +144,8 @@
 	   	String truepwd = "";
 	   	while(rset != null && rset.next())
 	   		truepwd = (rset.getString(1)).trim();
-
+	
+	   	/* handle error situations */
 	   	if(oldPassword == null 
 	   			|| oldPassword.isEmpty()
 	   			|| !oldPassword.equals(truepwd) ){
@@ -136,6 +164,8 @@
 	   			+ "value='Try Again'>");
 	   		out.println("</form>");		    	  
 	   	}else if(oldPassword.equals(truepwd)){
+	   		
+	   		/* after authentication, update the new password */
 	  		 sql = "update USERS set password='"+newPassword
 	  	 		+ "' where user_name='"+session.getAttribute("UserName")+"'";
 		 		 
@@ -159,8 +189,7 @@
 	  			}catch(Exception ex){
 	  				out.println("<hr>" + ex.getMessage() + "<hr>");
 	  			}
-	  		}
-	   
+	  		}	   
 	  		JOptionPane.showMessageDialog(null, "Your password has been "
 	  			+ "reset!");
 			response.sendRedirect("/proj1/homepage.jsp");
@@ -168,6 +197,11 @@
 	   	}
 	}
 
+   	/* change first name
+   	 * 1. change first name
+   	 * 2. save first name
+   	 * 3. try again
+   	 */
 	if(request.getParameter("ChangeFirstName") != null 
 		|| request.getParameter("TryFirstName") != null){
 		out.println("<br>");
@@ -198,12 +232,15 @@
    			out.println("<hr>" + ex.getMessage() + "<hr>");
    		}
    
-   
+   		
    		Statement stmt = null;
    		ResultSet rset = null;
 		String sql;
+		
+		/* get the user's new first name*/
 		String newFirstname = (request.getParameter("NewFirstName")).trim();
 		
+		/* test if the first name contains only letter*/
 		if(!newFirstname.matches("[a-zA-Z]+\\.?") 
 			|| newFirstname == null || newFirstname.isEmpty()){
 			out.println("<br>");
@@ -215,6 +252,7 @@
    			out.println("</form>");		
 		}else{
 			
+			/* if pass, update the new first name*/
 			sql = "update PERSONS set FIRST_NAME='"+newFirstname
 				+"' where PERSON_ID = (select PERSON_ID from USERS where" 
 				+" user_name='"+session.getAttribute("UserName")+"')";
@@ -245,7 +283,12 @@
 			response.sendRedirect("/proj1/homepage.jsp");	
 		}
 	}
-
+	
+   	/* change last name
+   	 * 1. change last name
+   	 * 2. save last name
+   	 * 3. try again
+   	 */	
 	if(request.getParameter("ChangeLastName") != null 
 		|| request.getParameter("TryLastName") != null){
 		out.println("<br>");
@@ -400,7 +443,12 @@
 		
 		}
 	}
-
+	
+   	/* change phone number
+   	 * 1. change phone number
+   	 * 2. save phone number
+   	 * 3. success or try again
+   	 */
 	if(request.getParameter("ChangePhoneNumber") != null ||
 		request.getParameter("TryPhoneNumber") != null){
        		out.println("<br>");
@@ -412,7 +460,10 @@
 	}
 	
 	if(request.getParameter("SavePhone") != null){
+		
 		String newPhone = (request.getParameter("NEWPHONE").trim());
+		
+		/* test if the new phone number is valid*/
 		if(newPhone.length() != 10 || newPhone.isEmpty() 
 			|| newPhone == null || !newPhone.matches("[0-9]+")){
 			out.println("<br>");
@@ -423,6 +474,8 @@
    				+ "value='Try Again'>");
    			out.println("</form>");	
 		}else{
+			
+			/* if the number is valid, then upload it. */
 			Connection conn = null;
    			String driverName = "oracle.jdbc.driver.OracleDriver";
    			String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta."
@@ -444,6 +497,8 @@
    			}
    
    			Statement stmt = null;
+   			
+   			/* update the new phone number to database */
 			String sql = "update PERSONS set PHONE='"+ newPhone + "'"
 				+ " WHERE PERSON_ID=(SELECT PERSON_ID FROM USERS"
 				+ " WHERE USER_NAME='"+session.getAttribute("UserName")+"')";

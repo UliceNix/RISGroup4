@@ -1,3 +1,17 @@
+<!-- Copyright (C) 2014 Alice (Mingxun) Wu
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <HTML>
 <HEAD>
 
@@ -8,8 +22,17 @@
 <BODY>
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*,javax.swing.*"%>
 <% 
+	Integer person_id = (Integer) session.getAttribute("Person_Id");
+	String role = (String) session.getAttribute("PermissionLevel");
+	
+	/* in case the session expires, system will redirect the user to log in*/
+    if(person_id == null || !role.equals("a")){
+		response.sendRedirect("login.jsp");
+    }
+	
 	if(request.getParameter("bSignUp") != null){
-		//get the user input from the login page
+		
+		/* get the user input from the login page */
 		String userName = (request.getParameter("USERID")).trim();
 		String passwd = (request.getParameter("PASSWD")).trim();
 		String firstName = (request.getParameter("FNAME")).trim();
@@ -20,14 +43,14 @@
 		String phone = (request.getParameter("PHONE")).trim();
 		String pid = (request.getParameter("PID")).trim();
 
-		//establish the connection to the underlying database
+		/* establish the connection to the underlying database */
 		Connection conn = null;
 	
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 	
 		try{
-			//load and register the driver
+			/* load and register the driver */
 			Class drvClass = Class.forName(driverName); 
 			DriverManager.registerDriver((Driver) drvClass.newInstance());
 		}catch(Exception ex){
@@ -35,7 +58,7 @@
 		}
 		
 		try{
-			//establish the connection 
+			/* establish the connection  */
 			conn = DriverManager.getConnection(dbstring,"mingxun",
 				"hellxbox_4801");
 			conn.setAutoCommit(false);
@@ -51,7 +74,13 @@
 		
 		String sql = "select user_name from USERS where USER_NAME = '"
 			+ userName + "'";
-
+		
+		/* regular expression and logic check
+		 * • password and username can only contain alphabets and numbers
+		 * • usernames are unique.
+		 * • first name and last name can only consist of alphabets
+		 * • phone number is 10-digit long.
+		 */
 		if(!userName.matches("\\w+\\.?")){
 			JOptionPane.showMessageDialog(null, "The username can only "
 				+"contain a-z, A-Z.");
@@ -82,6 +111,10 @@
 			JOptionPane.showMessageDialog(null,"Please make sure the phone "
 				+"number is valid.");
 		}else{
+			
+			/* if passed all tests, try to insert new record into both
+			 * persons table and users table by using PreparedStatement
+			 */
 			PreparedStatement insertPersons = null;
 			PreparedStatement insertUsers = null;
 			
@@ -94,6 +127,9 @@
 			
 			int personId = 1;
 			
+			/* Generating the new person Id if registering a new user
+			 * or pop up an input window to prompt for user id
+			 */
 			if(pid.equals("new")){
 				ResultSet persons = null;
 				String sqlGetNextId = "select max(person_id) from PERSONS";
@@ -135,7 +171,7 @@
 					
 			}
 
-			
+			/* Carry out update action on Persons table*/
 			try{
 				insertPersons = conn.prepareStatement(sqlPersons);
 				insertPersons.setInt(1, personId);
@@ -160,7 +196,8 @@
 		        	response.sendRedirect("SignUp.jsp");
 		        }
 			}
-	        	
+			
+			/* Carry out update action on USERS table*/
 			try{
 				insertUsers = conn.prepareStatement(sqlUsers);
 				java.util.Date utilDate = new java.util.Date();
@@ -187,6 +224,7 @@
 		        }
 			}
 			
+			/* close connection */
 			try{
                 conn.close();
 			}catch(Exception ex){
@@ -198,7 +236,8 @@
 			response.sendRedirect("/proj1/adminhomepage.jsp");		
 		}
 	}  
-                                                                                    
+                
+	/* UI part */
 	out.println("<b>Find out more help information by clicking "
 		+ "<a href='help.html#signUp' target='blank'>Help</a></b>"
 		+ "<br><br>");								   

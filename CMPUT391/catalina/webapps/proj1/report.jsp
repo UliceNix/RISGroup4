@@ -1,3 +1,17 @@
+<!-- Copyright (C) 2014 Alice (Mingxun) Wu
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <HTML>
 <HEAD>
 
@@ -7,6 +21,7 @@
 
 <BODY>
 <%!
+	/* getConnection returns a connection to database*/
 	private Connection getConnection(){
 		Connection conn = null;
 	   	String driverName = "oracle.jdbc.driver.OracleDriver";
@@ -34,6 +49,9 @@
 	java.util.*, 
 	java.text.*" %>
 <% 
+	/**********************************************************
+	*    	User Interface Section
+	***********************************************************/
     out.println("<form action=adminhomepage.jsp method = post>");
     out.println("<input type=submit name=Back value='Go Back'><br>");
     out.println("</form>");
@@ -51,8 +69,20 @@
     out.println("<hr>");
     out.println("</form>");
 
+	/**********************************************************
+	*    	Request Handle Section
+	***********************************************************/
+	Integer person_id = (Integer) session.getAttribute("Person_Id");
+	String role = (String) session.getAttribute("PermissionLevel");
+	
+	/* in case the session expires, system will redirect the user to log in*/
+    if(person_id == null || !role.equals("a")){
+		response.sendRedirect("login.jsp");
+    }
+	
     if(request.getParameter("Generate") != null){
     	
+    	/* get a connection */
         Connection conn = getConnection();
         
         if(conn == null){
@@ -61,6 +91,7 @@
 			response.sendRedirect("report.jsp");
 		}
 	
+        /* initialize statement and result set */
 	   	Statement stmt = null;
 	   	try{
 	   		stmt = conn.createStatement();
@@ -70,10 +101,12 @@
 	   	
 	   	ResultSet rset = null;
 	
+	   	/* acquire user input values */
 	   	String diagnosis = (request.getParameter("ReportKeyWord")).trim();
 	   	String from = (request.getParameter("ReportStart")).trim();
 	   	String to = (request.getParameter("ReportEnd")).trim();
 	
+	   	/* test if start date and end date satisfy the date format */
 	   	SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
 	   	sdformat.setLenient(false);
 	
@@ -91,6 +124,9 @@
 	   	    return;
 	   	}
 	   	
+	   	/* query to retrieve all necessary information based on a
+	   	 * given diagnosis and a period of time
+	   	 */
 		String sql = "with PID as (select distinct(patient_id), "
 			+ "persons.address, persons.phone, persons.FIRST_NAME,"
 			+ " persons.last_name from radiology_record join persons on "
@@ -115,7 +151,7 @@
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
-		
+		/* Hanlde the result and put them in a table */
 	   	ArrayList<String> id = new ArrayList<String>();
 	   	ArrayList<String> fName = new ArrayList<String>();
 	   	ArrayList<String> lName = new ArrayList<String>();
@@ -153,6 +189,7 @@
 		    }
 	    }
 	    
+	    /* close the connection*/
 		try{    
 			conn.close();
 		}catch(Exception ex){

@@ -1,9 +1,24 @@
+<!-- Copyright (C) 2014 Alice (Mingxun) Wu
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <html>
 <head>
-<title>Create a New Radiology Record(Step 1 of 2)</title>
+<title>Create a New Radiology Record</title>
 </head>
 <body>
 <%!
+	/* getConnection function returns a connection to Database*/
 	private Connection getConnection(){
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
@@ -43,13 +58,24 @@
 		java.awt.image.*, 
 		oracle.sql.*, oracle.jdbc.*"%>
 <% 
+	/**********************************************************
+	*    	User Interface Section
+	***********************************************************/
 	out.println("<form action=homepage.jsp>");
 	out.println("<input type=submit name=Back value='Go Back'><br>");
 	out.println("</form>");
-	out.println("<b>Find out more help information by clicking <a href='help.html#record' target='blank'>Help</a></b><br><br>");
+	out.println("<b>Find out more help information by clicking "
+		+"<a href='help.html#record' target='blank'>Help</a></b><br><br>");
  
-    Integer id = (Integer) session.getAttribute("Person_Id");
+	Integer person_id = (Integer) session.getAttribute("Person_Id");
+	String role = (String) session.getAttribute("PermissionLevel");
+	
+	/* in case the session expires, system will redirect the user to log in*/
+    if(person_id == null || !role.equals("r")){
+		response.sendRedirect("login.jsp");
+    }
 
+    /* Initialize variables*/
     String pid = "";
     String did = "";
     String type = "";
@@ -58,8 +84,12 @@
     String diag = "";
     String description = "";
 
+    /**********************************************************
+	*    	Request Handle Section
+	***********************************************************/
     if(request.getParameter("SaveRecord") != null){ 
 		
+    	/* The user is creating a record*/
     	Connection conn = getConnection();
     	
     	if(conn == null){
@@ -68,17 +98,18 @@
 			response.sendRedirect("newrecord.jsp");
 		}
     	
+    	/* Initialize statement and result set*/
         Statement stmt = null;
         try{
         	stmt = conn.createStatement();
         }catch (Exception ex){
         	out.println("<hr>" + ex.getMessage() + "<hr>");
         	return;
-        }
-        
+        }        
         ResultSet rset = null;
         String sql = "";
-
+        
+		/* creating the record id for the current id*/
         sql = "SELECT MAX(RECORD_ID) AS NEXT_RID FROM RADIOLOGY_RECORD";
         rset = stmt.executeQuery(sql);
         int rid = 0;
@@ -87,6 +118,7 @@
             rid = rset.getInt("NEXT_RID") + 1;
         }   
       
+        /* get the values from all input fields*/
     	pid = request.getParameter("pid");
     	did = request.getParameter("did");
         type = request.getParameter("type");
@@ -95,11 +127,17 @@
         diag = request.getParameter("diagnosis");
         description = request.getParameter("description");
       
+        /* query to validate patient id and doctor id*/
         String validPid = "select count(*) from users where person_id = '" 
         	+ pid + "' and class = 'p'";
         String validDid = "select count(*) from users where person_id = '" 
 	 		+ did + "' and class = 'd'";
 	 
+        /* check patient id and docotor id if they are not empty
+         * a valid id is an integer and exisits in database with 
+         * a proper class.
+         * If empty, set both ids to null.
+         */
         if (!pid.isEmpty()){
       
 	    	try{
@@ -182,6 +220,11 @@
 	    	  did = null;	 
     	}
       
+      	/* check the prescribing and test date if they are not null.
+      	 * Or else make them null.
+      	 * A correct date should not only be a valid date but also
+      	 * strictly follows the given format
+      	 */
       	if (!pDate.isEmpty()){
       
 	 		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
@@ -232,7 +275,8 @@
 	    }else{
 		 	tDate = null;      
 	    }
-	      
+	    
+      	/* if values pass all tests, then do the update */
       	PreparedStatement insertRecord = null;
       
      	String insertSql = "insert into radiology_record" 
@@ -263,10 +307,17 @@
       	
    
 	}else if (request.getParameter("Cancel") != null){
+		
+		/* if the user decides to end uplaoding image process*/
 		session.removeAttribute("Saved_Record_Id");
 		response.sendRedirect("/proj1/homepage.jsp");
 		   
    	}else if (session.getAttribute("Saved_Record_Id") != null){
+   		
+   		/* if the record is saved, then we direct the user to
+   		 * upload images. And the uploading process will be 
+   		 * handled by UploadImage.class
+   		 */
         out.println("<p>");
 	    out.println("<hr>");
 	    out.println("You are uploading for record " 
@@ -294,6 +345,8 @@
 	    	+ "To Upload'><br>");
 	    out.println("</form>");	   
 	}else{         
+		
+		/* without any request, the UI section is printed. */
       	out.println("<p> As a radiologsit, you could create a new radiology "
 	 		+ "record by entering the information first and add pacs.</p>");
       	out.println("<form action=newrecord.jsp method=post>");

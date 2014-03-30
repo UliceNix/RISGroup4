@@ -5,6 +5,12 @@
 <BODY>
 
 <script>
+
+	/* 
+	 * These javascript functions are mainly responsible for 
+	 * determining which input fields should be available 
+	 * for a user
+	 */
 	window.onload = function() {
 		document.getElementById('fmonth').disabled = true;
 		document.getElementById('tmonth').disabled = true;
@@ -29,6 +35,10 @@
 		document.getElementById('period').onchange = disablefield;
 		document.getElementById('exact').onchange = disablefield;	
 		
+		/* When user is trying to select a period of time, and clicks
+		 * from/to week, from/to month, from/to year will result 
+		 * in disabling from/to date fields.
+		 */
 		document.getElementById('fweek').onchange = function(){
 			if(this.value != 'NA'){
 				disableDates();
@@ -126,6 +136,10 @@
 			}
 		};
 		
+		/* When user is trying to select a period of time, and clicks
+		 * select week, select month, select year will result 
+		 * in disabling select date fields.
+		 */
 		document.getElementById('sweek').onchange = function(){
 			if(this.value != 'NA'){
 				disableSdate();
@@ -168,7 +182,8 @@
 		
 		
 	}
-
+	
+	/* clear from/to date input field and disable them*/
 	function disableDates(){
 		document.getElementById('fdate').value = '';
 		document.getElementById('tdate').value = "";
@@ -176,11 +191,17 @@
 		document.getElementById('tdate').disabled = true;
 	}
 	
+	/* enable the input fields: from/to date*/
 	function enableDates(){
 		document.getElementById('fdate').disabled = false;
 		document.getElementById('tdate').disabled = false;
 	}
 	
+	/* before disable all from/to month, week, year fields,
+	 * we need to make sure the values in those fields won't 
+	 * effect the data analysis result. Then clearFromTos
+	 * comes in and does this job.
+	 */
 	function clearFromTos(){
 		return document.getElementById('tmonth').value == 'NA'
 			&& document.getElementById('tweek').value == 'NA'
@@ -190,15 +211,18 @@
 			&& document.getElementById('fyear').value == 'NA';;
 	}
 	
+	/* clear select date input field and disable it */
 	function disableSdate(){
 		document.getElementById('sdate').value = '';
 		document.getElementById('sdate').disabled = true;
 	}
-	
+	/* enable select date input field */
 	function enableSdate(){
 		document.getElementById('sdate').disabled = false;
 	}
 	
+	/* A helper function that check if all fields starting with select
+	 * have null or NA values.*/
 	function clearSelect(){
 		return document.getElementById('smonth').value == 'NA'
 		&& document.getElementById('sweek').value == 'NA'
@@ -206,7 +230,10 @@
 	}
 	
 	
-	
+	/* A high level and common function that disables fields depending
+	 * on user's choice. Specific cases like exact time or time period
+	 * are handled by funcitons above.
+ 	 */
 	function disablefield()
 	{
 		if ( document.getElementById('patient').checked == true ){
@@ -275,6 +302,11 @@
 </script>
 
 <%!
+	/*
+	 * ValidateDate function takes in a string parameter, which is exptected
+	 * to be a date. And by applying standard format parse function to see
+	 * if the date satisfies the specified date format.
+	 */
 	private boolean ValidateDate(String date){
 		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
 		sdformat.setLenient(false);
@@ -288,19 +320,28 @@
 	}
 %>
 
-<%!
+<%! 
+	/*
+	 * Empty returns a boolean value that indicates if the value of an
+	 * input field is empty or NA.
+	 */
 	private boolean Empty(String str){
 		return (str == null || str.isEmpty() || str.equals("NA"));
 	}
 %>
 
 <%!
+	/*
+ 	* NotEmpty returns a boolean value that indicates if the value of an
+ 	* input field is not empty and not NA.
+ 	*/
 	private boolean NotEmpty(String str){
 		return (str != null && !str.isEmpty() && !str.equals("NA"));
 	}
 %>
 
 <%!
+	/* getConnection() returns a connection to databse. */
 	private Connection getConnection(){
 		Connection conn = null;
 	   	String driverName = "oracle.jdbc.driver.OracleDriver";
@@ -323,7 +364,10 @@
 	   	}
 }
 %>
-<%!  
+<%! 
+	/* This helper function is responsible for constructing a string
+	 * according to a format.
+	 */
 	private String getTestdate(String format){
 		String selectedDate = "to_char(test_date,'" + format + "')";
 		return selectedDate;
@@ -337,6 +381,11 @@
    java.util.*,
    java.text.*" %>
 <%
+	/* As this module requires a signed in user. 
+	 * If current session expires or no person_id is available,
+	 * the user who is trying to access this page will be directed 
+	 * to the login page.
+	 */
 	Integer person_id = (Integer) session.getAttribute("Person_Id");
 	String role = (String) session.getAttribute("PermissionLevel");
 
@@ -345,6 +394,12 @@
 		return;
 	}
 
+	/* 
+	 * As stated in the assignment specification, before executing a 
+	 * search, a user should be able to see records that are availeble
+	 * to him/her. Thus we need a connection to database and retrieve
+	 * the available records and display them.
+	 */
 	Connection conn = getConnection();	
 	if(conn == null){
 		JOptionPane.showMessageDialog(null, "Can't get a connection."
@@ -356,6 +411,7 @@
 	Statement stmt = null;
 	ResultSet rset = null;
 	
+	/* queries that extract necessary information for user to choose.*/
 	String test_types = "select distinct(test_type) from radiology_record";
 	String patient_ids = "select distinct(u.person_id), "
 		+ "CONCAT(CONCAT(p.first_name, ''), p.last_name) as patient_name "
@@ -364,6 +420,7 @@
 		+ " and p.first_name is not null and p.last_name is not null"
 		+ " order by u.person_id";
 	
+	/* execute test_types query to get all test types */
 	try{
 		stmt = conn.createStatement();
 		rset = stmt.executeQuery(test_types);
@@ -371,6 +428,7 @@
 		out.println("<hr>Error: " + ex.getMessage() + "<hr>");
 	}
 	
+	/* retrieve the result and put them in an array list */
 	ArrayList<String> types = new ArrayList<String>();
 	while(rset != null && rset.next()){
 		if(rset.getString(1) != null){
@@ -378,6 +436,21 @@
 		}
 	}
 	
+	/* execute patient_ids to get all available patients and their ids*/
+	try{
+		rset = stmt.executeQuery(patient_ids);
+	}catch(Exception ex){
+		out.println("<hr>Error" + ex.getMessage() + "<hr>");
+	}
+	
+	ArrayList<String> ids = new ArrayList<String>();
+	ArrayList<String> names = new ArrayList<String>();
+	while(rset != null && rset.next()){
+		ids.add(rset.getString(1));
+		names.add(rset.getString(2));
+	}
+	
+	/* UI HEAD */
 	out.println("<form action=adminhomepage.jsp>");
 	out.println("<input type=submit name=Back value='Go Back'><br><br>");
 	out.println("</form>");
@@ -406,20 +479,7 @@
 	}
 	out.println("</select>");
 	out.println("</a></td>");
-	
-	try{
-		rset = stmt.executeQuery(patient_ids);
-	}catch(Exception ex){
-		out.println("<hr>Error" + ex.getMessage() + "<hr>");
-	}
-	
-	ArrayList<String> ids = new ArrayList<String>();
-	ArrayList<String> names = new ArrayList<String>();
-	while(rset != null && rset.next()){
-		ids.add(rset.getString(1));
-		names.add(rset.getString(2));
-	}
-	
+
 	out.println("<tr><td>");	
 	out.println("<p>for each:</p>");
 	out.println("<b>patient</b>: <input type=checkbox name=people "
@@ -598,6 +658,9 @@
 		out.println("<hr>Error" + ex.getMessage() + "<hr>");
 	}
 	
+	/*********************************************************************
+	 *    				Handle Search Request						     *
+	 *********************************************************************/
 	if(request.getParameter("generate") != null){
 		Statement sm = null;
 		ResultSet rs = null;
@@ -615,7 +678,10 @@
 		String people = request.getParameter("people");
 		String selectPeople = request.getParameter("selectPatientId");
 		
-		/* Query preparation*/
+		/************************************************************
+		* 			Query Composition Section
+		*************************************************************/
+		
 		String with = "with fact_comb as (select i.image_id, patient_id, "
 				+ "test_type,"
 				+ " test_date, count(distinct(i.image_id)) as number_of_images"
@@ -624,10 +690,8 @@
 				+ " on i.record_id = r.record_id"
 				+ " group by cube(i.image_id, patient_id, test_type, "
 				+ "test_date)) ";
-		String select = " select ";
-		
+		String select = " select ";		
 		String from = " from fact_comb ";
-		
 		String where = "where ";
 		String groupby = " group by ";
 		String format = "";
@@ -855,6 +919,7 @@
 			String fromDate = request.getParameter("fdate");
 			String toDate = request.getParameter("tdate");
 			
+			/* make sure at least one possible input field is not empty*/
 			if(Empty(toWeek) && Empty(fromWeek)
 					&& Empty(toMonth) && Empty(fromMonth)
 					&& Empty(toYear) && Empty(fromYear)
@@ -868,6 +933,8 @@
 					out.println("error on display or others");
 				}				
 			}else if(NotEmpty(fromDate)){
+				
+				/* Handle from/to or from or to date first. It's the easist.*/
 				if(!ValidateDate(fromDate.trim())){
 					try{
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
@@ -889,6 +956,7 @@
 				where += " test_date >= '" + fromDate.trim() + "' ";
 				groupby += " test_date";
 				
+				/* if the toDate is not empty*/
 				if(NotEmpty(toDate) && !ValidateDate(toDate.trim())){
 					try{
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
@@ -903,6 +971,10 @@
 				}
 				
 			}else if(NotEmpty(toDate)){
+				
+				/* when fromDate is empty, check if toDate is empty and 
+				 * refine selection based on only toDate
+				 */
 				if(!ValidateDate(toDate.trim())){
 					try{
 						JOptionPane.showMessageDialog(null, "Error 1: invalid "
@@ -923,6 +995,7 @@
 				groupby += " test_date";
 			}else if(NotEmpty(fromWeek) && NotEmpty(toWeek)){
 				
+				/* Hanle situation: from Week x to Week y */
 				format = "W";
 
 				where = (where.length() > 6) ? where + " and " : where;
@@ -930,14 +1003,19 @@
 				groupby = (selectElements.size() > 2) ? 
 						groupby + "," : groupby;
 				
+				/* Hanle situation: from Month x to Month y */
 				if(NotEmpty(fromMonth) && NotEmpty(toMonth)){
 					format = "mm-W";
 				}
 				
+				/* Hanle situation: from year x to year y */
 				if(NotEmpty(fromYear) && NotEmpty(toYear)){
 					format = "YYYY-mm-W";
 				}	
 				
+				/* based on the resulted date format from above
+				 * determine how we are going to edit the where clause*/
+				 
 				if(format.equals("W")){
 					where += " and " + getTestdate(format) + ">='" 
 						+ fromWeek.trim() 
@@ -973,6 +1051,7 @@
 				groupby = (selectElements.size() > 2) ? 
 						groupby + "," : groupby;
 				
+				/* chekc if fromYear and toYear are applicable to search*/
 				if(NotEmpty(fromYear) && NotEmpty(toYear)){
 					format = "YYYY-mm";
 				}	
@@ -980,7 +1059,8 @@
 				if(format.equals("mm")){
 					where += " and " + getTestdate(format) + ">='" 
 						+ fromMonth.trim() 
-						+ "' and " + getTestdate(format) + "<'" + toMonth.trim() 
+						+ "' and " + getTestdate(format) + "<'" 
+						+ toMonth.trim() 
 						+ "' ";
 					
 				}else if(format.equals("YYYY-mm")){
@@ -1160,11 +1240,17 @@
 			}
 		}
 		
+		/* combine clauses together */
 		String sql = with + select + from;
 
+		/* Just in case the user simple wants the number of images, 
+		 * namely, select nothing but "none of above", we do not 
+		 * add where and group by clause
+		 */
 		sql = (where.length() > 6) ? sql + where: sql;
 		sql = (groupby.length() > 10) ? sql + groupby : sql;
 		
+		/* try to get a connection to database */
 		conn = getConnection();
 		if(conn == null){
 			JOptionPane.showMessageDialog(null, "Can't get a connection."
@@ -1174,6 +1260,7 @@
 		
 		//out.println(sql + "<br>");
 		
+		/* execute the search query */
 		try{
 			sm = conn.createStatement();
 			rs = sm.executeQuery(sql);
@@ -1187,6 +1274,7 @@
 			return;
 		}
 		
+		/* display the result in the following table */
 		out.println("<hr><b>Result: </b><br>");
 		out.println("<table border=1>");
 		out.println("<tr>");
@@ -1203,6 +1291,7 @@
 		out.println("</table>");
 		out.println("<br><hr>");
 		
+		/* close the connection */
 		try{
 			conn.close();
 		}catch(Exception ex){

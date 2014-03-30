@@ -1,3 +1,17 @@
+<!-- Copyright (C) 2014 Alice (Mingxun) Wu
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <HTML>
 <HEAD>
 
@@ -19,7 +33,7 @@
         
 	if (role == null || personId == null){
 		response.sendRedirect("login.jsp");
-    	}
+    }
         	
 	        
 	/* Instantiate ArrayList for accmodating query results*/	
@@ -91,7 +105,10 @@
 	}
     
 	ResultSet rset = null;
-    	
+    
+	/* compose the select columns , listing all columns that need
+	 * to appear in the result table 
+	 */
 	String selectcols = "select record_id, patient_id, doctor_id, "
 		+"radiologist_id,test_type, prescribing_date, "
 		+"test_date, diagnosis, description";
@@ -111,6 +128,7 @@
 
 	}else if(request.getParameter("Generate") != null){
 		
+		/* first update indexes to make sure the search is accurate*/
 		String alterIndex1 = "ALTER index index_des REBUILD";
 		String alterIndex2 = "ALTER index index_dia REBUILD";
 		String alterIndex3 = "ALTER index index_name REBUILD";
@@ -208,6 +226,10 @@
 		try{
 			rset = stmt.executeQuery(select);
 		}catch(SQLException ex){
+			
+			/* if the user uses and or or as their keyword, this error 
+			 * will pop up. And the system will inform the user
+			 */
 			if(ex.getErrorCode() == 20000){
 				JOptionPane.showMessageDialog(null, "Invalid search word. "
 				+ "Please make sure you only use 'and' or 'or' "
@@ -224,6 +246,7 @@
 			return;
 		}
 		
+		/* ready to print the result table */
 		out.println("<table BORDER=1>");
 		out.println("<tr><td>Record ID</a></td>");
 		out.println("    <td >Patient ID</a></td>");
@@ -236,6 +259,7 @@
 		out.println("    <td >Description</a></td>"); 
 		out.println("    <td >Medical Images</a></td>"); 
 
+		/* retrieve the result */
 		while(rset != null && rset.next()){
 			rids.add(rset.getString(1));
 			pids.add(rset.getString(2));
@@ -248,6 +272,7 @@
 			description.add(rset.getString(9));						
 		}
 		
+		/* put the result into table*/
 		for(int i = 0; i < rids.size(); i++){
 			String pdate = (pdates.get(i) == null 
 				|| pdates.get(i).isEmpty()) ?
@@ -271,6 +296,9 @@
 			rset = stmt.executeQuery(getPics);
 			out.println("<td>");
 		    
+			/* for each result, get all related images and call GetOnePic.class
+			 * to display them.
+			 */
 			if(rset.next()){
 				String pic_id = rset.getString(1);
 				out.println("<a href=\"GetOnePic?big"+ pic_id 
@@ -291,6 +319,7 @@
 		}
 		out.println("</table>");  
 		
+		/* close connection*/
 		try{
 			conn.close();
 		}catch(Exception ex){
@@ -298,6 +327,10 @@
 		}
               	
 	}else{
+		
+		/* before searching, we need to display a table with all 
+		 * records that are available to the user
+		 */
 		out.println("<table BORDER=1>");
 		out.println("<tr><td>Record ID</a></td>");
 		out.println("    <td >Patient ID</a></td>");
@@ -312,7 +345,7 @@
     	
 		String select = "";
         
-		/* build select from clause*/
+		/* build select from clause, varing as the person's class varies*/
 		if(role.equals("p")){
 			select  = selectcols + " from radiology_record where patient_id='" 
 				+ personId + "'";
@@ -330,12 +363,15 @@
 		}
 		
 		select += " order by record_id";
+		
+		/* execute query to get all records */
         try{
 			rset = stmt.executeQuery(select);
 		}catch(Exception ex){
 			out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 		
+        /* retrieve the result and put them into a table*/
 		while(rset != null && rset.next()){
 			rids.add(rset.getString(1));
 			pids.add(rset.getString(2));
