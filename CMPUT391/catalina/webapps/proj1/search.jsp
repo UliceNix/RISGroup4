@@ -109,7 +109,7 @@
 	/* compose the select columns , listing all columns that need
 	 * to appear in the result table 
 	 */
-	String selectcols = "select record_id, patient_id, doctor_id, "
+	String selectcols = "select record_id, rp.patient_id, rp.doctor_id,"
 		+"radiologist_id,test_type, prescribing_date, "
 		+"test_date, diagnosis, description";
 	
@@ -188,8 +188,10 @@
 			+ personId + "' and ";
 		}else if (role.equals("d")){
 
-			select  = selectcols + " from rp where doctor_id='" 
-			+ personId + "' and ";
+			select  = selectcols + " from rp, family_doctor "
+			+ "where rp.doctor_id ='" + personId + "' and "
+			+ " family_doctor.doctor_id = rp.doctor_id "
+			+ "and family_doctor.patient_id = rp.patient_id and ";
 		}else{
 
 			select  = selectcols + " from rp where ";
@@ -343,20 +345,22 @@
 		out.println("    <td >Description</a></td>"); 
 		out.println("    <td >Medical Images</a></td>"); 
     	
-		String select = "";
+		String select = "select radiology_record.* ";
         
 		/* build select from clause, varing as the person's class varies*/
 		if(role.equals("p")){
-			select  = selectcols + " from radiology_record where patient_id='" 
+			select += " from radiology_record where patient_id='" 
 				+ personId + "'";
 		}else if (role.equals("r")){
 
-			select  = selectcols + " from radiology_record where " 
+			select  += " from radiology_record where " 
 			+ "radiologist_id='" + personId + "'";
 		}else if (role.equals("d")){
 
-			select  = selectcols + " from radiology_record where doctor_id='" 
-			+ personId + "'";
+			select  += " from radiology_record, family_doctor "
+				+ "where radiology_record.doctor_id='" + personId + "' and"
+				+ " radiology_record.doctor_id = family_doctor.doctor_id and"
+				+ " radiology_record.patient_id = family_doctor.patient_id";
 		}else{
 
 			select  = selectcols + " from radiology_record";
