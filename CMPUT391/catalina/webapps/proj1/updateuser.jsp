@@ -59,11 +59,9 @@
 	/* variables initialization */
 	Statement stmt = conn.createStatement();
 	ResultSet rset = null;
-	String userName = "";
 	String passwd = "";
 	String firstName = "";
 	String lastName = "";
-	String role = "";
 	String email = "";
 	String address = "";
 	String phone = "";
@@ -82,27 +80,14 @@
 	}else if(request.getParameter("bUpdate") != null){	 
 		
 		/* retrieve values from all input fields*/
-		userName = (request.getParameter("USERID")).trim();
 		passwd = (request.getParameter("PASSWD")).trim();
 		firstName = request.getParameter("FNAME");
 		lastName = request.getParameter("LNAME");
-		role  = request.getParameter("CLASS");
 		email = (request.getParameter("EMAIL")).trim();
 		address = StringEscapeUtils.escapeJava(
 			(request.getParameter("ADDRESS")));
 		phone = request.getParameter("PHONE");
 	
-	
-		sql = "SELECT * FROM USERS WHERE USERNAME='"
-			+ userName.trim() +"'";
-		
-		try{
-			rset = stmt.executeQuery(sql);			
-		}catch(Exception ex){
-			JOptionPane.showMessageDialog(null, ex.getMessage()
-					+ "Please try again later!");
-			tryAgain(conn, response);
-		}
 		
 		/* regular expression and logic check
 		 * • password and username can only contain alphabets and numbers
@@ -110,14 +95,7 @@
 		 * • first name and last name can only consist of alphabets
 		 * • phone number is 10-digit long.
 		 **/
-		if(!userName.matches("\\w+\\.?")){
-			JOptionPane.showMessageDialog(null, "The username can only "
-				+"contain a-z, A-Z, 0-9.");
-		}else if(rset != null && rset.next() &&
-			!(rset.getString("PERSON_ID")).equals(
-				session.getAttribute("updatePersonId"))){
-			JOptionPane.showMessageDialog(null,"This username is taken.");
-		}else if(passwd.length() < 1){
+		if(passwd.length() < 1){
 			out.println("<p><b>Password can't be empty!</b></p>");
 		}else if(!passwd.matches("\\w+\\.?")){
 			JOptionPane.showMessageDialog(null,"The password can only "
@@ -130,8 +108,6 @@
 				&& !lastName.toLowerCase().matches("[a-zA-Z]+\\.?")){
 			JOptionPane.showMessageDialog(null,"The last name can only contain"
 				+ " alphabets.");
-		}else if(role == null){
-			JOptionPane.showMessageDialog(null,"Please pick a class.");
 		}else if(email != null && !email.isEmpty()
 				&& !email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
 			+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
@@ -153,7 +129,7 @@
 				+ session.getAttribute("updatePersonId") + "'";
 			
 			String sqlUsers = "UPDATE USERS SET "
-				+ "USER_NAME = ?, PASSWORD = ?, CLASS = ? WHERE PERSON_ID='"
+				+ "PASSWORD = ? WHERE PERSON_ID='"
 				+ session.getAttribute("updatePersonId") + "'";
 			
 			/* Execute Update Queries*/
@@ -184,9 +160,7 @@
 			
 			try{
 				updateUsers = conn.prepareStatement(sqlUsers);
-				updateUsers.setString(1, userName);
-				updateUsers.setString(2, passwd);
-				updateUsers.setString(3, role);
+				updateUsers.setString(1, passwd);
 				updateUsers.executeUpdate();
 				conn.commit();
 			}catch(Exception ex){
@@ -234,9 +208,7 @@
 		}
 		
 		while(rset != null && rset.next()){
-			userName = rset.getString("USER_NAME");
 			passwd = rset.getString("PASSWORD");
-			role = rset.getString("CLASS");
 		}
 		
 		sql = "select * from PERSONS where PERSON_ID = '"
@@ -264,9 +236,6 @@
 			+ " <a href='help.html#update' target='blank'>Help</a></b>"
 			+"<br><br>");
 		out.println("<form action=updateuser.jsp>");
-		out.println("UserName  : <input type=text name=USERID value=" 
-			+ userName + " maxlength=24 required>* can only contain alphabet"
-			+ " and numbers.<br>");
 		out.println("Password  : <input type=password name=PASSWD value" 
 			+ passwd + " maxlength=24 required>* can only contain alphabets"
 			+ " and numbers.<br>");
@@ -274,18 +243,6 @@
 			+ firstName + "' maxlength=24 ><br>");
 		out.println("Last  Name: <input type=text name=LNAME value='"
 			+ lastName + "' maxlength=24 ><br>");
-		out.println("<label for='admin'>Admin</label>");
-		out.println("<input type=radio name=CLASS id=admin value=a"
-			+ " required>");
-		out.println("<label for='patient'>Patient</label>");
-		out.println("<input type=radio name=CLASS id=patient value=p"
-			+" required>");
-		out.println("<label for='radiologist'>Radiologist</label>");
-		out.println("<input type=radio name=CLASS id=radiologist value=r "
-			+"required>");
-		out.println("<label for='doctor'>Doctor</label>");
-		out.println("<input type=radio name=CLASS id=doctor value=d required>"
-			+"<br>");
 		out.println("Email     : <input type=text name=EMAIL value='" 
 			+ email + "' maxlength=128 ><br>");
 		out.println("Address   : <input type=text name=ADDRESS value=\""

@@ -55,12 +55,12 @@
 
 
 	out.println("<form action=search.jsp>");
-	out.println("<input type=text name=KeyWord align=right required> " 
+	out.println("<input type=text name=KeyWord align=right > " 
 		+ "Enter keywords. If entering multiple keywords please use " 
 		+ "'and' or 'or' as delimeters.<br>");
-	out.println("<input type=text name=Start align=right required> " 
+	out.println("<input type=text name=Start align=right > " 
 		+ "From (eg.02-FEB-2012)");
-	out.println("<input type=text name=End align=right required> " 
+	out.println("<input type=text name=End align=right > " 
 		+ "To (eg.02-FEB-2012)<br>");
 	out.println("<p> Please Select The Order of Your Search Result." 
 		+ "(If leaving it blank, the result will be sorted by default" 
@@ -105,13 +105,6 @@
 	}
     
 	ResultSet rset = null;
-    
-	/* compose the select columns , listing all columns that need
-	 * to appear in the result table 
-	 */
-	String selectcols = "select record_id, rp.patient_id, rp.doctor_id,"
-		+"radiologist_id,test_type, prescribing_date, "
-		+"test_date, diagnosis, description";
 	
 	if(request.getParameter("Back") != null){
 		try{
@@ -128,21 +121,46 @@
 
 	}else if(request.getParameter("Generate") != null){
 		
+		/* compose the select columns , listing all columns that need
+		 * to appear in the result table 
+		 */
+		String selectcols = "select record_id, rp.patient_id, rp.doctor_id,"
+				+"radiologist_id,test_type, prescribing_date, "
+				+"test_date, diagnosis, description";
+		
 		/* first update indexes to make sure the search is accurate*/
 		String alterIndex1 = "ALTER index index_des REBUILD";
 		String alterIndex2 = "ALTER index index_dia REBUILD";
 		String alterIndex3 = "ALTER index index_name REBUILD";
+		
     	
 		/* validate the format of date */
-		String from = (request.getParameter("Start")).trim();
-		String to = (request.getParameter("End")).trim();
-        
+		String from = request.getParameter("Start");
+		String to = request.getParameter("End");
+		String keyword = request.getParameter("KeyWord");
+		
+		if((keyword == null || keyword.equals("")) 
+				&& (from == null || from.equals(""))
+				&& (to == null || to.equals(""))){
+			try {
+				conn.close();
+			}catch(Exception ex){
+				out.println("<hr>" + ex.getMessage() + "<hr>");
+			}
+			JOptionPane.showMessageDialog(null,
+					"Enter at least keywords or date period please!");
+			response.sendRedirect("search.jsp");	
+		}
+		
 		SimpleDateFormat sdformat = new SimpleDateFormat("dd-MMM-yyyy");
 		sdformat.setLenient(false);
 
 	   	try{
-			sdformat.parse(from);
-			sdformat.parse(to);
+			if(from != null && !from.isEmpty() && !from.equals(""))
+				sdformat.parse(from);
+			
+			if(to != null && !to.isEmpty() && !to.equals(""))
+				sdformat.parse(to);
 	   	}catch(Exception ex){
 			JOptionPane.showMessageDialog(null, "Please check the date " 
 	   			+ "format, make sure it's in dd-MMM-yyyy");   
@@ -154,12 +172,7 @@
 			response.sendRedirect("search.jsp");
 			return;
 	   	}
-        
-		/* validate the format of keywords */
-		String keyword = (request.getParameter("KeyWord")).trim();
-		keyword = keyword.toLowerCase();
-        
-        
+                
 		String order = request.getParameter("Order");
 		String sqlOrder = "";
         
@@ -170,13 +183,16 @@
 		}else if (order != null && order.equals("old")){
 
 			sqlOrder = " Order by TEST_DATE ASC";
-		}else if(order == null || order.isEmpty()){
+		}else if((order == null || order.isEmpty()) 
+				&& keyword != null && !keyword.isEmpty()){
         	
 			sqlOrder = "Order by score(1) + 3 * score(2) + 6 * score(3) " +
 				"desc";
 		}
         
 		String select = "";
+		String where = "";
+		
         
 		/* build select from clause*/
 		if(role.equals("p")){
@@ -196,19 +212,33 @@
 
 			select  = selectcols + " from rp where ";
 		}
-        
+		
+
 		/* add contains clause */
-		select += "(contains(description, '" + keyword + "', 1) > 0" +
-			" or contains(diagnosis, '" + keyword + "', 2) > 0" +
-			" or contains(patient_name, '" + keyword + "', 3) > 0)";
-      
+		if(keyword != null && !keyword.isEmpty() && !keyword.equals(""))
+			where += "(contains(description, '" + keyword + "', 1) > 0" +
+				" or contains(diagnosis, '" + keyword + "', 2) > 0" +
+				" or contains(patient_name, '" + keyword + "', 3) > 0) ";
+      	
+		
 		/* add test_date selection constraint */
-		select += " and test_date >='" + from 
-			+ "' and test_date<'" + to + "' "; 
-        
+		if(from != null && !from.isEmpty() && !from.equals("")){
+			where = (where.length() > 0) ? where + " and " : where;
+			where += " test_date >='" + from + "' ";
+		}
+			
+		if(to != null && !to.isEmpty() && !to.equals("")){
+			where = (where.length() > 0) ? where + " and " : where;
+			where += " test_date<'" + to + "' "; 
+		}
+		select += where;
+		
 		/* add order by clause*/
 		select += sqlOrder;
-        		
+		
+
+        
+		
 		try{
 			stmt.execute(alterIndex1);
 			stmt.execute(alterIndex2);
@@ -225,6 +255,7 @@
 		}
         
 		/* execute select query*/
+		
 		try{
 			rset = stmt.executeQuery(select);
 		}catch(SQLException ex){
@@ -235,7 +266,7 @@
 			if(ex.getErrorCode() == 20000){
 				JOptionPane.showMessageDialog(null, "Invalid search word. "
 				+ "Please make sure you only use 'and' or 'or' "
-				+ "as your delimitet.");
+				+ "as your delimiter.");
 			}else{
 				JOptionPane.showMessageDialog(null, ex.getMessage());
 			}
@@ -316,7 +347,7 @@
 						+ "\" target=\"_blank\">");
 				out.println("<img src=\"GetOnePic?" + pic_id + "\"></a>");
 			}
-			out.println("</a></td>");
+			out.println("</td>");
 			
 		}
 		out.println("</table>");  
@@ -329,6 +360,9 @@
 		}
               	
 	}else{
+		String selectcols = "select record_id, patient_id, doctor_id,"
+				+"radiologist_id,test_type, prescribing_date, "
+				+"test_date, diagnosis, description";
 		
 		/* before searching, we need to display a table with all 
 		 * records that are available to the user
@@ -435,13 +469,12 @@
 	    	
 			while(rset.next()){
 				String pic_id = rset.getString(1);
-				
 				out.println("<a href=\"GetOnePic?big"+ pic_id 
 						+ "\" target=\"_blank\">");
 				out.println("<img src=\"GetOnePic?" + pic_id + "\"></a>");
 
 			}
-			out.println("</a></td>");
+			out.println("</td>");
 		}
 		out.println("</table>");
 		

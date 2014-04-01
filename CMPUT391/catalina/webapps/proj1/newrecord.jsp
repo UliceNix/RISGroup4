@@ -152,6 +152,7 @@
 	                out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
                 response.sendRedirect("newrecord.jsp");
+                return;
 	    	}
 	    	
 	    	rset = stmt.executeQuery(validPid);
@@ -173,6 +174,7 @@
 				}
 	        	
 	        	response.sendRedirect("newrecord.jsp");
+	        	return;
 	    	}
         }else{
 	    	pid = null;      
@@ -190,7 +192,8 @@
 				catch(Exception ex1){
 	                out.println("<hr>" + ex1.getMessage() + "<hr>");
 				}
-            	response.sendRedirect("newrecord.jsp");	            	
+            	response.sendRedirect("newrecord.jsp");	
+            	return;
 	 		}
       	
 	      	try{	
@@ -214,6 +217,7 @@
 	                out.println("<hr>" + ex.getMessage() + "<hr>");
 				}
 	           	response.sendRedirect("newrecord.jsp");
+	           	return;
 		 	}      
 	 	
 		}else{
@@ -276,6 +280,10 @@
 		 	tDate = null;      
 	    }
 	    
+      	if(conn == null){
+      		return;
+      	}
+      	
       	/* if values pass all tests, then do the update */
       	PreparedStatement insertRecord = null;
       
@@ -287,7 +295,7 @@
       	insertRecord.setInt(1, rid);
       	insertRecord.setString(2, pid);
       	insertRecord.setString(3, did);
-      	insertRecord.setInt(4, id);
+      	insertRecord.setInt(4, person_id);
       	insertRecord.setString(5, type);
       	insertRecord.setString(6, pDate);
       	insertRecord.setString(7, tDate);

@@ -374,6 +374,18 @@
 	}
 %>
 
+<%! 
+	/* This helper function is responsible for constructing a string
+	 * according to a format.
+	 */
+	private String getHierTestdate(String date, 
+			String oldformat, String newformat){
+		String selectedDate = "to_char(to_date('" + date + "', '"
+			+ oldformat+"'),'" + newformat + "')";
+		return selectedDate;
+	}
+%>
+
 
 <%@ page import="java.sql.*,
    javax.portlet.ActionResponse.*,
@@ -517,6 +529,12 @@
 	out.println("<b>year</b>: <input type=radio name=timestamp "
 		+" id=year value=year required><br>");
 	
+	out.println("<b>week & month & year</b>: <input type=radio name=timestamp "
+			+" id=weekmonthyear value=weekmonthyear required><br>");
+	
+	out.println("<b>month & year</b>: <input type=radio name=timestamp "
+			+" id=monthyear value=monthyear required><br>");
+	
 	out.println("<b>a time period</b>: <input type=radio name=timestamp"
 		+ " id=period value=period required><br>");
 	
@@ -647,7 +665,9 @@
 	out.println("</a></td>");
 	out.println("</table>");
 	out.println("<input type=submit name=generate value='Go'><br>");
+	out.println("</form>");
 	out.println("<hr>");
+	
 	
 	/*********************************************************************
 	 *    				Close Connection								 *
@@ -749,6 +769,27 @@
 		/************************************************************
 		* 			When a time option is selected 
 		************************************************************/
+		
+		/* show the number of images classified by an exact time*/
+		String selectWeek = request.getParameter("selectWeek");
+		String selectMonth = request.getParameter("selectMonth");
+		String selectYear = request.getParameter("selectYear");
+		String selectDate = request.getParameter("selectDate");
+		
+		String toWeek = request.getParameter("toWeek");
+		String fromWeek = request.getParameter("fromWeek");
+		
+		String fromMonth = request.getParameter("fromMonth");
+		String toMonth = request.getParameter("toMonth");
+		
+		String fromYear = request.getParameter("fYear");
+		String toYear = request.getParameter("tYear");
+		
+		String fromDate = request.getParameter("fdate");
+		String toDate = request.getParameter("tdate");
+		
+		String label = "";
+		
 		if(timestamp.equals("date")){
 			
 			/* show the number of images classified by dates */
@@ -796,13 +837,28 @@
 			where += " test_date is not null ";
 			groupby += "to_char(test_date, 'YYYY')";	
 			
-		}else if(timestamp.equals("exact")){
+		}else if(timestamp.equals("monthyear")){
+			/* show the number of images classified by years */
+			select += ", to_char(test_date, 'YYYY-mm') as test_yearmonth";
+			selectElements.add("Test Month&Year");
 			
-			/* show the number of images classified by an exact time*/
-			String selectWeek = request.getParameter("selectWeek");
-			String selectMonth = request.getParameter("selectMonth");
-			String selectYear = request.getParameter("selectYear");
-			String selectDate = request.getParameter("selectDate");
+			where = (where.length() > 6) ? where + " and " : where;
+			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
+			
+			where += " test_date is not null ";
+			groupby += "to_char(test_date, 'YYYY-mm')";	
+			
+		}else if(timestamp.equals("weekmonthyear")){
+			/* show the number of images classified by years */
+			select += ", to_char(test_date, 'YYYY-mm-W') as test_yearmonth";
+			selectElements.add("Test Week&Month&Year");
+			
+			where = (where.length() > 6) ? where + " and " : where;
+			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
+			
+			where += " test_date is not null ";
+			groupby += "to_char(test_date, 'YYYY-mm-W')";	
+		}else if(timestamp.equals("exact")){
 			
 			if((selectDate == null || selectDate.isEmpty()) 
 					&& Empty(selectMonth) 
@@ -907,18 +963,6 @@
 			
 			selectElements.add("Test Time");
 			
-			String toWeek = request.getParameter("toWeek");
-			String fromWeek = request.getParameter("fromWeek");
-			
-			String fromMonth = request.getParameter("fromMonth");
-			String toMonth = request.getParameter("toMonth");
-			
-			String fromYear = request.getParameter("fYear");
-			String toYear = request.getParameter("tYear");
-			
-			String fromDate = request.getParameter("fdate");
-			String toDate = request.getParameter("tdate");
-			
 			/* make sure at least one possible input field is not empty*/
 			if(Empty(toWeek) && Empty(fromWeek)
 					&& Empty(toMonth) && Empty(fromMonth)
@@ -956,6 +1000,8 @@
 				where += " test_date >= '" + fromDate.trim() + "' ";
 				groupby += " test_date";
 				
+				label = "from";
+				
 				/* if the toDate is not empty*/
 				if(NotEmpty(toDate) && !ValidateDate(toDate.trim())){
 					try{
@@ -968,8 +1014,10 @@
 					}
 				}else if(NotEmpty(toDate) && ValidateDate(toDate.trim())){
 					where += " and test_date < '" + toDate.trim() + "' ";
+					label = "both";
 				}
 				
+				format = "DD-MON-YYYY";
 			}else if(NotEmpty(toDate)){
 				
 				/* when fromDate is empty, check if toDate is empty and 
@@ -993,6 +1041,9 @@
 				
 				where += " test_date < '" + toDate.trim() + "' ";
 				groupby += " test_date";
+				
+				format = "DD-MON-YYYY";
+				label = "to";
 			}else if(NotEmpty(fromWeek) && NotEmpty(toWeek)){
 				
 				/* Hanle situation: from Week x to Week y */
@@ -1042,6 +1093,8 @@
 				select += "," + getTestdate(format);
 				groupby += getTestdate(format);
 				
+				label = "both";
+				
 			}else if(NotEmpty(fromMonth) && NotEmpty(toMonth)){
 				
 				format = "mm";
@@ -1075,6 +1128,8 @@
 				select += "," + getTestdate(format);
 				groupby += getTestdate(format);
 				
+				label = "both";
+				
 			}else if(NotEmpty(fromYear) && NotEmpty(toYear)){
 				
 				select += ", to_char(test_date, 'YYYY')";
@@ -1089,6 +1144,10 @@
 				where += " and to_char(test_date,'YYYY') <'" 
 					+ toYear.trim() + "'";
 				groupby += " to_char(test_date, 'YYYY')";
+				
+				format = "YYYY";
+				
+				label = "both";
 				
 			}else if(NotEmpty(fromWeek)){
 				
@@ -1126,6 +1185,8 @@
 				select += "," + getTestdate(format);
 				groupby += getTestdate(format);
 				
+				label = "from";
+				
 			}else if(NotEmpty(fromMonth)){
 				
 				format = "mm";
@@ -1135,7 +1196,7 @@
 				groupby = (selectElements.size() > 2) ? 
 						groupby + "," : groupby;
 				
-				if(NotEmpty(fromYear) && NotEmpty(toYear)){
+				if(NotEmpty(fromYear)){
 					format = "YYYY-mm";
 				}	
 				
@@ -1151,6 +1212,8 @@
 				
 				select += "," + getTestdate(format);
 				groupby += getTestdate(format);
+			
+				label = "from";
 				
 			}else if(NotEmpty(fromYear)){
 				
@@ -1164,6 +1227,9 @@
 				where += " and to_char(test_date, 'YYYY') >= '" 
 					+ fromYear.trim() + "' ";
 				groupby += " to_char(test_date, 'YYYY')";
+				
+				format = "YYYY";
+				label = "from";
 				
 			}else if(NotEmpty(toWeek)){
 				format = "W";
@@ -1199,6 +1265,7 @@
 				
 				select += "," + getTestdate(format);
 				groupby += getTestdate(format);
+				label = "to";
 				
 			}else if(NotEmpty(toMonth)){
 				
@@ -1225,6 +1292,7 @@
 				
 				select += "," + getTestdate(format);
 				groupby += getTestdate(format);
+				label = "to";
 				
 			}else if(NotEmpty(toYear)){
 				select += ", to_char(test_date, 'YYYY')";
@@ -1237,6 +1305,9 @@
 				where += " and to_char(test_date, 'YYYY') < '" 
 					+ fromYear.trim() + "' ";
 				groupby += " to_char(test_date, 'YYYY')";
+				
+				format = "YYYY";
+				label = "to";
 			}
 		}
 		
@@ -1249,7 +1320,8 @@
 		 */
 		sql = (where.length() > 6) ? sql + where: sql;
 		sql = (groupby.length() > 10) ? sql + groupby : sql;
-		
+	
+
 		/* try to get a connection to database */
 		conn = getConnection();
 		if(conn == null){
@@ -1257,9 +1329,7 @@
 			+" Please try again.");
 			return;
 		}
-		
-		//out.println(sql + "<br>");
-		
+
 		/* execute the search query */
 		try{
 			sm = conn.createStatement();
@@ -1290,6 +1360,7 @@
 		}
 		out.println("</table>");
 		out.println("<br><hr>");
+
 		
 		/* close the connection */
 		try{
@@ -1298,9 +1369,381 @@
 			out.println("<hr>Error" + ex.getMessage() + "<hr>");
 		}
 		
+		/* provide drill down and roll up operations on tables that created 
+		 * based on selecting an exact time or a time period
+		 */
+		if(timestamp.equals("exact") || timestamp.equals("period")){	
+			
+			session.setAttribute("selectPeople", selectPeople);
+			session.setAttribute("selectType", selectType);
+			session.setAttribute("type", type);
+			session.setAttribute("people", people);
+			session.setAttribute("format", format);
+			session.setAttribute("label", label);
+			
+			out.println("<form action=olap.jsp>");
+			if(format.equals("YYYY-mm-W")){	
+				out.println("Available operations: <select name=operation "
+					+"id=operation style='width: 300px'><br>");
+				out.println("<option value='NA'>N/A</option>");
+				out.println("<option value='YYYY'>Roll Up: year </option>");
+				out.println("<option value='YYYY-mm'>Roll Up: "
+					+"year-month</option>");
+				out.println("</select>");
+				if(timestamp.equals("exact")){
+					session.setAttribute("selectYear", selectYear.trim());
+					session.setAttribute("selectMonth", selectMonth.trim());
+					session.setAttribute("selectWeek", selectWeek.trim());
+				}else{
+					session.setAttribute("fromYear", fromYear.trim());
+					session.setAttribute("fromMonth", fromMonth.trim());
+					session.setAttribute("fromWeek", fromWeek.trim());
+					session.setAttribute("toYear", toYear.trim());
+					session.setAttribute("toMonth", toMonth.trim());
+					session.setAttribute("toWeek", toWeek.trim());
+				}
+			}else if(format.equals("YYYY-mm")){
+				out.println("Available operations: <select name=operation "
+						+"id=operation style='width: 300px'><br>");
+				out.println("<option value='NA'>N/A</option>");
+				out.println("<option value='YYYY'>Roll Up: year </option>");
+				out.println("<option value='YYYY-mm-W'>Drill Down: "
+					+"year-month-week</option>");
+				out.println("</select>");
+				
+				if(timestamp.equals("exact")){
+					session.setAttribute("selectYear", selectYear.trim());
+					session.setAttribute("selectMonth", selectMonth.trim());					
+				}else{
+					session.setAttribute("fromYear", fromYear.trim());
+					session.setAttribute("fromMonth", fromMonth.trim());					
+					session.setAttribute("toYear", toYear.trim());
+					session.setAttribute("toMonth", toMonth.trim());
+				}		
+			}else if(format.equals("YYYY")){
+				out.println("Available operations: <select name=operation "
+						+"id=operation style='width: 300px'><br>");
+				out.println("<option value='NA'>N/A</option>");
+				out.println("<option value='YYYY-mm'>Drill Down: year-month"
+					+" </option>");
+				out.println("<option value='YYYY-mm-W'>Drill Down: "
+					+"year-month-week</option>");
+				out.println("</select>");
+				
+				if(timestamp.equals("exact")){
+					session.setAttribute("selectYear", selectYear.trim());				
+				}else{
+					session.setAttribute("fromYear", fromYear.trim());				
+					session.setAttribute("toYear", toYear.trim());
+				}
+				
+			}else if(format.equals("DD-MON-YYYY")){
+				out.println("Available operations: <select name=operation "
+						+"id=operation style='width: 300px'><br>");
+				out.println("<option value='NA'>N/A</option>");
+				out.println("<option value='YYYY'>Roll Up: year </option>");
+				out.println("<option value='YYYY-mm'>Roll Up: year-month"
+					+" </option>");
+				out.println("<option value='YYYY-mm-W'>Roll Up: "
+					+"year-month-week</option>");
+				out.println("</select>");
+				
+				if(timestamp.equals("exact")){
+					session.setAttribute("selectDate", selectDate.trim());				
+				}else{
+					session.setAttribute("fromDate", fromDate.trim());				
+					session.setAttribute("toDate", toDate.trim());
+				}
+				
+			}else{
+				return;
+			}	
+			
+			if(timestamp.equals("exact")){
+				session.setAttribute("timeType", "exact");
+			}else{
+				session.setAttribute("timeType", "period");
+			}
+			out.println("<input type=submit name=DrillRoll "
+				+"value='Drill Down/Roll Up'><br><br>");
+			out.println("</form>");			
+		}
+	}else if(request.getParameter("DrillRoll") != null){
 		
+		Statement sm = null;
+		ResultSet rs = null;
 		
+		String timestamp = (String) session.getAttribute("timeType");
+		String oldformat = (String) session.getAttribute("format");
+		String selectPeople = (String) session.getAttribute("selectPeople");
+		String selectType = (String) session.getAttribute("selectType");
+		String people = (String) session.getAttribute("people");
+		String type = (String) session.getAttribute("type");
+		
+		String selectWeek = (String) session.getAttribute("selectWeek");
+		String selectMonth = (String) session.getAttribute("selectMonth");
+		String selectYear = (String) session.getAttribute("selectYear");
+		String selectDate = (String) session.getAttribute("selectDate");
+		
+		String toWeek = (String) session.getAttribute("toWeek");
+		String fromWeek = (String) session.getAttribute("fromWeek");
+		
+		String fromMonth = (String) session.getAttribute("fromMonth");
+		String toMonth = (String) session.getAttribute("toMonth");
+		
+		String fromYear = (String) session.getAttribute("fYear");
+		String toYear = (String) session.getAttribute("tYear");
+		
+		String fromDate = (String) session.getAttribute("fdate");
+		String toDate = (String) session.getAttribute("tdate");
+		
+		String format = (String) request.getParameter("operation");
+		
+		String testdate = getTestdate(format);
+		String label = (String) session.getAttribute("label");
+
+		String with = "with fact_comb as (select i.image_id, patient_id, "
+				+ "test_type,"
+				+ " test_date, count(distinct(i.image_id)) as number_of_images"
+				+ " from radiology_record r left join "
+				+ " (select record_id, image_id from pacs_images) i "
+				+ " on i.record_id = r.record_id"
+				+ " group by cube(i.image_id, patient_id, test_type, "
+				+ "test_date)) ";
+		String select = " select ";		
+		String from = " from fact_comb ";
+		String where = "where ";
+		String groupby = " group by ";
+		
+		/* array that records the selected columns */
+		ArrayList<String> selectElements = new ArrayList<String>();
+		
+		/* Since default is to select the number of images, then we 
+		 * know that count(distinct(image_id)) would definitely be
+		 * in the select caluse 
+		 */
+		select += "count(distinct(image_id)) ";
+		selectElements.add("Number Of Images");
+		
+		/************************************************************
+		* 			When a person id option is selected 
+		************************************************************/
+		if(people != null || 
+				(selectPeople != null && !selectPeople.equals("NA"))){
+			
+			if(people != null && !people.isEmpty()){
+				where += " patient_id is not null ";				
+			}else if(people == null && selectPeople != null 
+					&& !selectPeople.equals("NA")){				
+				/* else if a specific person is selected*/		
+				where += " patient_id='" + selectPeople.trim() + "' ";	
+			}
+			
+			selectElements.add("Patient Id");
+			select += ", patient_id ";
+			groupby += "patient_id";
+		}
+		
+		/************************************************************
+		* 			When a type is selected 
+		************************************************************/
+		if(type != null ||
+				(NotEmpty(selectType))){
+
+			select += ", test_type ";
+			selectElements.add("Test Type");
+			where = (where.length() > 6) ? where + " and " : where;
+			groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
+			groupby += "test_type";
+			
+			if(type != null){
+				where += " test_type is not null";
+			}else if(type == null && selectType != null
+					&& !selectType.equals("NA")){				
+				where += " test_type='" + selectType.trim() + "'";	
+				where += " and test_type is not null";
+			}
+		}
+		
+		String olddate = "";
+		String toOlddate = "";
+		String fromOlddate = "";
+		
+		selectElements.add("Test Time");
+		where = (where.length() > 6) ? where + " and " : where;
+		groupby = (selectElements.size() > 2) ? groupby + ", " : groupby;
+		
+		if(oldformat.equals("YYYY-mm-W")){	
+			
+			if(timestamp.equals("exact") 
+					&& format.equals("YYYY-mm")){
+				olddate = session.getAttribute("selectYear") + "-" 
+					+ session.getAttribute("selectMonth");
+			}else if (timestamp.equals("period") 
+					&& format.equals("YYYY-mm")){
+				fromOlddate = session.getAttribute("fromYear") + "-"
+					+ session.getAttribute("fromMonth");
+				
+				toOlddate = session.getAttribute("toYear") + "-"
+					+ session.getAttribute("toMonth");
+			}else if (timestamp.equals("exact") 
+					&& format.equals("YYYY")){
+				olddate = (String) session.getAttribute("selectYear");
+			}else if (timestamp.equals("period")
+					&& format.equals("YYYY")){
+				fromOlddate = (String) session.getAttribute("fromYear");					
+				toOlddate = (String) session.getAttribute("toYear");
+			}
+			
+		}else if(oldformat.equals("YYYY-mm")){
+
+			if(timestamp.equals("exact")){
+				olddate = session.getAttribute("selectYear") + "-" 
+						+ session.getAttribute("selectMonth");					
+			}else{
+				fromOlddate = session.getAttribute("fromYear") + "-"
+						+ session.getAttribute("fromMonth");
+				
+				toOlddate = session.getAttribute("toYear") + "-"
+						+ session.getAttribute("toMonth");
+			}		
+		}else if(oldformat.equals("YYYY")){
+
+			if(timestamp.equals("exact")){
+				olddate = (String) session.getAttribute("selectYear");			
+			}else{
+				fromOlddate = (String) session.getAttribute("fromYear");
+				toOlddate = (String) session.getAttribute("toYear");
+			}
+			
+		}else if(oldformat.equals("DD-MON-YYYY")){
+			
+			
+			if(timestamp.equals("exact")){
+				olddate = (String) session.getAttribute("selectDate");		
+			}else{
+				fromOlddate = (String) session.getAttribute("fromDate");		
+				toOlddate = (String) session.getAttribute("toDate");
+			}
+			
+		}	
+
+		
+		String direction = (oldformat.length() > format.length()) ? "up" : "down";
+		
+		select += "," + getTestdate(format);
+		groupby += getTestdate(format);
+		
+		if(timestamp.equals("exact")){
+			if(direction.equals("up") && !oldformat.equals("YYYY-mm-W")){
+				where += getTestdate(format) + " = " 
+					+ getHierTestdate(olddate, oldformat, format);
+			}else if(direction.equals("up") && oldformat.equals("YYYY-mm-W")){
+				where += getTestdate(format) + " = "
+						+ "'" + olddate + "'";
+			}else{
+				where += getTestdate(oldformat) + " = " 
+					+ "'" + olddate + "'";
+			}
+		}else {
+			if(direction.equals("up") && !oldformat.equals("YYYY-mm-W")){
+				if(label.equals("both")){
+					where += getTestdate(format) + " >= " 
+						+ getHierTestdate(fromOlddate, oldformat, format)
+						+ " and " + getTestdate(format) + " < " 
+						+ getHierTestdate(toOlddate, oldformat, format);
+				}else if(label.equals("from")){
+					where += getTestdate(format) + " >= " 
+							+ getHierTestdate(fromOlddate, oldformat, format);
+				}else if(label.equals("to")){
+					where += getTestdate(format) + " < " 
+							+ getHierTestdate(toOlddate, oldformat, format);
+				}
+			}else if(direction.equals("up") && oldformat.equals("YYYY-mm-W")){
+				if(label.equals("both")){
+					where += getTestdate(format) + " >= "
+							+ "'" + fromOlddate + "'" +
+							" and " + getTestdate(format) + " < "
+							+ "'" + toOlddate + "'";
+				}else if(label.equals("from")){
+					where += getTestdate(format) + " >= "
+							+ "'" + fromOlddate + "'";
+				}else if(label.equals("to")){
+					where +=  getTestdate(format) + " < "
+							+ "'" + toOlddate + "'";
+				}
+			}else{
+				if(label.equals("both")){
+					where += getTestdate(oldformat) + " >= " 
+						+ "'" + fromOlddate  + "'" + " and "
+						+ getTestdate(oldformat) + " < " 
+						+ "'" + toOlddate + "'";
+				}else if(label.equals("from")){
+					where += getTestdate(oldformat) + " >= " 
+							+ "'" + fromOlddate  + "'" ;
+				}else if(label.equals("to")){
+					where += getTestdate(oldformat) + " < " 
+							+ "'" + toOlddate + "'";
+				}
+			}
+		}
+	
+		
+		/* combine clauses together */
+		String sql = with + select + from;
+
+		/* Just in case the user simple wants the number of images, 
+		 * namely, select nothing but "none of above", we do not 
+		 * add where and group by clause
+		 */
+		sql = (where.length() > 6) ? sql + where: sql;
+		sql = (groupby.length() > 10) ? sql + groupby : sql;
+		
+		/* try to get a connection to database */
+		conn = getConnection();
+		if(conn == null){
+			JOptionPane.showMessageDialog(null, "Can't get a connection."
+			+" Please try again.");
+			return;
+		}
+		
+		try{
+			sm = conn.createStatement();
+			rs = sm.executeQuery(sql);
+		}catch(Exception ex){
+			try{
+				conn.close();
+			}catch(Exception ex1){
+				out.println("<hr>Error" + ex1.getMessage() + "<hr>");
+			}
+			out.println("<hr>Error: " + ex.getMessage() + "<hr>");
+			return;
+		}
+		
+		out.println("<hr><b>Result: </b><br>");
+		out.println("<table border=1>");
+		out.println("<tr>");
+		for(int i = 0; i < selectElements.size(); i++){
+			out.println("<td><p>" + selectElements.get(i) + "<p></a></td>");
+		}
+		
+		while(rs.next() && rs != null){
+			out.println("<tr>");
+			for(int i = 0; i < selectElements.size(); i++){
+				out.println("<td><p>" + rs.getString(i+1) + "<p></a></td>");
+			}
+		}
+		out.println("</table>");
+		out.println("<br><hr>");
+	
+		try{
+			conn.close();
+		}catch(Exception ex){
+			out.println("<hr>Error" + ex.getMessage() + "<hr>");
+		}
+	
 	}
+	
 	
 
 %>

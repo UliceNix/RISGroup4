@@ -23,25 +23,25 @@
 <%@ page import="java.sql.*,javax.portlet.ActionResponse.*,javax.swing.*"%>
 <% 
 	Integer person_id = (Integer) session.getAttribute("Person_Id");
-	String role = (String) session.getAttribute("PermissionLevel");
+	String test_role = (String) session.getAttribute("PermissionLevel");
 	
 	/* in case the session expires, system will redirect the user to log in*/
-    if(person_id == null || !role.equals("a")){
+    if(person_id == null || !test_role.equals("a")){
 		response.sendRedirect("login.jsp");
     }
 	
 	if(request.getParameter("bSignUp") != null){
 		
 		/* get the user input from the login page */
-		String userName = (request.getParameter("USERID")).trim();
-		String passwd = (request.getParameter("PASSWD")).trim();
-		String firstName = (request.getParameter("FNAME")).trim();
-		String lastName = (request.getParameter("LNAME")).trim();
+		String userName = request.getParameter("USERID");
+		String passwd = request.getParameter("PASSWD");
+		String firstName = request.getParameter("FNAME");
+		String lastName = request.getParameter("LNAME");
 		String role  = request.getParameter("CLASS");
-		String email = (request.getParameter("EMAIL")).trim();
-		String address = (request.getParameter("ADDRESS")).trim();
-		String phone = (request.getParameter("PHONE")).trim();
-		String pid = (request.getParameter("PID")).trim();
+		String email = request.getParameter("EMAIL");
+		String address = request.getParameter("ADDRESS");
+		String phone = request.getParameter("PHONE");
+		String pid = request.getParameter("PID");
 
 		/* establish the connection to the underlying database */
 		Connection conn = null;
@@ -75,6 +75,17 @@
 		String sql = "select user_name from USERS where USER_NAME = '"
 			+ userName + "'";
 		
+		try{
+			rset = stmt.executeQuery(sql);
+		}catch (Exception ex){
+			try{
+            	conn.close();
+			}catch(Exception ex1){
+            	out.println("<hr>" + ex1.getMessage() + "<hr>");
+			}
+        	response.sendRedirect("SignUp.jsp");
+		}
+		
 		/* regular expression and logic check
 		 * • password and username can only contain alphabets and numbers
 		 * • usernames are unique.
@@ -84,7 +95,7 @@
 		if(!userName.matches("\\w+\\.?")){
 			JOptionPane.showMessageDialog(null, "The username can only "
 				+"contain a-z, A-Z.");
-		}else if(stmt.executeQuery(sql).next()){
+		}else if(rset.next()){
 			JOptionPane.showMessageDialog(null,"This username is taken.");
 		}else if(passwd.length() < 1){
 			out.println("<p><b>Password can't be empty!</b></p>");
@@ -171,17 +182,21 @@
 					
 			}
 
-			/* Carry out update action on Persons table*/
+			/* Carry out update action on Persons table 
+			 * if registering a new user
+			 */
 			try{
-				insertPersons = conn.prepareStatement(sqlPersons);
-				insertPersons.setInt(1, personId);
-				insertPersons.setString(2, firstName);
-				insertPersons.setString(3, lastName);
-				insertPersons.setString(4, address);
-				insertPersons.setString(5, email.toLowerCase());
-				insertPersons.setString(6, phone);
-				insertPersons.executeUpdate();
-				conn.commit();
+				if(pid.equals("new")){
+					insertPersons = conn.prepareStatement(sqlPersons);
+					insertPersons.setInt(1, personId);
+					insertPersons.setString(2, firstName);
+					insertPersons.setString(3, lastName);
+					insertPersons.setString(4, address);
+					insertPersons.setString(5, email.toLowerCase());
+					insertPersons.setString(6, phone);
+					insertPersons.executeUpdate();
+					conn.commit();
+				}
 			}catch(Exception ex){
 		        try{
 		        	conn.rollback();
@@ -234,6 +249,13 @@
 			JOptionPane.showMessageDialog(null, "The user has been registered"
 				+" successfully!");
 			response.sendRedirect("/proj1/adminhomepage.jsp");		
+		}
+		
+		/* close connection */
+		try{
+            conn.close();
+		}catch(Exception ex){
+            out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
 	}  
                 

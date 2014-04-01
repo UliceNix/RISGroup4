@@ -99,17 +99,19 @@ public class UploadImage extends HttpServlet {
     /**
      * Shrink an image to a fixed size
      */
-    public static BufferedImage shrink(BufferedImage image) {
-    	
-    	int w = 80;
-    	int h = 80;
-    	
-    	BufferedImage shrunkImage = new BufferedImage(w, h, image.getType());
-        
-    	for (int y=0; y < h; ++y)
-    		for (int x=0; x < w; ++x)
-    			shrunkImage.setRGB(x, y, image.getRGB(80, 80));
-    	return shrunkImage;
+    public static BufferedImage shrink(BufferedImage image, int n) {
+
+        int w = image.getWidth() / n;
+        int h = image.getHeight() / n;
+
+        BufferedImage shrunkImage =
+            new BufferedImage(w, h, image.getType());
+
+        for (int y=0; y < h; ++y)
+            for (int x=0; x < w; ++x)
+                shrunkImage.setRGB(x, y, image.getRGB(x*n, y*n));
+
+        return shrunkImage;
     }
     
     /**
@@ -126,7 +128,7 @@ public class UploadImage extends HttpServlet {
     	try{
     		InputStream instream = item.getInputStream();
     		BufferedImage img = ImageIO.read(instream);
-    		BufferedImage thumbNail = shrink(img);
+    		BufferedImage thumbNail = shrink(img, 10);
     		PrintWriter out = response.getWriter();
     		
     		Connection conn = getConnected(drivername,dbstring, username,
@@ -149,7 +151,7 @@ public class UploadImage extends HttpServlet {
     		// to retrieve the lob_locator
     		// Note that you must use "FOR UPDATE" in the select statement
     		String cmd = "SELECT * FROM pacs_images WHERE record_id = "
-    			+ rid + "and image_id=" +pic_id +" FOR UPDATE";
+    			+ rid + "and image_id=" + pic_id +" FOR UPDATE";
     		ResultSet rset = stmt.executeQuery(cmd);
     		rset.next();
     		BLOB thumbblob = ((OracleResultSet)rset).getBLOB(3);

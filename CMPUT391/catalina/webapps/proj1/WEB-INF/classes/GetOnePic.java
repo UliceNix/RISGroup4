@@ -37,23 +37,33 @@ public class GetOnePic extends HttpServlet
 	
 		// determine which query should be executed
 		if ( picid.startsWith("big") )  
-		    query = "select full_size from pacs_images where image_id='" 
-		    	+ picid.substring(3) + "'";
+		    query = "select full_size from pacs_images where image_id=" 
+		    	+ picid.substring(3);
 		else
-	        query = "select thumbnail from pacs_images where image_id='" 
-	        	+ picid + "'";
+	        query = "select thumbnail from pacs_images where image_id=" 
+	        	+ picid ;
 	 
 	        
 		ServletOutputStream out = response.getOutputStream();
 	
 		Connection conn = null;
+		
+		try{
+			conn = getConnected();
+		} catch (Exception ex){
+			out.println(ex.getMessage());
+		}
+		
+		if(conn == null){
+			return;
+		}
+		
 		try {
-		    conn = getConnected();
 		    Statement stmt = conn.createStatement();
 		    ResultSet rset = stmt.executeQuery(query);
 	
 		    if ( rset.next() ) {
-		    	response.setContentType("image/gif");
+		    	response.setContentType("image/jpg");
 		    	InputStream input = rset.getBinaryStream(1);	    
 		    	int imageByte;
 		    	while((imageByte = input.read()) != -1) {
